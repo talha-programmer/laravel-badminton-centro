@@ -22,6 +22,7 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
+        // Form validation for all fields
         $this->validate($request, [
             'name' => 'required|max:255',
             'username' => 'required|alpha_dash|max:255|unique:users',
@@ -41,6 +42,8 @@ class RegisterController extends Controller
 
         $user_type = $request->user_type;
 
+        // Create a model object according to user type. The user type model
+        // will have an instance of user type models that are: Admin, Customer etc
         $user_type_model = null;
         switch ($user_type)
         {
@@ -68,15 +71,18 @@ class RegisterController extends Controller
                 return back();
         }
 
-
+        // Save the user type model and the user model. Firstly, the user type model
+        // is saved according to selected user type and then the model of User is
+        // saved in the database
         $user_type_model->save();
-
         $user_type_model->user()->create($user);
 
         // Login the user
         Auth::attempt($request->only('username', 'password'));
 
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
     }
 }
+
+

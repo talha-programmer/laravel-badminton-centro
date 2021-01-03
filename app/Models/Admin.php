@@ -10,6 +10,9 @@ class Admin extends Model
     use HasFactory;
     protected $table = 'users_admins';
 
+    /**
+     * Creates relationship with User Model
+     **/
     public function user()
     {
         return $this->morphOne(User::class, 'userable');

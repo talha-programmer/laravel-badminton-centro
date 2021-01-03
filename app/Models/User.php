@@ -42,9 +42,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'user_type' => UserTypes::class,
     ];
 
+    /**
+     * This method will be used to access the model of user type
+     * associated with the current User Model. It creates a polymorphic one to one
+     * relationship between Models and tables in database
+     *
+     * Every user type Model has a user() method defined in its Model class
+     * which on call return the parent User Model object
+     *
+     **/
     public function userable()
     {
         return $this->morphTo();

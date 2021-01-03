@@ -54,14 +54,18 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <form action="{{ route('logout') }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item list-unstyled">Logout</button>
-                                    </form>
+
+                                        <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+
 
                                     <form action="{{ route('user_profile', auth()->user()) }}" method="post">
                                         @csrf
                                         <button type="submit" class="dropdown-item list-unstyled">Profile</button>
+                                    </form>
+
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item list-unstyled">Logout</button>
                                     </form>
                                 </div>
                             </li>
@@ -71,7 +75,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

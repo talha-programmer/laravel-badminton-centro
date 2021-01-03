@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         if(Auth::attempt($request->only('username', 'password'), $request->remember))
         {
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
         }
 
         return back()->with('status', 'Invalid Login Details! Please check your username and password!');
