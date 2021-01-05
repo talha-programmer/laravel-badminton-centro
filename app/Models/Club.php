@@ -11,15 +11,24 @@ class Club extends Model
     protected $table = "clubs";
 
     protected $fillable = [
-      'club_name',
+      'name',
       'city',
       'address',
     ];
 
-    function clubOwner()
+    public function clubOwner()
     {
         return $this->belongsTo(ClubOwner::class);
     }
 
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
+
+    public function players()
+    {
+        return $this->belongsToMany(Player::class, 'clubs_joined');
+    }
 
 }

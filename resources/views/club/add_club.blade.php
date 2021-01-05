@@ -34,10 +34,10 @@
                             @endif
 
                             <div class="form-group row">
-                                <label for="club_name" class="col-md-4 col-form-label text-md-right">Club Name</label>
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Club Name</label>
                                 <div class="col-md-6">
-                                    <input id="club_name" type="text" class="form-control @error('club_name') is-invalid @enderror" name="club_name" value="{{ old('club_name') }}" required autofocus>
-                                    @error('club_name')
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                                    @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -15,7 +15,7 @@ class ClubOwner extends Model
         return $this->morphOne(User::class, 'userable');
     }
 
-    public function club()
+    public function clubs()
     {
         return $this->hasMany(Club::class);
     }

@@ -19,7 +19,7 @@ class ClubController extends Controller
 
     public function index()
     {
-        $clubs = Club::all();
+        $clubs = Club::with('teams')->get();
 
         return view('club.index',[
             'clubs' => $clubs,
@@ -45,7 +45,7 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'club_name' => 'required|max:255',
+            'name' => 'required|max:255',
             'city' => 'required|max:255',
             'address' => 'max:255',
         ]);
@@ -57,7 +57,7 @@ class ClubController extends Controller
             $club_owner = auth()->user()->userable;
         }
 
-        $club_owner->club()->create($request->only('club_name', 'city', 'address' ));
+        $club_owner->club()->create($request->only('name', 'city', 'address' ));
 
         return back();
     }

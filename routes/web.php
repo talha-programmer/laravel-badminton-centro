@@ -5,6 +5,8 @@ use App\Http\Controllers\Authentication\LogoutController;
 use App\Http\Controllers\Authentication\RegisterController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -38,6 +40,26 @@ Route::get('/clubs', [ClubController::class, 'index'])->name('clubs');
 Route::get('/clubs/add', [ClubController::class, 'addClub'])->name('add_club');
 Route::post('/clubs/add', [ClubController::class, 'store']);
 
-Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/clubs/{club}/add_team', [TeamController::class, 'addTeam'])->name('add_team');
+Route::post('/clubs/{club}/add_team', [TeamController::class, 'store']);
+
+Route::get('/clubs/{club}/add_team', [TeamController::class, 'addTeam'])->name('add_team');
+Route::post('/clubs/{club}/add_team', [TeamController::class, 'store']);
+
+Route::get('/clubs/{club}/add_player',function ($club){
+    session()->remove('selected_team');
+    session()->put('selected_club' , $club);
+    return (new PlayerController)->addPlayer();
+})->name('add_player_in_club');
+
+Route::get('/clubs/team/{team}/add_player',function ($team){
+    session()->remove('selected_club');
+    session()->put('selected_team' , $team);
+    return (new PlayerController)->addPlayer();
+})->name('add_player_in_team');
+
+Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('all_player');
+
 
 
