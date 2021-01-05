@@ -22,6 +22,8 @@ class UserServices
             case UserTypes::Player:
             case UserTypes::Customer:
                 $routes[0] = ['name' => 'dashboard', 'description' => 'Dashboard'];
+                $routes[3] = ['name' => 'players', 'description' => 'All Players'];
+
         }
         ksort($routes);
 

@@ -5,7 +5,7 @@
     <div class="row justify-content-center my-4">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Add Club</div>
+                <div class="card-header">Add Player</div>
 
                 <div class="card-body">
                     @if(session('status'))
@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('all_player') }}">
+                    <form method="POST" action="{{ route('add_player') }}">
                         @csrf
 
                         @if($selected_club)

@@ -59,7 +59,7 @@ Route::get('/clubs/team/{team}/add_player',function ($team){
     return (new PlayerController)->addPlayer();
 })->name('add_player_in_team');
 
-Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('all_player');
+Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('add_player');
 
-
+Route::get('/players', [PlayerController::class, 'index'])->name('players');
 
