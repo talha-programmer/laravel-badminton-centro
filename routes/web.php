@@ -6,6 +6,8 @@ use App\Http\Controllers\Authentication\RegisterController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +65,14 @@ Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('add_
 
 Route::get('/players', [PlayerController::class, 'index'])->name('players');
 
+
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+
+Route::get('/products/add', [ProductController::class, 'addProduct'])->name('add_product');
+Route::post('/products/add', [ProductController::class, 'store']);
+
+
+Route::get('/product_categories', [ProductCategoryController::class, 'index'])->name('product_categories');
+
+Route::get('/product_categories/add', [ProductCategoryController::class, 'addCategory'])->name('add_product_category');
+Route::post('/product_categories/add', [ProductCategoryController::class, 'store']);

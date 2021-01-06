@@ -47,7 +47,6 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         $player = Player::find($request->player);
-        $club = $team = null;
         if(request()->session()->has('selected_team'))
         {
             $team_id = request()->session()->get('selected_team');
