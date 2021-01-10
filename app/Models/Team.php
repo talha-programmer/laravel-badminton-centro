@@ -20,7 +20,35 @@ class Team extends Model
 
     public function players()
     {
-        return $this->belongsToMany(Team::class, 'teams_joined');
+        return $this->belongsToMany(Player::class, 'teams_joined');
+    }
+
+    /**
+     * teamOne in matches table
+     * */
+    public function matchOne()
+    {
+        return $this->hasMany(Match::class, 'team_one');
+    }
+
+    /**
+     * teamTwo in matches table
+     **/
+    public function matchTwo()
+    {
+        return $this->hasMany(Match::class, 'team_two');
+    }
+
+    /**
+     * Get other opponent in a match from Team model
+     * */
+    public function otherTeam()
+    {
+        if($this->matchOne->id == $this->id)
+        {
+            return $this->matchOne;
+        }
+        return $this->matchTwo;
     }
 
 }

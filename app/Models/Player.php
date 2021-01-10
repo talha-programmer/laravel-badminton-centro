@@ -28,4 +28,10 @@ class Player extends Model
     {
         return $this->belongsToMany(Club::class, 'clubs_joined');
     }
+
+    public function matches()
+    {
+        return $this->belongsToMany(Match::class, 'player_matches');
+    }
+
 }

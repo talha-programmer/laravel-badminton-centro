@@ -5,6 +5,7 @@ use App\Http\Controllers\Authentication\LogoutController;
 use App\Http\Controllers\Authentication\RegisterController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MatchController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
@@ -76,3 +77,11 @@ Route::get('/product_categories', [ProductCategoryController::class, 'index'])->
 
 Route::get('/product_categories/add', [ProductCategoryController::class, 'addCategory'])->name('add_product_category');
 Route::post('/product_categories/add', [ProductCategoryController::class, 'store']);
+
+
+Route::get('/matches', [MatchController::class, 'index'])->name('matches');
+
+Route::get('/matches/add', [MatchController::class, 'addMatch'])->name('add_match');
+Route::post('/matches/add', [MatchController::class, 'store']);
+
+Route::post('/get_team_players', [MatchController::class, 'getPlayers'])->name('get_players');
