@@ -17,8 +17,8 @@ class CreateMatchesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('venue');
-            $table->foreignId('team_one')->constrained('teams');
-            $table->foreignId('team_two')->constrained('teams');
+            $table->foreignId('team_one')->constrained('teams')->onDelete('cascade');
+            $table->foreignId('team_two')->constrained('teams')->onDelete('cascade');
             $table->timestamp('match_time')->useCurrent();
             $table->float('team_one_points')->nullable();
             $table->float('team_two_points')->nullable();

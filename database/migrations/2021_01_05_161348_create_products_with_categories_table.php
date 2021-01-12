@@ -15,7 +15,7 @@ class CreateProductsWithCategoriesTable extends Migration
     {
         Schema::create('products_with_categories', function (Blueprint $table) {
             $table->foreignId('product_category_id')->constrained('product_categories');
-            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
         });
     }
 

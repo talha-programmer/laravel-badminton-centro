@@ -23,5 +23,9 @@
         "sass-loader": "^10.1.0",
         "chokidar": "^3.4.3",
         "postcss": "^8.2.2"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.1",
+        "bootbox": "^5.5.2"
     }
 }

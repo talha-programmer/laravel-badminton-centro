@@ -19,9 +19,9 @@
 
             <div class="col-md-8">
                 <div class="row justify-content-center my-4">
-                    <div class="col-md-7">
+
                         @yield('dashboard_content')
-                    </div>
+
                 </div>
             </div>
 

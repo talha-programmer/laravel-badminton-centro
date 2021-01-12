@@ -15,8 +15,8 @@ class CreatePlayerMatchesTable extends Migration
     {
         Schema::create('player_matches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->constrained('users_players');
-            $table->foreignId('match_id')->constrained('matches');
+            $table->foreignId('player_id')->constrained('users_players')->onDelete('cascade');
+            $table->foreignId('match_id')->constrained('matches')->onDelete('cascade');
             $table->integer('points')->nullable();
             $table->boolean('has_won')->nullable();
         });

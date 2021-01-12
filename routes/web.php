@@ -42,6 +42,7 @@ Route::get('/clubs', [ClubController::class, 'index'])->name('clubs');
 
 Route::get('/clubs/add', [ClubController::class, 'addClub'])->name('add_club');
 Route::post('/clubs/add', [ClubController::class, 'store']);
+Route::delete('/clubs/{club}', [ClubController::class, 'destroy'])->name('destroy_club');
 
 
 Route::get('/clubs/{club}/add_team', [TeamController::class, 'addTeam'])->name('add_team');

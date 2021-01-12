@@ -21,7 +21,7 @@ class ClubController extends Controller
     {
         $clubs = Club::with('teams')->get();
 
-        return view('club.index',[
+        return view('club.index', [
             'clubs' => $clubs,
         ]);
 
@@ -32,12 +32,12 @@ class ClubController extends Controller
         $userType = auth()->user()->user_type;
         $clubOwners = null;
 
-        if($userType == UserTypes::Admin || $userType == UserTypes::Director) {
+        if ($userType == UserTypes::Admin || $userType == UserTypes::Director) {
             $clubOwners = ClubOwner::all();
         }
 
 
-        return view('club.add_club',[
+        return view('club.add_club', [
             'club_owners' => $clubOwners,
         ]);
     }
@@ -50,15 +50,38 @@ class ClubController extends Controller
             'address' => 'max:255',
         ]);
 
-        if(isset($request->club_owner)) {
-            $club_owner = ClubOwner::find((int)$request->club_owner);
+        $club = null;
+        $club_owner = null;
+
+        // Update the existing club if update is called
+        if(isset($request->club_id)){
+            $club = Club::find($request->club_id);
+        } else{
+            $club = new Club();
         }
-        else{
+
+        if (isset($request->club_owner)) {
+            $club_owner = ClubOwner::find($request->club_owner);
+        } else {
             $club_owner = auth()->user()->userable;
         }
 
-        $club_owner->club()->create($request->only('name', 'city', 'address' ));
+        $club->name = $request->name;
+        $club->city = $request->city;
+        $club->address = $request->address;
+        $club->club_owner_id = $club_owner->id;
 
-        return back();
+        $club->save();
+
+        return back()->with('info', 'Club saved successfully!');
+    }
+
+    public function destroy(Club $club)
+    {
+
+        $club->delete();
+
+        return back()->with('info', "Club has been deleted successfully!");
+
     }
 }
