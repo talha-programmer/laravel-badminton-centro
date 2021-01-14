@@ -14,7 +14,7 @@
         <label for="name" class="col-md-3 offset-1 col-form-label">Team Name</label>
         <div class="col-md-6">
             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                   value="{{ old('name') }}" required autofocus>
+                   value="{{ $team ? $team->name : "" }}" required autofocus>
             @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

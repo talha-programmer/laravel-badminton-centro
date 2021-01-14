@@ -50,6 +50,9 @@ Route::post('/clubs/{club}/add_team', [TeamController::class, 'store']);
 
 Route::get('/clubs/{club}/add_team', [TeamController::class, 'addTeam'])->name('add_team');
 Route::post('/clubs/{club}/add_team', [TeamController::class, 'store']);
+Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('destroy_team');
+
+
 
 Route::get('/clubs/{club}/add_player',function ($club){
     session()->remove('selected_team');
@@ -64,8 +67,10 @@ Route::get('/clubs/team/{team}/add_player',function ($team){
 })->name('add_player_in_team');
 
 Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('add_player');
+Route::delete('/clubs/{club}/{player}', [ClubController::class, 'removePlayer'])->name('remove_player_from_club');
 
 Route::get('/players', [PlayerController::class, 'index'])->name('players');
+Route::delete('/teams/{team}/{player}', [TeamController::class, 'removePlayer'])->name('remove_player_from_team');
 
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');

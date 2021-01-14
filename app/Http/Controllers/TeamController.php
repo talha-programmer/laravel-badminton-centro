@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Club;
+use App\Models\Player;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -23,5 +25,19 @@ class TeamController extends Controller
         $club->teams()->create($request->only('name'));
         return back();
 
+    }
+
+    public function destroy(Team $team)
+    {
+        $team->delete();
+
+        return back()->with('info', 'Team deleted successfully!');
+    }
+
+
+    public function removePlayer(Team $team, Player $player)
+    {
+        $player->teams()->detach($team->id);
+        return back()->with('info', 'Player removed from the selected team!');
     }
 }

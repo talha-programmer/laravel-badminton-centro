@@ -2,8 +2,33 @@
 
 @section('dashboard_content')
     <div class="container">
-
-        @foreach($clubs as $club)
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-secondary" data-toggle="modal" data-target="#addClubModel">
+                    New Club
+                    <i class="fas fa-plus"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="addClubModel" tabindex="-1"
+                     aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabel">Add New Club</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <x-club-form/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach( $clubs as $club )
             <div class="card p-3 my-2">
                 <div class="row">
                     <div class="col">
@@ -36,10 +61,16 @@
                                 Address:
                             </div>
                             <div class="col-md-8">
-                                {{ $club->address == "" ? "Not Provided"  : $club->address }}
+                                @if($club->address != "")
+                                    {{ $club->address }}
+                                @else
+                                    <span class="text-muted">Not provided</span>
+                                @endif
+
                             </div>
                         </div>
                         <hr>
+
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <p class="font-weight-bold">Actions:</p>
@@ -133,7 +164,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <x-club-form :club="$club"/>
+                                                            <x-player-form :club="$club"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,43 +176,209 @@
 
                             </div>
                         </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>All Players of Club:</h5>
+
+                                {{--Club Players--}}
+                                <table class="px-4 table table-bordered mt-3">
+                                    <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>Player Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $player_counter = 0;?>
+
+                                    @foreach($club->players as $player)
+                                        <?php $player_counter++?>
+                                        <tr>
+                                            <td>{{ $player_counter }}</td>
+                                            <td>{{ $player->user->name }}</td>
+                                            <td>
+                                                {{--Action Buttons--}}
+                                                <ul class="list-inline">
+
+                                                    <li class="list-inline-item">
+                                                        <form action="{{ route('remove_player_from_club', [$club, $player]) }}" method="post"
+                                                              class="action-form form-inline">
+                                                            @csrf
+                                                            @method('DELETE') {{--Will call the delete method of route--}}
+                                                            <button class="btn btn-outline-danger border-0" type="button"
+                                                                    onclick="removePlayerFromClub(this)" data-toggle="tooltip"
+                                                                    data-placement="top" title="Remove player from this team">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </li>
+
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+
+                            </div>
+                        </div>
+
+
 
                     </div>
 
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col"><h5>Teams of Club:</h5></div>
-
                         </div>
-                        @foreach($club->teams as $team)
-                            <div class="row">
-                                <div class="col-md-4">
-                                    Team Name
-                                </div>
-                                <div class="col-md-8">
-                                    {{ $team->name }}
-                                </div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <a href="{{ route('add_player_in_team', $team) }}">Add player in this
-                                    team</a>
-                            </div>
-                            <div class="row">
-                                <div class="col"><h5>Players:</h5></div>
 
-                            </div>
-                            @foreach($team->players as $player)
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        Player Name
-                                    </div>
-                                    <div class="col-md-8">
-                                        {{ $player->user->name }}
-                                    </div>
-                                </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td>Sr.</td>
+                                <td>Team Name</td>
+                                <td>Actions</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $team_counter = 0;?>
+
+                            @foreach($club->teams as $team)
+                                <?php $team_counter++?>
+                                <tr>
+                                    <td>{{ $team_counter }}</td>
+                                    <td>{{ $team->name }}</td>
+                                    <td>
+                                        {{--Action Buttons--}}
+                                        <ul class="list-inline">
+
+                                            <li class="list-inline-item">
+                                                <form action="{{ route('destroy_team', $team) }}" method="post"
+                                                      class="action-form form-inline">
+                                                    @csrf
+                                                    @method('DELETE') {{--Will call the delete method of route--}}
+                                                    <button class="btn btn-outline-danger border-0" type="button"
+                                                            onclick="deleteTeam(this)" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Delete Team">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-outline-secondary border-0 d-flex" type="button"
+                                                        onclick="$(this).siblings('#editTeamModel').modal('show')"
+                                                        data-toggle="tooltip" data-placement="bottom" title="Edit Team">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="editTeamModel" tabindex="-1"
+                                                     aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalLabel">Edit Team</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <x-Team-form :club="$club" :team="$team"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-outline-secondary border-0 d-flex" type="button"
+                                                        onclick="$(this).siblings('#addPlayerModel').modal('show')"
+                                                        data-toggle="tooltip" data-placement="bottom"
+                                                        title="Add Player">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="addPlayerModel" tabindex="-1"
+                                                     aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalLabel">Add Player</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <x-player-form :club="$club" :team="$team"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+
+                                        </ul>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3">
+
+                                    {{--Team Players--}}
+                                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#playersCollapse{{ $team_counter }}" aria-expanded="false" aria-controls="playersCollapse">
+                                        Team Players <i class="fa fa-sort-down"></i>
+                                    </button>
+
+                                    <table class="px-4 collapse table table-bordered mt-3" id="playersCollapse{{ $team_counter }}">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr.</th>
+                                                <th>Player Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $player_counter = 0;?>
+
+                                        @foreach($team->players as $player)
+                                            <?php $player_counter++?>
+                                            <tr>
+                                                <td>{{ $player_counter }}</td>
+                                                <td>{{ $player->user->name }}</td>
+                                                <td>
+                                                    {{--Action Buttons--}}
+                                                    <ul class="list-inline">
+
+                                                        <li class="list-inline-item">
+                                                            <form action="{{ route('remove_player_from_team', [$team, $player]) }}" method="post"
+                                                                  class="action-form form-inline">
+                                                                @csrf
+                                                                @method('DELETE') {{--Will call the delete method of route--}}
+                                                                <button class="btn btn-outline-danger border-0" type="button"
+                                                                        onclick="removePlayerFromTeam(this)" data-toggle="tooltip"
+                                                                        data-placement="top" title="Remove player from this team">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        </li>
+
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+
+                                    </td>
+                                </tr>
 
                             @endforeach
-                        @endforeach
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
@@ -206,6 +403,27 @@
             });
         }
 
+        function removePlayerFromTeam(buttonObject) {
+
+            bootbox.confirm("Are you sure you want to remove the player? It will only remove the player from this team!", function (result) {
+
+                if (result === true) {
+                    $(buttonObject).parents('.action-form').submit();
+                }
+            });
+        }
+
+        function removePlayerFromClub(buttonObject) {
+
+            bootbox.confirm("Are you sure you want to remove the player? It will also remove the " +
+                "player from the related teams of the selected club!", function (result) {
+
+                if (result === true) {
+                    $(buttonObject).parents('.action-form').submit();
+                }
+            });
+        }
+
         $(document).ready(function () {
             /*Initializing Tooltips*/
             $(function () {
@@ -214,12 +432,13 @@
         });
 
         @if(session('info'))
-            bootbox.alert("{{ session('info') }}");
+        bootbox.alert("{{ session('info') }}");
         @endif
 
         @if(session('error'))
-            bootbox.alert("<span class = \"text-danger\">{{ session('error') }}</span>");
+        bootbox.alert("<span class = \"text-danger\">{{ session('error') }}</span>");
         @endif
 
     </script>
+
 @endsection

@@ -3,13 +3,16 @@
 namespace App\View\Components;
 
 use App\Models\Club;
+use App\Models\Player;
 use App\Models\Team;
 use Illuminate\View\Component;
 
-class TeamForm extends Component
+class PlayerForm extends Component
 {
-    public $club;
     public $team;
+    public $club;
+    public $players;
+
     /**
      * Create a new component instance.
      *
@@ -19,6 +22,8 @@ class TeamForm extends Component
     {
         $this->club = $club;
         $this->team = $team;
+
+        $this->players = Player::all();
     }
 
     /**
@@ -28,6 +33,6 @@ class TeamForm extends Component
      */
     public function render()
     {
-        return view('components.team-form');
+        return view('components.player-form');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\ClubOwner;
+use App\Models\Player;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -83,5 +84,22 @@ class ClubController extends Controller
 
         return back()->with('info', "Club has been deleted successfully!");
 
+    }
+
+    /**
+     * Remove player from the selected club. It will delete the
+     * related row from pivot table 'clubs_joined'. Also delete the
+     * association with all teams of the selected club.
+     * */
+    public function removePlayer(Club $club, Player $player)
+    {
+        $player->clubs()->detach($club->id);
+
+        // Removing associations of the player from all teams of the selected club
+        foreach ($club->teams as $team){
+            $team->players()->detach($player->id);
+        }
+
+        return back()->with('info', 'Player removed from the selected club!');
     }
 }

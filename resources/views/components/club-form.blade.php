@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 <select id="club_owner" class="form-control" name="club_owner">
                     @foreach($clubOwners as $club_owner)
-                        <option value="{{ $club_owner->id }}" {{ $isSelected($club->clubOwner->id)? 'selected="selected"' : "" }}>
+                        <option value="{{ $club_owner->id }}"  @if($club->id != null && $isSelected($club->clubOwner->id)) selected="selected" @endif>
                             {{ $club_owner->user->name }}
                         </option>
                     @endforeach
