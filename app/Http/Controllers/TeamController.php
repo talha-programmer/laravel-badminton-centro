@@ -9,12 +9,6 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function addTeam(Club $club)
-    {
-        return view('team.add_team', [
-            'club' => $club
-        ]);
-    }
 
     public function store(Request $request, Club $club)
     {

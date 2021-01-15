@@ -298,7 +298,7 @@
                                                 <button class="btn btn-outline-secondary border-0 d-flex" type="button"
                                                         onclick="$(this).siblings('#addPlayerModel').modal('show')"
                                                         data-toggle="tooltip" data-placement="bottom"
-                                                        title="Add Player">
+                                                        title="Add Player in Team">
                                                     <i class="fas fa-user-plus"></i>
                                                 </button>
                                                 <!-- Modal -->
@@ -427,7 +427,7 @@
         $(document).ready(function () {
             /*Initializing Tooltips*/
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip();
             })
         });
 

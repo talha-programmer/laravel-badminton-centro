@@ -47,6 +47,7 @@ class MatchController extends Controller
         $match->teamTwo()->associate($teamTwo);
         $match->venue = $request->venue;
         $match->match_time = date("Y-m-d H:i:s", strtotime($request->match_time));
+        $match->match_type = $request->match_type;
 
         $match->save();
 
@@ -81,11 +82,20 @@ class MatchController extends Controller
         $teamId = $request->team_id;
         $team = Team::all()->find($teamId);
         $players = $team->players;
-
         $playersArray = array();
         foreach ($players as $player){
             $playersArray[$player->id] = $player->user->name;
         }
+        if(sizeof($playersArray) == 0){
+            return back()->with('error', 'No player is added in any team! Please add players in teams before proceeding!');
+        }
         return \response()->json($playersArray);
+    }
+
+    public function destroy(Match $match)
+    {
+        $match->delete();
+
+        return back()->with('info', 'Match deleted successfully!');
     }
 }

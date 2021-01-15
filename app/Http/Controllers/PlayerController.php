@@ -18,32 +18,6 @@ class PlayerController extends Controller
         ]);
     }
 
-    public function addPlayer()
-    {
-        $allTeams = Team::all();
-        $club = $team = null;
-        if(request()->session()->has('selected_club'))
-        {
-            $club_id = request()->session()->get('selected_club');
-            $club = Club::find($club_id);
-        }
-        if(request()->session()->has('selected_team'))
-        {
-            $team_id = request()->session()->get('selected_team');
-            $team = Team::find($team_id);
-        }
-        $players = Player::with('user')->get();
-
-
-
-        return view('player.add_player', [
-            'selected_club' => $club,
-            'selected_team' => $team,
-            'players' => $players,
-            'all_teams' => $allTeams,
-        ]);
-    }
-
     public function store(Request $request)
     {
         $selected_team_id = $request->selected_team;

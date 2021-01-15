@@ -40,31 +40,14 @@ Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard'
 
 Route::get('/clubs', [ClubController::class, 'index'])->name('clubs');
 
-Route::get('/clubs/add', [ClubController::class, 'addClub'])->name('add_club');
-Route::post('/clubs/add', [ClubController::class, 'store']);
+Route::post('/clubs/add', [ClubController::class, 'store'])->name('add_club');
 Route::delete('/clubs/{club}', [ClubController::class, 'destroy'])->name('destroy_club');
 
 
-Route::get('/clubs/{club}/add_team', [TeamController::class, 'addTeam'])->name('add_team');
-Route::post('/clubs/{club}/add_team', [TeamController::class, 'store']);
+Route::post('/clubs/{club}/add_team', [TeamController::class, 'store'])->name('add_team');
 
-Route::get('/clubs/{club}/add_team', [TeamController::class, 'addTeam'])->name('add_team');
-Route::post('/clubs/{club}/add_team', [TeamController::class, 'store']);
 Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('destroy_team');
 
-
-
-Route::get('/clubs/{club}/add_player',function ($club){
-    session()->remove('selected_team');
-    session()->put('selected_club' , $club);
-    return (new PlayerController)->addPlayer();
-})->name('add_player_in_club');
-
-Route::get('/clubs/team/{team}/add_player',function ($team){
-    session()->remove('selected_club');
-    session()->put('selected_team' , $team);
-    return (new PlayerController)->addPlayer();
-})->name('add_player_in_team');
 
 Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('add_player');
 Route::delete('/clubs/{club}/{player}', [ClubController::class, 'removePlayer'])->name('remove_player_from_club');
@@ -89,5 +72,7 @@ Route::get('/matches', [MatchController::class, 'index'])->name('matches');
 
 Route::get('/matches/add', [MatchController::class, 'addMatch'])->name('add_match');
 Route::post('/matches/add', [MatchController::class, 'store']);
+
+Route::delete('/matches/{match}', [MatchController::class, 'destroy'])->name('destroy_match');
 
 Route::post('/get_team_players', [MatchController::class, 'getPlayers'])->name('get_players');

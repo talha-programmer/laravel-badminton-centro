@@ -28,21 +28,6 @@ class ClubController extends Controller
 
     }
 
-    public function addClub()
-    {
-        $userType = auth()->user()->user_type;
-        $clubOwners = null;
-
-        if ($userType == UserTypes::Admin || $userType == UserTypes::Director) {
-            $clubOwners = ClubOwner::all();
-        }
-
-
-        return view('club.add_club', [
-            'club_owners' => $clubOwners,
-        ]);
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [

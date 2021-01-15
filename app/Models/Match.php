@@ -15,6 +15,7 @@ class Match extends Model
       'team_one_points',
       'team_two_points',
       'winner_team',
+      'match_type',
     ];
 
 

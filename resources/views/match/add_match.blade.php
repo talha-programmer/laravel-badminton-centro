@@ -19,6 +19,21 @@
 
                     <form method="POST" action="{{ route('add_match') }}">
                         @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                Match Type
+                            </div>
+                            <div class="form-check-inline col-md-6">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input match-type" name="match_type" value="0" checked>Single Player
+                                </label>
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input match-type" name="match_type" value="1">Double Players
+                                </label>
+                            </div>
+
+                        </div>
+
                         <div class="team">
                             <div class="form-group row">
                                 <label for="team_one" class="col-md-4 col-form-label text-md-right">Select Team
@@ -41,7 +56,7 @@
 
 
                             <h4>Select players of the team</h4>
-                            <div class="form-group row">
+                            <div class="form-group row player-one">
                                 <label for="player_one" class="col-md-4 col-form-label text-md-right">Player One</label>
                                 <div class="col-md-6">
                                     <select id="player_one" class="form-control" name="team_one_player_one" disabled>
@@ -56,7 +71,7 @@
                                 </div>
 
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row player-two">
                                 <label for="player_two" class="col-md-4 col-form-label text-md-right">Player Two</label>
                                 <div class="col-md-6">
                                     <select id="player_two" class="form-control" name="team_one_player_two" disabled>
@@ -91,7 +106,7 @@
                                 </div>
                             </div>
                             <h4>Select players of the team</h4>
-                            <div class="form-group row">
+                            <div class="form-group row player-one">
                                 <label for="player_one" class="col-md-4 col-form-label text-md-right">Player One</label>
                                 <div class="col-md-6">
                                     <select id="player_one" class="form-control" name="team_two_player_one" disabled>
@@ -106,7 +121,7 @@
 
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row player-two">
                                 <label for="player_two" class="col-md-4 col-form-label text-md-right">Player Two</label>
                                 <div class="col-md-6">
                                     <select id="player_two" class="form-control" name="team_two_player_two" disabled>
@@ -163,7 +178,10 @@
 
     <script type="text/javascript">
         $(function () {
-            $('.datetimepicker').datetimepicker();
+            $('.datetimepicker').datetimepicker({
+                sideBySide: true,
+
+            });
         });
 
         /*Get players through ajax with team id when the value of team changes*/
@@ -187,7 +205,7 @@
                     'team_id' : teamId,
                 },
                 success: function (response){
-
+                    console.log(response);
                     // Removing old values of the players from option tag
                     $(players).each(function (){
                         $(this).find($('option[value != "-1"]')).remove();
@@ -206,6 +224,18 @@
                 },
             });
         });
+
+        // Display player two only when double player is selected
+        $('.player-two').hide();
+        $('.match-type').change(function (){
+            let value = $(this).val();
+            if(value == 1){
+                $('.player-two').show();
+            } else{
+                $('.player-two').hide();
+            }
+        });
+
     </script>
 
 
