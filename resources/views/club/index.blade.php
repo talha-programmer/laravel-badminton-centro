@@ -424,21 +424,6 @@
             });
         }
 
-        $(document).ready(function () {
-            /*Initializing Tooltips*/
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            })
-        });
-
-        @if(session('info'))
-        bootbox.alert("{{ session('info') }}");
-        @endif
-
-        @if(session('error'))
-        bootbox.alert("<span class = \"text-danger\">{{ session('error') }}</span>");
-        @endif
-
     </script>
 
 @endsection

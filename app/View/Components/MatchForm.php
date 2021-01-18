@@ -27,8 +27,15 @@ class MatchForm extends Component
         $this->teams = Team::all();
         $this->match = $match;
         if($match != null){
-            $this->teamOnePlayers = $match->teamOnePlayers();
-            $this->teamTwoPlayers = $match->teamTwoPlayers();
+            $this->teamOnePlayers = array();
+            $this->teamTwoPlayers = array();
+
+            foreach ($match->teamOnePlayers() as $player) {
+                array_push($this->teamOnePlayers, $player->id);
+            }
+            foreach ($match->teamTwoPlayers() as $player) {
+                array_push($this->teamTwoPlayers, $player->id);
+            }
 
         }
     }
@@ -41,5 +48,13 @@ class MatchForm extends Component
     public function render()
     {
         return view('components.match-form');
+    }
+
+    public function matchId()
+    {
+        if($this->match == null){
+            return "";
+        }
+        return "_match_" . $this->match->id;
     }
 }

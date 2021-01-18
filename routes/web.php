@@ -64,8 +64,13 @@ Route::post('/products/add', [ProductController::class, 'store']);
 
 Route::get('/product_categories', [ProductCategoryController::class, 'index'])->name('product_categories');
 
-Route::get('/product_categories/add', [ProductCategoryController::class, 'addCategory'])->name('add_product_category');
-Route::post('/product_categories/add', [ProductCategoryController::class, 'store']);
+Route::post('/product_categories/add', [ProductCategoryController::class, 'store'])->name('add_product_category');
+
+Route::delete('/product_categories/{productCategory}/delete', [ProductCategoryController::class, 'destroy'])->name('destroy_category');
+
+
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('destroy_product');
+Route::delete('/products/{product}/image', [ProductController::class, 'destroyImage'])->name('destroy_product_image');
 
 
 Route::get('/matches', [MatchController::class, 'index'])->name('matches');

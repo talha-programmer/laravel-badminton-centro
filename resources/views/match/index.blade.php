@@ -144,12 +144,6 @@
 
 <script>
 
-    $(document).ready(function () {
-        /*Initializing Tooltips*/
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    });
 
     function deleteMatch(buttonObject) {
         // Display confirmation dialog for deleting the match
@@ -163,13 +157,7 @@
     }
 
 
-    @if(session('info'))
-    bootbox.alert("{{ session('info') }}");
-    @endif
 
-    @if(session('error'))
-    bootbox.alert("<span class = \"text-danger\">{{ session('error') }}</span>");
-    @endif
 </script>
 
 @endsection

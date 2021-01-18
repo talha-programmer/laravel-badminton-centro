@@ -15,19 +15,32 @@ class ProductCategoryController extends Controller
         ]);
     }
 
-    public function addCategory()
-    {
-        return view('product_category.add_category');
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
 
-        ProductCategory::create($request->only('name'));
+        $categoryId = $request->category;
+        $category = null;
+        if($categoryId){
+            $category = ProductCategory::find($categoryId);
+        }else{
+            $category = new ProductCategory();
+        }
 
-        return back()->with('status', 'Product Category saved successfully!');
+        $category->name = $request->name;
+        $category->save();
+
+        return back()->with('info', 'Product Category saved successfully!');
     }
+
+    public function destroy(ProductCategory $category)
+    {
+        $category->delete();
+
+        return back()->with('info', 'Category deleted successfully!');
+    }
+
+
 }

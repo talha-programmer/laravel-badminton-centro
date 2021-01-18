@@ -1,7 +1,7 @@
 <form method="POST" action="{{ route('add_match') }}">
     @csrf
     <div class="form-group row">
-        <div class="col-md-3 offset-1">
+        <div class="col-md-4 ">
             Match Type
         </div>
         <div class="col-md-6">
@@ -20,13 +20,12 @@
 
     </div>
 
-    <p>Team One</p>
     <div class="team">
         <div class="form-group row">
-            <label for="team_one" class="col-md-3 offset-1 col-form-label ">Team
+            <label for="team_one{{ $matchId() }}" class="col-md-4  col-form-label ">Team
                 One</label>
             <div class="col-md-6">
-                <select id="team_one{{ $match->id != null ? "_match_" . $match->id : "" }}" class="form-control select2" name="team_one">
+                <select id="team_one{{ $matchId() }}" class="form-control select2" name="team_one">
                     <option value="-1">---Select Team---</option>
                     @foreach($teams as $team)
                         <option value="{{ $team->id }}">{{ $team->name }}</option>
@@ -42,45 +41,28 @@
         </div>
 
 
-        <p>Players</p>
         <div class="form-group row player-one">
-            <label for="player_one" class="col-md-3 offset-1 col-form-label ">Player One</label>
+            <label for="team_one_players{{ $matchId() }}" class="col-md-4  col-form-label ">Team One Players</label>
             <div class="col-md-6">
-                <select id="player_one" class="form-control select2" name="team_one_player_one" disabled>
-                    <option value="-1">---Select Player---</option>
+                <select id="team_one_players{{ $matchId() }}" class="form-control select2 players" multiple="multiple" name="team_one_players[]" disabled>
                 </select>
 
-                @error('team_one_player_one')
+                @error('team_one_players')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
             </div>
 
-        </div>
-        <div class="form-group row player-two">
-            <label for="player_two" class="col-md-3 offset-1 col-form-label ">Player Two</label>
-            <div class="col-md-6">
-                <select id="player_two" class="form-control select2" name="team_one_player_two" disabled>
-                    <option value="-1">---Select Player---</option>
-                </select>
-
-                @error('team_one_player_two')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
-            </div>
         </div>
     </div>
 
-    <p>Team Two</p>
     <div class="team">
         <div class="form-group row">
-            <label for="team_two" class="col-md-3 offset-1 col-form-label ">Team
+            <label for="team_two{{ $matchId() }}" class="col-md-4  col-form-label ">Team
                 Two</label>
             <div class="col-md-6">
-                <select id="team_two{{ $match->id != null ? "_match_" . $match->id : "" }}" class="form-control select2" name="team_two">
+                <select id="team_two{{ $matchId() }}" class="form-control select2" name="team_two">
                     <option value="-1">---Select Team---</option>
                     @foreach($teams as $team)
                         <option value="{{ $team->id }}">{{ $team->name }}</option>
@@ -90,46 +72,30 @@
                 @error('team_two')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                </span>
                 @enderror
             </div>
         </div>
-        <p>Players</p>
         <div class="form-group row player-one">
-            <label for="player_one" class="col-md-3 offset-1 col-form-label ">Player One</label>
+            <label for="team_two_players{{ $matchId() }}" class="col-md-4  col-form-label ">Team Two Players</label>
             <div class="col-md-6">
-                <select id="player_one" class="form-control select2" name="team_two_player_one" disabled>
-                    <option value="-1">---Select Player---</option>
+                <select id="team_two_players{{ $matchId() }}" class="form-control select2 players"  multiple="multiple" name="team_two_players[]" disabled>
                 </select>
 
-                @error('team_two_player_one')
+                @error('team_two_players')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
 
-            </div>
-        </div>
-        <div class="form-group row player-two">
-            <label for="player_two" class="col-md-3 offset-1 col-form-label ">Player Two</label>
-            <div class="col-md-6">
-                <select id="player_two" class="form-control select2" name="team_two_player_two" disabled>
-                    <option value="-1">---Select Player---</option>
-                </select>
-
-                @error('team_two_player-two')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
             </div>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="name" class="col-md-3 offset-1 col-form-label ">Venue</label>
+        <label for="venue{{ $matchId() }}" class="col-md-4  col-form-label ">Venue</label>
         <div class="col-md-6">
-            <input id="venue{{ $match->id != null ? "_match_" . $match->id : "" }}" type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" value="{{ old('venue') }}" required autofocus>
+            <input id="venue{{ $matchId() }}" type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" value="{{ old('venue') }}" required autofocus>
             @error('venue')
             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -139,10 +105,10 @@
     </div>
 
     <div class="form-group row">
-        <label for="match_time" class="col-md-3 offset-1 col-form-label ">Time</label>
+        <label for="match_time{{ $matchId() }}" class="col-md-4  col-form-label ">Time</label>
 
         <div class="col-md-6">
-            <input id="match_time{{ $match->id != null ? "_match_" . $match->id : "" }}" type="text" class="form-control datetimepicker @error('match_time') is-invalid @enderror" name="match_time" value="{{ old('match_time') }}" required>
+            <input id="match_time{{ $matchId() }}" type="text" class="form-control datetimepicker @error('match_time') is-invalid @enderror" name="match_time" value="{{ old('match_time') }}" required>
 
             @error('match_time')
             <span class="invalid-feedback" role="alert">
@@ -174,16 +140,19 @@
         $('.select2').select2({
             width: '100%',
         });
+
+        $('#team_one_players{{ $matchId() }}, #team_two_players{{ $matchId() }}').select2({
+
+            maximumSelectionLength: 2,
+        });
     });
 
 
 
     /*Get players through ajax with team id when the value of team changes*/
-    $('select[name=team_one], select[name=team_two]').change(function (e){
+    $('#team_one{{ $matchId() }}, #team_two{{ $matchId() }}').change(function (e){
         let team = $(this).parents('.team');        // Find .team in parents of the selected tag
-        let playerOne = $(team).find('#player_one');
-        let playerTwo = $(team).find('#player_two');
-        let players = [playerOne, playerTwo]
+        let players = $(team).find('.players');
         let teamId = $(this).val();
 
         // Get players of the selected team through ajax and populate them on players' select tags
@@ -199,60 +168,58 @@
                 'team_id' : teamId,
             },
             success: function (response){
-                console.log(response);
                 // Removing old values of the players from option tag
                 $(players).each(function (){
-                    $(this).find($('option[value != "-1"]')).remove();
+                    $(this).find($('<option>')).remove();
                 });
 
                 /*Adding options in the player one select tag*/
                 $.each(response, function (key, value){
-                    $(players).each(function (){
-                        $(this).append($('<option>', {
-                            value: key,
-                            text: value,
-                        }));
-                        $(this).prop('disabled', false);
-                    });
+                    $(players).append($('<option>', {
+                        value: key,
+                        text: value,
+                    }));
+
+                    $(players).prop('disabled', false);
                 });
             },
         });
     });
 
-    // Display player two only when double player is selected
-    $('.player-two').hide();
-    $('.match-type').change(function (){
-        let value = $(this).val();
-        if(value == {{ \App\Enums\MatchTypes::DoublePlayer }}){
-            $('.player-two').show();
-        } else{
-            $('.player-two').hide();
-        }
-    });
 
     // Set all the values of select input fields when editing a match
     @if($match->id !=null)
         let matchId = {{ $match->id }};
-        let teamOne =  $('select[id=team_one_match_' + matchId + ']');
-        let teamTwo = $('select[id=team_two_match_' + matchId + ']');
+        let teamOne =  $('#team_one_match_' + matchId);
+        let teamTwo = $('#team_two_match_' + matchId);
 
         teamOne.val([{{ $match->teamOne->id }}]);
         teamTwo.val([{{ $match->teamTwo->id }}]);
 
-        let team = $(teamOne).parents('.team');        // Find .team in parents of the selected tag
-        let playerOne = $(team).find('#player_one');
-        let playerTwo = $(team).find('#player_two');
-        let players = [playerOne, playerTwo];
-        @foreach($match->teamOne->players as $player)
-            $(players).each(function (){
-                $(this).append($('<option>', {
-                    value: {{ $player->id }},
-                    text: '{{ $player->user->name }}',
-                }));
-                $(this).prop('disabled', false);
-            });
-        @endforeach
+        let teamOnePlayers = $('#team_one_players{{ $matchId() }}');
+        let teamTwoPlayers = $('#team_two_players{{ $matchId() }}');
 
+        // Add all the player names as options in team one select tag
+        @foreach($match->teamOne->players as $player)
+            var option = new Option('{{$player->user->name}}', {{ $player->id }}, false, false);
+            $(teamOnePlayers).append(option).trigger('change');
+        @endforeach
+        $(teamOnePlayers).prop('disabled', false);
+
+        // Add all the player names as options in team two select tag
+        @foreach($match->teamTwo->players as $player)
+            var option = new Option('{{$player->user->name}}', {{ $player->id }}, false, false);
+            $(teamTwoPlayers).append(option).trigger('change');
+        @endforeach
+        $(teamTwoPlayers).prop('disabled', false);
+
+        // Select the already added players of team one and team two
+        $(teamOnePlayers).val({{ json_encode($teamOnePlayers) }});
+        $(teamTwoPlayers).val({{ json_encode($teamTwoPlayers) }});
+
+        // Set the values of venue and match time
+        $('#venue{{ $matchId() }}').val('{{ $match->venue }}');
+        $('#match_time{{ $matchId() }}').val('{{ $match->match_time }}')
 
     @endif
 
