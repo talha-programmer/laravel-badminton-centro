@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Match;
 use App\Models\Team;
+use Carbon\Carbon;
 use Illuminate\View\Component;
 
 class MatchForm extends Component
@@ -56,5 +57,13 @@ class MatchForm extends Component
             return "";
         }
         return "_match_" . $this->match->id;
+    }
+
+    public function matchTime()
+    {
+        if($this->match->id == null){
+            return "";
+        }
+        return Carbon::create($this->match->match_time)->format('d/m/Y H:i A');
     }
 }

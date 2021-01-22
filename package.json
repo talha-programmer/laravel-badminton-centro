@@ -28,6 +28,7 @@
         "@fortawesome/fontawesome-free": "^5.15.1",
         "bootbox": "^5.5.2",
         "pc-bootstrap4-datetimepicker": "^4.17.51",
-        "select2": "^4.0.13"
+        "select2": "^4.0.13",
+        "swiper": "^6.4.5"
     }
 }

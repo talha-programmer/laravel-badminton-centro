@@ -16,8 +16,16 @@ class TeamController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $club->teams()->create($request->only('name'));
-        return back();
+        $teamId = $request->team_id;
+        if($teamId){
+            $team = Team::find($teamId);
+            $team->name = $request->name;
+            $team->save();
+        } else{
+            $club->teams()->create($request->only('name'));
+        }
+
+        return back()->with('info', 'Team saved successfully!');
 
     }
 

@@ -1,20 +1,23 @@
 <form method="POST" action="{{ route('add_match') }}">
     @csrf
+    <input type="hidden" name="match_id" value="{{ $match->id }}">
     <div class="form-group row">
         <div class="col-md-4 ">
             Match Type
         </div>
         <div class="col-md-6">
             <div class="form-check-inline">
-                <label class="form-check-label mr-1">
-                    <input type="radio" class="form-check-input match-type" name="match_type"
-                           value="{{ \App\Enums\MatchTypes::SinglePlayer }}" checked>Single Player
-                </label>
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input match-type" name="match_type"
-                           value="{{ \App\Enums\MatchTypes::DoublePlayer }}"
-                            {{ $match->match_type == \App\Enums\MatchTypes::DoublePlayer ? "checked" : ""}}>Two Players
-                </label>
+                <div id="match_type{{ $matchId() }}">
+                    <label class="form-check-label mr-1">
+                        <input type="radio" class="form-check-input match-type" name="match_type"
+                               value="{{ \App\Enums\MatchTypes::SinglePlayer }}" checked>Single Player
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input match-type" name="match_type"
+                               value="{{ \App\Enums\MatchTypes::DoublePlayer }}"
+                                {{ $match->match_type == \App\Enums\MatchTypes::DoublePlayer ? "checked" : ""}}>Two Players
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -108,7 +111,7 @@
         <label for="match_time{{ $matchId() }}" class="col-md-4  col-form-label ">Time</label>
 
         <div class="col-md-6">
-            <input id="match_time{{ $matchId() }}" type="text" class="form-control datetimepicker @error('match_time') is-invalid @enderror" name="match_time" value="{{ old('match_time') }}" required>
+            <input id="match_time{{ $matchId() }}" type="text" class="form-control datetimepicker @error('match_time') is-invalid @enderror" name="match_time" value="{{ $matchTime() }}" required>
 
             @error('match_time')
             <span class="invalid-feedback" role="alert">
@@ -132,19 +135,44 @@
     $(function () {
         $('.datetimepicker').datetimepicker({
             sideBySide: true,
-
+            format: 'DD/MM/yyyy hh:mm A',
         });
     });
 
     $(document).ready(function() {
         $('.select2').select2({
             width: '100%',
+
         });
 
-        $('#team_one_players{{ $matchId() }}, #team_two_players{{ $matchId() }}').select2({
+        /** Set the maximum length of players selection according to radio button selected **/
+        let matchTypeRadio = $('#match_type{{ $matchId() }}').find('input[name="match_type"]');
+        initializeSelect2();        // Call the function on page load
 
-            maximumSelectionLength: 2,
+        function initializeSelect2(){
+            let selectedMatchType = $('#match_type{{ $matchId() }}').find('input[name="match_type"]:checked');
+            let matchTypeValue = $(selectedMatchType).val();
+
+            if(matchTypeValue === {{ \App\Enums\MatchTypes::SinglePlayer }}) {
+                $('#team_one_players{{ $matchId() }}, #team_two_players{{ $matchId() }}').select2({
+                    maximumSelectionLength: 1,
+                    width: '100%',
+                });
+            } else{
+                console.log("else called");
+                $('#team_one_players{{ $matchId() }}, #team_two_players{{ $matchId() }}').select2({
+                    maximumSelectionLength: 2,
+                    width: '100%',
+
+                });
+            }
+        }
+
+        // Call the function whenever the radio button selecion changes
+        $(matchTypeRadio).change(function (){
+            initializeSelect2();
         });
+
     });
 
 
@@ -219,7 +247,6 @@
 
         // Set the values of venue and match time
         $('#venue{{ $matchId() }}').val('{{ $match->venue }}');
-        $('#match_time{{ $matchId() }}').val('{{ $match->match_time }}')
 
     @endif
 

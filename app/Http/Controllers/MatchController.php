@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Match;
 use App\Models\Player;
 use App\Models\Team;
+use Carbon\Carbon;
+use Carbon\PHPStan\Macro;
 use http\Env\Response;
 use Illuminate\Http\Request;
 
@@ -19,57 +21,55 @@ class MatchController extends Controller
         ]);
     }
 
-    public function addMatch()
-    {
-        $teams = Team::all();
-
-        return view('match.add_match',[
-            'teams' => $teams,
-        ]);
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [
             'venue' => 'required|max:255',
             'match_time' => 'required',
             'team_one' => 'required|different:team_two',
-            'team_one_player_one' => 'required|min:1',
-            'team_two_player_one' => 'required|min:1',
+            'team_one_players' => 'required|min:1',
+            'team_two_players' => 'required|min:1',
         ]);
+
+        $matchId = $request->match_id;
+        $match = null;
+        if($matchId){
+            $match = Match::find($matchId);
+
+            // Remove the relation of old teams and players in case of match edit
+            $match->teamOne()->dissociate();
+            $match->teamTwo()->dissociate();
+            $match->players()->detach();
+
+        } else{
+            $match = new Match();
+        }
 
         $allTeams = Team::all();
         $teamOne = $allTeams->find($request->team_one);
         $teamTwo = $allTeams->find($request->team_two);
 
-        $match = new Match();
         $match->teamOne()->associate($teamOne);
         $match->teamTwo()->associate($teamTwo);
         $match->venue = $request->venue;
-        $match->match_time = date("Y-m-d H:i:s", strtotime($request->match_time));
+
+        $matchTime = Carbon::createFromFormat('d/m/Y H:i A', $request->match_time);
+        $match->match_time = $matchTime->format('Y-m-d H:i:s');
+
         $match->match_type = $request->match_type;
 
         $match->save();
 
-        $teamOnePlayerOne = Player::all()->find($request->team_one_player_one);
-        $teamTwoPlayerOne = Player::all()->find($request->team_two_player_one);
-        $teamOnePlayerOne->matches()->save($match);
-        $teamTwoPlayerOne->matches()->save($match);
-
-        if($request->team_one_player_two > 0){
-            $teamOnePlayerTwo = Player::all()->find($request->team_one_player_two);
-            $teamTwoPlayerTwo = Player::all()->find($request->team_two_player_two);
-
-            if($teamOnePlayerTwo == null || $teamTwoPlayerTwo == null){
-                return back()->with('error', 'Please select player two of both teams');
-            }
-
-            $teamOnePlayerTwo->matches()->save($match);
-            $teamTwoPlayerTwo->matches()->save($match);
-
+        $teamOnePlayers = $request->team_one_players;
+        $teamTwoPlayers = $request->team_two_players;
+        $allPlayers = array_merge($teamOnePlayers, $teamTwoPlayers);
+        foreach ($allPlayers as $playerId){
+            $player = Player::all()->find($playerId);
+            $player->matches()->save($match);
         }
 
-        return back()->with('status', 'Match added successfully!');
+
+        return back()->with('info', 'Match added successfully!');
 
     }
 

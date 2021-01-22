@@ -3,12 +3,14 @@
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\LogoutController;
 use App\Http\Controllers\Authentication\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +25,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [PublicController::class, 'home']);
+Route::get('/home', [PublicController::class, 'home'])->name('home');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -75,9 +77,11 @@ Route::delete('/products/{product}/image', [ProductController::class, 'destroyIm
 
 Route::get('/matches', [MatchController::class, 'index'])->name('matches');
 
-Route::get('/matches/add', [MatchController::class, 'addMatch'])->name('add_match');
-Route::post('/matches/add', [MatchController::class, 'store']);
+Route::post('/matches/add', [MatchController::class, 'store'])->name('add_match');
 
 Route::delete('/matches/{match}', [MatchController::class, 'destroy'])->name('destroy_match');
 
 Route::post('/get_team_players', [MatchController::class, 'getPlayers'])->name('get_players');
+
+
+Route::post('/cart/add_product/', [CartController::class, 'addProduct' ])->name('add_to_cart');

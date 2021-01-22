@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Player extends Model
 {
@@ -32,6 +33,26 @@ class Player extends Model
     public function matches()
     {
         return $this->belongsToMany(Match::class, 'player_matches');
+    }
+
+    public function clubsJoined(): string
+    {
+        $allClubs = "";
+        foreach ($this->clubs as $club){
+            $allClubs .= $club->name . ', ';
+        }
+        $allClubs = Str::beforeLast($allClubs, ',');        // remove the last ','
+        return $allClubs;
+    }
+
+    public function teamsJoined(): string
+    {
+        $allTeams = "";
+        foreach ($this->teams as $team){
+            $allTeams .= $team->name . ', ';
+        }
+        $allTeams = Str::beforeLast($allTeams, ',');        // remove the last ','
+        return $allTeams;
     }
 
 }

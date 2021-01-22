@@ -1,6 +1,6 @@
 <form method="POST" action="{{ route('add_team', $club) }}">
     @csrf
-
+    <input type="hidden" name="team_id" value="{{ $team->id }}">
     <div class="row">
         <div class="col-md-3 offset-1">
             <strong>Selected Club</strong>

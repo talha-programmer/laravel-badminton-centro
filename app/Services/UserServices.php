@@ -15,7 +15,6 @@ class UserServices
         switch ($user_type)
         {
             case UserTypes::Admin:
-                $routes[9] = ['name' => 'add_match', 'description' => 'Add Match'];
             case UserTypes::Director:
             case UserTypes::ClubOwner:
                 $routes[1] = ['name' => 'clubs', 'description' => 'Clubs'];

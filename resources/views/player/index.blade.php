@@ -2,73 +2,41 @@
 
 @section('dashboard_content')
     <div class="container">
+       
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">All Players</div>
 
                     <div class="card-body">
-                        @if(session('status'))
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @endif
+                        <table class="px-4 table table-bordered mt-3">
+                            <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Player Name</th>
+                                <th>Clubs Joined</th>
+                                <th>Teams Joined</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $player_counter = 0;?>
 
-                        @foreach($players as $player)
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        Player Name
-                                    </div>
-                                    <div class="col-md-4">
-                                        {{ $player->user->name }}
-                                    </div>
-                                </div>
+                            @foreach($players as $player)
+                                <?php $player_counter++?>
+                                <tr>
+                                    <td>{{ $player_counter }}</td>
+                                    <td>{{ $player->user->name }}</td>
+                                    <td>{{ $player->clubsJoined() }}</td>
+                                    <td>{{ $player->teamsJoined() }}</td>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        Player Email
-                                    </div>
-                                    <div class="col-md-4">
-                                        {{ $player->user->email }}
-                                    </div>
-                                </div>
-
-
-                                @if($player->clubs)
-                                    <h4>Clubs Joined:</h4>
-                                    @foreach($player->clubs as $club)
-                                        <div class="row">
-                                            <div class="col">
-                                                Club Name
-                                            </div>
-                                            <div class="col">
-                                                {{ $club->name }}
-                                            </div>
-                                        </div>
-                                        <h4>Joined Teams</h4>
-                                        @foreach($player->teams()->where('teams.club_id', $club->id)->get() as $team)
-                                            <div class="row">
-                                                <div class="col">
-                                                    Team Name
-                                                </div>
-                                                <div class="col">
-                                                    {{ $team->name }}
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    <hr>
-                                    @endforeach
-                                @endif
-                            </div>
-                        @endforeach
-
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+
 @endsection

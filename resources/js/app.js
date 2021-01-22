@@ -22,4 +22,8 @@ $.extend(true, $.fn.datetimepicker.defaults, {
 });
 
 // Select 2
-require('select2/dist/js/select2.min')
+require('select2/dist/js/select2.min');
+
+// Swiper slider
+window.Swiper = require('swiper/swiper-bundle.min');
+
