@@ -12,6 +12,7 @@ class PublicController extends Controller
 {
     public function home()
     {
+
         $teams = Team::all();
         $matches = Match::all();
         $clubs = Club::all();

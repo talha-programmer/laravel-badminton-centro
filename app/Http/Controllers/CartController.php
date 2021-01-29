@@ -20,5 +20,37 @@ class CartController extends Controller
 
     }
 
+    public function deleteProduct(Request $request)
+    {
+        $productId = $request->product_id;
+        if(CartServices::deleteProduct($productId)) {
+            return response()->json(['info', 'Item successfully deleted in the cart']);
+        }
+        return response()->json(['error', 'Failed to delete item from the cart']);
+
+    }
+
+    public function updateProduct(Request $request)
+    {
+        $productId = $request->product_id;
+        $quantity = $request->quantity;
+        if(CartServices::updateProductQuantity($productId, $quantity)) {
+            return response()->json(['info', 'Item successfully updated!']);
+        }
+        return response()->json(['error', 'Failed to update the item!']);
+
+    }
+
+    public function checkout()
+    {
+        $user = auth()->user();
+        if($cart = CartServices::getCart()){
+            return view('public.checkout', [
+                'cart' => $cart,
+                'user' => $user,
+            ]);
+        }
+        return back()->with('error', 'Cart is empty! Please add some products to cart first!');
+    }
 
 }

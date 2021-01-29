@@ -85,3 +85,7 @@ Route::post('/get_team_players', [MatchController::class, 'getPlayers'])->name('
 
 
 Route::post('/cart/add_product/', [CartController::class, 'addProduct' ])->name('add_to_cart');
+Route::post('/cart/delete_product/', [CartController::class, 'deleteProduct' ])->name('delete_from_cart');
+Route::post('/cart/update_product/', [CartController::class, 'updateProduct' ])->name('update_product_quantity');
+
+Route::get('/cart/checkout/', [CartController::class, 'checkout' ])->name('checkout');

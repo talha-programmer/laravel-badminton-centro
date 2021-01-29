@@ -155,8 +155,9 @@
                 success: function (response){
                     if(response[0] === 'info' ){
                         bootbox.alert(response[1]);
-
+                        location.reload();
                     }
+
                 },
             });
         }

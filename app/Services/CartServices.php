@@ -12,8 +12,10 @@ class CartServices
     {
 
         $cart = session()->get('cart');
+        $products = $cart['products'];
 
         $productArray = [
+            "id" =>$product->id,
             "name" => $product->name,
             "quantity" => 1,
             "price" => $product->price,
@@ -22,18 +24,20 @@ class CartServices
 
         // if cart is empty then this the first product
         if(!$cart) {
-            $cart = [
+            $cart = array();
+            $cart['products'] = [
                 $product->id => $productArray ,
             ];
+            $products = $cart['products'];
         }
-        else if(isset($cart[$product->id])) {
+        else if(isset($products[$product->id])) {
             // cart is not empty and item added already
 
-            $cart[$product->id]['quantity']++;
+            $products[$product->id]['quantity']++;
 
         }else {
             // Item not added already
-            $cart[$product->id] = $productArray;
+            $products[$product->id] = $productArray;
         }
 
 
@@ -47,15 +51,48 @@ class CartServices
             $cart['total_price'] = $product->price;
         }
 
+        $cart['products']  = $products;
         session()->put('cart', $cart);
 
     }
 
-    public static function deleteProduct($product_id)
+    public static function deleteProduct($productId)
     {
         $cart = session()->get('cart');
-        if(isset($cart[$product_id])) {
-            unset($cart[$product_id]);
+        $products = $cart['products'];
+        if(isset($products[$productId])) {
+            // Set the total quantity and total price
+            $product = $products[$productId];
+            $cart['total_quantity'] -= $product['quantity'];
+            $cart['total_price'] -= $product['price'] * $product['quantity'];
+
+            // remove the item
+            unset($cart['products'][$productId]);
+
+            session()->put('cart', $cart);
+            return true;
+        }
+        return false;
+    }
+
+    public static function updateProductQuantity($productId, $quantity){
+        $cart = session()->get('cart');
+        $products = $cart['products'];
+        if(isset($products[$productId])) {
+            $product = $products[$productId];
+            $product['quantity'] = $quantity;
+            $products[$productId] = $product;
+
+            $totalPrice = $totalQuantity = 0;
+            foreach ($products as $product){
+                $totalPrice += $product['price'] * $product['quantity'];
+                $totalQuantity += $product['quantity'];
+            }
+
+            $cart['products'] = $products;
+            $cart['total_price'] = $totalPrice;
+            $cart['total_quantity'] = $totalQuantity;
+
             session()->put('cart', $cart);
             return true;
         }
