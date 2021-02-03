@@ -25,7 +25,7 @@ class UserServices
                 $routes[4] = ['name' => 'products', 'description' => 'Products'];
                 $routes[6] = ['name' => 'product_categories', 'description' => 'Product Categories'];
                 $routes[8] = ['name' => 'matches', 'description' => 'Matches'];
-
+                $routes[9] = ['name' => 'orders', 'description' => 'Orders'];
         }
         ksort($routes);
 

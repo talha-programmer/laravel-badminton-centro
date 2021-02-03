@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MatchController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
@@ -89,3 +90,14 @@ Route::post('/cart/delete_product/', [CartController::class, 'deleteProduct' ])-
 Route::post('/cart/update_product/', [CartController::class, 'updateProduct' ])->name('update_product_quantity');
 
 Route::get('/cart/checkout/', [CartController::class, 'checkout' ])->name('checkout');
+
+Route::post('/order/save/', [OrderController::class, 'store' ])->name('save_order');
+Route::get('/orders/', [OrderController::class, 'index' ])->name('orders');
+
+Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('destroy_order');
+
+Route::post('/orders/edit_order/{order}', [OrderController::class, 'editOrder' ])->name('edit_order');
+
+Route::get('/orders/display_edit_order/{order}', [OrderController::class, 'displayEditOrder' ])->name('display_edit_order');
+
+Route::post('/orders/update_order/{order}', [OrderController::class, 'updateOrder' ])->name('update_order');

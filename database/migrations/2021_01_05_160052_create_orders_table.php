@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamp('delivery_time')->nullable();
+            $table->timestamp('delivery_date')->nullable();
             $table->integer('status')->nullable();
             $table->float('total_amount');
         });

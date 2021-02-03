@@ -58,26 +58,61 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <p>Players:</p>
-                            </div>
-                        </div>
 
+                        <h5 class="mt-3">Players</h5>
+                        <table class="px-4 table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Sr.</th>
+                                <th>{{ $match->teamOne->name }}</th>
+                                <th>{{ $match->teamTwo->name }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $player_counter = 1;?>
+                            <?php
+                                $all_players = array();
+                                foreach ($match->teamOnePlayers() as $player){
+                                    $all_players[$player_counter] = array($player);
+                                    $player_counter++;
+                                }
+                                
+                                $player_counter = 1;
+                                foreach ($match->teamTwoPlayers() as $player){
+                                    array_push($all_players[$player_counter], $player);
+                                    $player_counter++;
+                                }
+                            ?>
+
+                            @foreach($all_players as $index=>$players)
+                                <tr>
+                                    <td>{{ $index }}</td>
+                                    @foreach($players as $player)
+                                        <td>{{ $player->user->name }}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </table>
+
+                        {{--
+                        <div class="row font-weight-bold">
+                            <div class="col">{{ $match->teamOne->name }}</div>
+                            <div class="col">{{ $match->teamTwo->name }}</div>
+                        </div>
+                        
                         <div class="row">
                         @foreach($match->teamOnePlayers() as $player)
-                                <div class="col-md-2">
+                                <div class="col">
                                     {{ $player->user->name }}
                                 </div>
-                                <div class="col-md-1">vs</div>
                             @endforeach
 
                             @foreach($match->teamTwoPlayers() as $player)
-                                <div class="col-md-3">
+                                <div class="col">
                                     {{ $player->user->name }}
                                 </div>
                             @endforeach
-                        </div>
+                        </div>--}}
 
                         <hr>
 
@@ -120,6 +155,33 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <x-match-form :match="$match"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </li>
+
+                                        <li class="list-inline-item">
+                                            <button class="btn btn-outline-secondary border-0 d-flex" type="button"
+                                                    onclick="$(this).siblings('#addResultModel').modal('show')"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Enter Match Result">
+                                                <i class="fas fa-poll fa-2x"></i>
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="addResultModel" tabindex="-1"
+                                                 aria-labelledby="modalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalLabel">Enter Match Result</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <x-match-result-form />
                                                         </div>
                                                     </div>
                                                 </div>

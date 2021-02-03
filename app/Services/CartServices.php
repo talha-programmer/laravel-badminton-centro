@@ -4,20 +4,36 @@
 namespace App\Services;
 
 
+use App\Models\Order;
 use App\Models\Product;
 
 class CartServices
 {
-    public static function addToCart(Product $product)
-    {
+    private static  $deliveryCharges = 100;
 
-        $cart = session()->get('cart');
+    // This key '$cartKey' is used to store cart inside session 
+    // In case of private cart, the key would be different
+    // Private cart would not be displayed on public pages. 
+    // Instead, it handles the 'Update Order' functions of the OrderController
+    private static function getCartKey(bool $privateCart){
+        if($privateCart){
+            $cartKey = 'cart_private';
+        } else {
+            $cartKey = 'cart';
+        }
+        return $cartKey;
+    }
+    
+    public static function addToCart(Product $product, int $productQuantity = 1, bool $privateCart = false)
+    {
+        $cartKey = self::getCartKey($privateCart);  
+        $cart = session()->get($cartKey);
         $products = $cart['products'];
 
         $productArray = [
             "id" =>$product->id,
             "name" => $product->name,
-            "quantity" => 1,
+            "quantity" => $productQuantity,
             "price" => $product->price,
             "image_url" => $product->image_url
         ];
@@ -33,7 +49,7 @@ class CartServices
         else if(isset($products[$product->id])) {
             // cart is not empty and item added already
 
-            $products[$product->id]['quantity']++;
+            $products[$product->id]['quantity']+= $productQuantity;
 
         }else {
             // Item not added already
@@ -43,22 +59,27 @@ class CartServices
 
         // Adding total quantity and total price
         if(isset($cart['total_quantity'] ) and isset($cart['total_price'])){
-            $cart['total_quantity']++;
-            $cart['total_price'] += $product->price;
+            $cart['total_quantity']+= $productQuantity;
+            $cart['total_price'] += $product->price * $productQuantity;
         } else{
             // For first product
-            $cart['total_quantity'] = 1;
-            $cart['total_price'] = $product->price;
+            $cart['total_quantity'] = $productQuantity;
+            $cart['total_price'] = $product->price * $productQuantity;
         }
 
+        $cart['delivery_charges'] = CartServices::$deliveryCharges * $cart['total_quantity'];
+        $cart['grand_total'] = $cart['delivery_charges'] + $cart['total_price'];
         $cart['products']  = $products;
-        session()->put('cart', $cart);
+
+        session()->put($cartKey, $cart);
 
     }
 
-    public static function deleteProduct($productId)
+    public static function deleteProduct($productId, bool $privateCart = false)
     {
-        $cart = session()->get('cart');
+        $cartKey = self::getCartKey($privateCart);
+
+        $cart = session()->get($cartKey);
         $products = $cart['products'];
         if(isset($products[$productId])) {
             // Set the total quantity and total price
@@ -69,14 +90,18 @@ class CartServices
             // remove the item
             unset($cart['products'][$productId]);
 
-            session()->put('cart', $cart);
+            $cart['delivery_charges'] = CartServices::$deliveryCharges * $cart['total_quantity'];
+            $cart['grand_total'] = $cart['delivery_charges'] + $cart['total_price'];
+
+            session()->put($cartKey, $cart);
             return true;
         }
         return false;
     }
 
-    public static function updateProductQuantity($productId, $quantity){
-        $cart = session()->get('cart');
+    public static function updateProductQuantity($productId, $quantity, bool $privateCart = false){
+        $cartKey = self::getCartKey($privateCart);
+        $cart = session()->get($cartKey);
         $products = $cart['products'];
         if(isset($products[$productId])) {
             $product = $products[$productId];
@@ -93,24 +118,44 @@ class CartServices
             $cart['total_price'] = $totalPrice;
             $cart['total_quantity'] = $totalQuantity;
 
-            session()->put('cart', $cart);
+            $cart['delivery_charges'] = CartServices::$deliveryCharges * $cart['total_quantity'];
+            $cart['grand_total'] = $cart['delivery_charges'] + $cart['total_price'];
+
+            session()->put($cartKey, $cart);
             return true;
         }
         return false;
     }
 
-    public static function deleteCart()
+    public static function deleteCart(bool $privateCart = false)
     {
-        if(session()->has('cart')) {
-            session()->remove('cart');
+        $cartKey = self::getCartKey($privateCart);
+        if(session()->has($cartKey)) {
+            session()->remove($cartKey);
         }
     }
 
-    public static function getCart()
+    public static function getCart(bool $privateCart = false)
     {
-        if(session()->has('cart')) {
-            return session()->get('cart');
+        $cartKey = self::getCartKey($privateCart);
+        if(session()->has($cartKey)) {
+            return session()->get($cartKey);
         }
         return null;
+    }
+
+
+    /**
+     * Create private cart from the Order. All products will be added to cart for
+     * any modifications required
+     * @param Order $order
+     */
+    public static function createPrivateCart(Order $order)
+    {
+        session()->remove('cart_private');
+        foreach ($order->products as $product){
+            $quantity = $product->pivot->quantity;
+            self::addToCart($product, $quantity, true);
+        }
     }
 }

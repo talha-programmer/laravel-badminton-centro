@@ -28,7 +28,6 @@
     }
 
     function updateProduct(productId, quantity){
-        console.log(quantity);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -43,7 +42,6 @@
                 'quantity' : quantity,
             },
             success: function (response){
-                console.log(response);
                 if(response[0] === 'info' ){
                     bootbox.alert(response[1]);
                     setTimeout(

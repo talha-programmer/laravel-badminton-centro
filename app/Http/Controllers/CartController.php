@@ -11,9 +11,10 @@ class CartController extends Controller
     public function addProduct(Request $request)
     {
         $productId = $request->product_id;
+        $isPrivate = $request->has('private_cart');
         $product = Product::find($productId);
         if($product) {
-            CartServices::addToCart($product);
+            CartServices::addToCart($product, 1, $isPrivate);
             return response()->json(['info', 'Item successfully added in the cart']);
         }
         return response()->json(['error', 'Failed to add item in the cart']);
@@ -23,7 +24,8 @@ class CartController extends Controller
     public function deleteProduct(Request $request)
     {
         $productId = $request->product_id;
-        if(CartServices::deleteProduct($productId)) {
+        $isPrivate = $request->has('private_cart');
+        if(CartServices::deleteProduct($productId, $isPrivate)) {
             return response()->json(['info', 'Item successfully deleted in the cart']);
         }
         return response()->json(['error', 'Failed to delete item from the cart']);
@@ -34,7 +36,8 @@ class CartController extends Controller
     {
         $productId = $request->product_id;
         $quantity = $request->quantity;
-        if(CartServices::updateProductQuantity($productId, $quantity)) {
+        $isPrivate = $request->has('private_cart');
+        if(CartServices::updateProductQuantity($productId, $quantity, $isPrivate)) {
             return response()->json(['info', 'Item successfully updated!']);
         }
         return response()->json(['error', 'Failed to update the item!']);
