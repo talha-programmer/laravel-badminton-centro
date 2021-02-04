@@ -16,8 +16,8 @@ class CreateUsersPlayersTable extends Migration
         Schema::create('users_players', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('club_ranking')->nullable();
-            $table->integer('team_ranking')->nullable();
+            $table->float('points')->nullable();
+            $table->float('ranking')->nullable();
 
         });
     }

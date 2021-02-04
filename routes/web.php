@@ -82,6 +82,8 @@ Route::post('/matches/add', [MatchController::class, 'store'])->name('add_match'
 
 Route::delete('/matches/{match}', [MatchController::class, 'destroy'])->name('destroy_match');
 
+Route::post('/matches/{match}/add_result', [MatchController::class, 'addResult'])->name('add_match_result');
+
 Route::post('/get_team_players', [MatchController::class, 'getPlayers'])->name('get_players');
 
 

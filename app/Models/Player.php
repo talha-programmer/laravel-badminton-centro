@@ -10,10 +10,7 @@ class Player extends Model
 {
     use HasFactory;
     protected $table = 'users_players';
-    protected $fillable = [
-        'club_ranking',
-        'team_ranking',
-    ];
+
 
     public function user()
     {

@@ -4,7 +4,7 @@
     <div class="container">
        
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">All Players</div>
 
@@ -16,6 +16,10 @@
                                 <th>Player Name</th>
                                 <th>Clubs Joined</th>
                                 <th>Teams Joined</th>
+                                <th>Matches Played</th>
+                                <th>Won</th>
+                                <th>Lost</th>
+                                <th>Tied</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -28,6 +32,11 @@
                                     <td>{{ $player->user->name }}</td>
                                     <td>{{ $player->clubsJoined() }}</td>
                                     <td>{{ $player->teamsJoined() }}</td>
+
+                                    <td>{{ $player->matches()->where('winner_team', '!=', 'null')->count() }}</td>
+                                    <td>{{ $player->matches()->where('has_won', '=', '1')->count() }}</td>
+                                    <td>{{ $player->matches()->where('has_won', '=', '0')->count() }}</td>
+                                    <td>{{ $player->matches()->where('has_won', '=', '-1')->count() }}</td>
 
                                 </tr>
                             @endforeach

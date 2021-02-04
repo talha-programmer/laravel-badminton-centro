@@ -3,7 +3,7 @@
 @section('dashboard_content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 offset-2">
+            <div class="col-md-7 offset-2">
 
                 <div class="row mb-4">
                     <div class="col-md-8">
@@ -41,8 +41,8 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3">
-                                Match Time
+                            <div class="col-md-2">
+                                Time
                             </div>
                             <div class="col-md-8">
                                 {{ \Carbon\Carbon::create($match->match_time)->format('l jS F Y \\, h:i A') }}
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 Venue
                             </div>
                             <div class="col-md-8">
@@ -94,25 +94,24 @@
                             @endforeach
                         </table>
 
-                        {{--
-                        <div class="row font-weight-bold">
-                            <div class="col">{{ $match->teamOne->name }}</div>
-                            <div class="col">{{ $match->teamTwo->name }}</div>
-                        </div>
-                        
-                        <div class="row">
-                        @foreach($match->teamOnePlayers() as $player)
-                                <div class="col">
-                                    {{ $player->user->name }}
+                        @if($match->team_one_points != null)    {{--If Match Result is added already--}}
+                            <h5 class="mt-3">Match Result</h5>
+                            <div class="row text-center">
+                                <div class="col-5 border-right">
+                                    <strong>{{ $match->teamOne->name }}</strong><br>
+                                    @foreach($match->teamOnePlayers() as $player)
+                                        {{ $player->user->name }}: {{ $player->pivot->points }} Points <br>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                                <div class="col-5">
+                                    <strong>{{ $match->teamTwo->name }}</strong> <br>
+                                    @foreach($match->teamTwoPlayers() as $player)
+                                        {{ $player->user->name }}: {{ $player->pivot->points }} Points
+                                    @endforeach
+                                </div>
+                            </div>
 
-                            @foreach($match->teamTwoPlayers() as $player)
-                                <div class="col">
-                                    {{ $player->user->name }}
-                                </div>
-                            @endforeach
-                        </div>--}}
+                        @endif
 
                         <hr>
 
@@ -165,7 +164,7 @@
                                         <li class="list-inline-item">
                                             <button class="btn btn-outline-secondary border-0 d-flex" type="button"
                                                     onclick="$(this).siblings('#addResultModel').modal('show')"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Enter Match Result">
+                                                    data-toggle="tooltip" data-placement="bottom" title="Add/Edit Match Result">
                                                 <i class="fas fa-poll fa-2x"></i>
                                             </button>
                                             <!-- Modal -->
@@ -174,14 +173,14 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="modalLabel">Enter Match Result</h5>
+                                                            <h5 class="modal-title" id="modalLabel">Add/Edit Match Result</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <x-match-result-form />
+                                                            <x-match-result-form :match="$match"/>
                                                         </div>
                                                     </div>
                                                 </div>
