@@ -35,6 +35,11 @@ class Match extends Model
         return $this->belongsTo(Team::class, 'team_two');
     }
 
+    public function tournament()
+    {
+        return $this->belongsTo(Tournament::class);
+    }
+
     /**
      * Get players of teamOne that are participating in this match
      * */

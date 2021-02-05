@@ -47,14 +47,6 @@ class RegisterController extends Controller
         $user_type_model = null;
         switch ($user_type)
         {
-            case UserTypes::Director:
-                $user_type_model = new Director();
-                break;
-
-            case UserTypes::Admin:
-                $user_type_model = new Admin();
-                break;
-
             case UserTypes::Player:
                 $user_type_model = new Player();
                 break;

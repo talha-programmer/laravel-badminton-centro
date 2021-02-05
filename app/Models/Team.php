@@ -51,6 +51,13 @@ class Team extends Model
         return $this->matchTwo;
     }
 
+
+    public function tournaments()
+    {
+        return $this->belongsToMany(Tournament::class,  'teams_tournaments');
+    }
+
+
 }
 
 

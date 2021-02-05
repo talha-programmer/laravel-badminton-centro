@@ -133,13 +133,10 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
 
+                                    <a class="dropdown-item" href="{{ route('user_profile') }}">Profile</a>
 
-                                    <form action="{{ route('user_profile', auth()->user()) }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item list-unstyled">Profile</button>
-                                    </form>
 
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf

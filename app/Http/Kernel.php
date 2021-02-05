@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AdminOperations;
 use App\Http\Middleware\ManageClubs;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'club' => \App\Http\Middleware\ManageClubs::class,
+        'admin' => \App\Http\Middleware\AdminOperations::class,
     ];
 }

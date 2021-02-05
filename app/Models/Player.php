@@ -29,7 +29,8 @@ class Player extends Model
 
     public function matches()
     {
-        return $this->belongsToMany(Match::class, 'player_matches');
+        return $this->belongsToMany(Match::class, 'player_matches')
+            ->withPivot('points', 'has_won');
     }
 
     public function clubsJoined(): string

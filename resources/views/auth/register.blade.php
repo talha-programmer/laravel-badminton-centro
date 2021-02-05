@@ -18,7 +18,7 @@
                             <div class="col-md-6">
 
                                 <select id="user-type" class="form-control" name="user_type">
-                                    @foreach(\App\Enums\UserTypes::asSelectArray() as $typeValue=>$typeName)
+                                    @foreach(\App\Enums\UserTypes::getPublicUsers() as $typeValue=>$typeName)
                                         <option value="{{ $typeValue }}">{{ $typeName }}</option>
                                     @endforeach
                                 </select>

@@ -37,7 +37,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::post('/logout', [LogoutController::class, 'index'])->name('logout');
 
-Route::post('/{user:username}/profile', [UserController::class, 'profile'])->name('user_profile');
+Route::get('user/profile', [UserController::class, 'profile'])->name('user_profile');
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
@@ -103,3 +103,12 @@ Route::post('/orders/edit_order/{order}', [OrderController::class, 'editOrder' ]
 Route::get('/orders/display_edit_order/{order}', [OrderController::class, 'displayEditOrder' ])->name('display_edit_order');
 
 Route::post('/orders/update_order/{order}', [OrderController::class, 'updateOrder' ])->name('update_order');
+
+Route::get('/users/', [UserController::class, 'index' ])->name('users');
+Route::delete('/users/{user}', [UserController::class, 'destroy' ])->name('destroy_user');
+
+Route::post('/users/{user}/update_profile', [UserController::class, 'updateProfile' ])->name('update_user_profile');
+Route::post('/users/{user}/update_password', [UserController::class, 'updatePassword' ])->name('update_user_password');
+
+Route::get('/users/add_user', [UserController::class, 'addUser' ])->name('add_user');
+Route::post('/users/add_user', [UserController::class, 'saveUser' ]);
