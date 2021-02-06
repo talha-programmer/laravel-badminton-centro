@@ -4,9 +4,9 @@
     <div class="container">
 
         <div class="row mb-3 mx-3">
-            <div class="col">
+            <div class="col-6">
 
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#addProductModel">
+                <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addProductModel">
                     New Product
                     <i class="fas fa-plus"></i>
                 </button>
@@ -29,7 +29,11 @@
                     </div>
                 </div>
 
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#addCategoryModel">
+            </div>
+
+            <div class="col-6">
+
+                <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addCategoryModel">
                     New Category
                     <i class="fas fa-plus"></i>
                 </button>
@@ -146,6 +150,14 @@
                 </div>
             @endforeach
         </div>
+
+
+        <div class="d-flex justify-content-center">
+            {{ $products->links() }}
+
+        </div>
+
+
 
 
     </div>

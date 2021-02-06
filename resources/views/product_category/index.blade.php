@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8">
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#addCategoryModel">
+                <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addCategoryModel">
                     New Product Category
                     <i class="fas fa-plus"></i>
                 </button>
@@ -103,6 +103,14 @@
                         </table>
                     </div>
                 </div>
+
+
+                <div class="d-flex justify-content-center">
+                    {{ $categories->links() }}
+
+                </div>
+
+
             </div>
         </div>
     </div>

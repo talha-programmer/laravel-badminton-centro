@@ -3,8 +3,8 @@
 @section('dashboard_content')
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-secondary" data-toggle="modal" data-target="#addClubModel">
+            <div class="col-md-12">
+                <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addClubModel">
                     New Club
                     <i class="fas fa-plus"></i>
                 </button>
@@ -29,10 +29,10 @@
             </div>
         </div>
         @foreach( $clubs as $club )
-            <div class="card p-3 my-2">
+            <div class="card p-3 my-4">
                 <div class="row">
                     <div class="col">
-                        <h5 class="card-title">{{ $club->name }}</h5>
+                        <h4 class="card-title">{{ $club->name }}</h4>
                     </div>
                 </div>
 
@@ -385,6 +385,13 @@
             </div>
 
         @endforeach
+
+        <div class="d-flex justify-content-center mt-3">
+            {{ $clubs->links() }}
+
+        </div>
+
+
     </div>
 
 

@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-md-10 offset-1">
                 <div class="row mb-4">
-                    <div class="col-md-8">
-                        <button class="btn btn-secondary" data-toggle="modal" data-target="#addTournamentModel">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addTournamentModel">
                             New Tournament
                             <i class="fas fa-plus"></i>
                         </button>
@@ -32,7 +32,7 @@
                 </div>
 
                 @foreach($tournaments as $tournament)
-                    <div class="card p-3 my-2">
+                    <div class="card p-3 my-4">
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title">{{ $tournament->name }}</h5>
@@ -56,6 +56,16 @@
                                 {{ \Carbon\Carbon::create($tournament->end_date)->format('l\, jS F Y') }}
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                Tournament Type
+                            </div>
+                            <div class="col-md-8">
+                                {{ \App\Enums\TournamentTypes::fromValue($tournament->tournament_type)->description }}
+                            </div>
+                        </div>
+
 
 
                         <h5 class="mt-3">Clubs</h5>
@@ -194,7 +204,7 @@
                                     <li class="list-inline-item">
                                         <button class="btn btn-outline-secondary border-0" type="button"
                                                 onclick="$(this).siblings('#addTournamentModel').modal('show')"
-                                                data-toggle="tooltip" data-placement="bottom" title="Edit Match">
+                                                data-toggle="tooltip" data-placement="bottom" title="Edit Tournament">
                                             <i class="fas fa-edit fa-2x"></i>
                                         </button>
                                         <!-- Modal -->
@@ -296,6 +306,33 @@
                                                     </div>
 
                                                 </li>
+
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-outline-secondary border-0 d-flex" type="button"
+                                                            onclick="$(this).siblings('#addMatchModel').modal('show')"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Edit Match">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="addMatchModel" tabindex="-1"
+                                                         aria-labelledby="modalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modalLabel">Edit Match</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <x-match-form :match="$match"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
                                             </ul>
 
 
@@ -318,7 +355,17 @@
             </div>
         </div>
 
+
+
+
     </div>
+
+    <div class="d-flex justify-content-center">
+        {{ $tournaments->links() }}
+
+    </div>
+
+
 
 
     <script>

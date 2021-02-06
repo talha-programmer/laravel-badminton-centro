@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
     public function index()
     {
-        $categories = ProductCategory::all();
+        $categories = ProductCategory::with('products')->paginate(10);
         return view('product_category.index', [
             'categories' => $categories,
         ]);

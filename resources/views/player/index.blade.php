@@ -20,6 +20,7 @@
                                 <th>Won</th>
                                 <th>Lost</th>
                                 <th>Tied</th>
+                                <th>Total Points</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -33,16 +34,23 @@
                                     <td>{{ $player->clubsJoined() }}</td>
                                     <td>{{ $player->teamsJoined() }}</td>
 
-                                    <td>{{ $player->matches()->where('winner_team', '!=', 'null')->count() }}</td>
+                                    <td>{{ $player->matches()->where('winner_team', '!=', null)->count() }}</td>
                                     <td>{{ $player->matches()->where('has_won', '=', '1')->count() }}</td>
                                     <td>{{ $player->matches()->where('has_won', '=', '0')->count() }}</td>
                                     <td>{{ $player->matches()->where('has_won', '=', '-1')->count() }}</td>
+                                    <td>{{ $player->points }}</td>
 
                                 </tr>
                             @endforeach
                         </table>
                     </div>
                 </div>
+
+                <div class="d-flex justify-content-center">
+                    {{ $players->links() }}
+                </div>
+
+
             </div>
         </div>
     </div>

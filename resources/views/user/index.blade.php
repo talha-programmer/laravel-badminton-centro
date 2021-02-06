@@ -3,8 +3,8 @@
 @section('dashboard_content')
     <div class="container">
         <div class="row justify-content-center mb-3">
-            <div class="col-md-8">
-                <a href="{{ route('add_user') }}" class="btn btn-secondary" >
+            <div class="col-md-12">
+                <a href="{{ route('add_user') }}" class="btn btn-secondary btn-block" >
                     New User
                     <i class="fas fa-user-plus"></i>
                 </a>
@@ -64,6 +64,14 @@
                         </table>
                     </div>
                 </div>
+
+
+                <div class="d-flex justify-content-center">
+                    {{ $users->links() }}
+
+                </div>
+
+
             </div>
         </div>
     </div>

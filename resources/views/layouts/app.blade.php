@@ -114,6 +114,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('public_products') }}">
                                 Products
                             </a>
@@ -131,6 +136,18 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('public_tournaments') }}">
+                                Tournaments
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('public_players') }}">
+                                Players
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('public_about') }}">
                                 About
                             </a>
@@ -140,9 +157,17 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
 
+
+
+
                         <li class="dropdown" id="cart">
                             @include('layouts.cart')
 
+                        </li>
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
 
                         <!-- Authentication Links -->
@@ -162,7 +187,6 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
 
                                     <a class="dropdown-item" href="{{ route('user_profile') }}">Profile</a>
 
@@ -193,7 +217,16 @@
         </div>
     </footer>
 
+    <script>
 
+        @if(session('info'))
+        bootbox.alert("{{ session('info') }}");
+        @endif
+
+        @if(session('error'))
+        bootbox.alert("<span class = \"text-danger\">{{ session('error') }}</span>");
+        @endif
+    </script>
 
 </body>
 </html>

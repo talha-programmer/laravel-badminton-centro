@@ -8,6 +8,7 @@ use App\Models\Player;
 use App\Models\PlayerMatch;
 use App\Models\Team;
 use App\Models\Tournament;
+use App\Services\PlayerServices;
 use Carbon\Carbon;
 use Carbon\PHPStan\Macro;
 use http\Env\Response;
@@ -15,9 +16,14 @@ use Illuminate\Http\Request;
 
 class MatchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'clubowner']);
+    }
+
     public function index()
     {
-        $matches = Match::all();
+        $matches = Match::latest()->with(['teamOne', 'teamTwo', 'players'])->paginate(3);
 
         return view('match.index',[
             'matches' => $matches,
@@ -139,6 +145,9 @@ class MatchController extends Controller
             }
 
             $playerMatch->save();
+
+            // Total Points of the current player
+            PlayerServices::calculateTotalPoints($player);
         }
 
         foreach ($match->teamTwoPlayers() as $player){

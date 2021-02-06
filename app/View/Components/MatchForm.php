@@ -63,10 +63,14 @@ class MatchForm extends Component
 
     public function matchId()
     {
-        if($this->match == null){
-            return "";
+        $text = "";
+        if($this->match->id != null){
+            $text .= "_match_" . $this->match->id;
         }
-        return "_match_" . $this->match->id;
+        if($this->tournament->id != null){
+            $text .= "_tournament_" . $this->tournament->id;
+        }
+        return $text;
     }
 
     public function matchTime()

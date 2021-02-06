@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Club;
 use App\Models\Match;
+use App\Models\Player;
 use App\Models\Product;
 use App\Models\Team;
+use App\Models\Tournament;
+use App\Services\PlayerServices;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -13,10 +16,10 @@ class PublicController extends Controller
     public function home()
     {
 
-        $teams = Team::all();
-        $matches = Match::all();
+        $teams = Team::paginate(4);
+        $matches = Match::latest()->paginate(4);
         $clubs = Club::all();
-        $products = Product::all();
+        $products = Product::latest()->paginate(4);
 
         return view('public.home',[
             'teams' => $teams,
@@ -29,7 +32,7 @@ class PublicController extends Controller
 
     public function products()
     {
-        $products = Product::all();
+        $products = Product::paginate(20);
 
         return view('public.products',[
             'products' => $products,
@@ -69,11 +72,31 @@ class PublicController extends Controller
 
     public function clubs()
     {
-        $clubs = Club::all();
+        $clubs = Club::paginate(3);
 
         return view('public.clubs', [
             'clubs' => $clubs,
             'page_name' => 'Home/Clubs'
+        ]);
+    }
+
+    public function players()
+    {
+        $players = Player::paginate(10);
+
+        return view('public.players', [
+            'players' => $players,
+            'page_name' => 'Home/Players'
+        ]);
+    }
+
+    public function tournaments()
+    {
+        $tournaments = Tournament::latest()->paginate(3);
+
+        return view('public.tournaments', [
+            'tournaments' => $tournaments,
+            'page_name' => 'Home/Tournaments'
         ]);
     }
 

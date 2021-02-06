@@ -10,7 +10,7 @@
     @foreach( $clubs as $club )
 
             <div class="row justify-content-center p-3 ">
-                <div class="col-8">
+                <div class="col-10">
                     <div class="card p-3 my-2">
                         <div class="row">
                             <div class="col">
@@ -58,7 +58,8 @@
                                         <h5>All Players of Club:</h5>
 
                                         {{--Club Players--}}
-                                        <table class="px-4 table table-bordered mt-3">
+                                        @if(sizeof( $club->players) > 0)
+                                            <table class="px-4 table table-bordered mt-3">
                                             <thead>
                                             <tr>
                                                 <th>Sr.</th>
@@ -76,7 +77,11 @@
                                                 </tr>
                                             @endforeach
                                         </table>
-
+                                        @else
+                                            <div class="text-muted">
+                                                No Players in this club
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -89,11 +94,15 @@
                                     <div class="col"><h5>Teams of Club:</h5></div>
                                 </div>
 
-                                <table class="table">
+                                @if( sizeof($club->teams) > 0)
+                                <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <td>Sr.</td>
-                                        <td>Team Name</td>
+                                        <th>Sr.</th>
+                                        <th>Team Name</th>
+                                        <th>Players</th>
+
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -104,43 +113,24 @@
                                         <tr>
                                             <td>{{ $team_counter }}</td>
                                             <td>{{ $team->name }}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="3">
-
-                                                {{--Team Players--}}
-                                                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#playersCollapse{{ $team_counter }}" aria-expanded="false" aria-controls="playersCollapse">
-                                                    Team Players <i class="fa fa-sort-down"></i>
-                                                </button>
-
-                                                <table class="px-4 collapse table table-bordered mt-3" id="playersCollapse{{ $team_counter }}">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Sr.</th>
-                                                        <th>Player Name</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php $player_counter = 0;?>
-
+                                            <td>
+                                                <ul>
                                                     @foreach($team->players as $player)
-                                                        <?php $player_counter++?>
-                                                        <tr>
-                                                            <td>{{ $player_counter }}</td>
-                                                            <td>{{ $player->user->name }}</td>
-
-                                                        </tr>
+                                                        <li>{{ $player->user->name }}</li>
                                                     @endforeach
-                                                </table>
-
+                                                </ul>
                                             </td>
+
                                         </tr>
 
                                     @endforeach
                                     </tbody>
                                 </table>
-
+                                @else
+                                    <div class="text-muted">
+                                        No Teams in this club
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -148,6 +138,14 @@
             </div>
 
     @endforeach
+
+
+        <div class="d-flex justify-content-center">
+            {{ $clubs->links() }}
+
+        </div>
+
+
     </div>
 
 

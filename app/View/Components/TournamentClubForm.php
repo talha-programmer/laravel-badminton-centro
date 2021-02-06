@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\Tournament;
 use Illuminate\View\Component;
@@ -19,7 +20,19 @@ class TournamentClubForm extends Component
     public function __construct(Tournament $tournament)
     {
         $this->tournament = $tournament;
-        $this->clubs = Club::all();
+
+        $user = auth()->user();
+        $userType = $user->user_type;
+
+
+        // Get only the clubs of current clubowner
+        if($userType === UserTypes::ClubOwner){
+            $clubOwner = $user->userable;
+            $this->clubs = $clubOwner->clubs;
+        }else {
+            $this->clubs = Club::all();
+        }
+
     }
 
     /**

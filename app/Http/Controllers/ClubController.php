@@ -21,7 +21,7 @@ class ClubController extends Controller
 
     public function index()
     {
-        $clubs = Club::with('teams')->get();
+        $clubs = Club::latest()->with(['teams', 'players', 'players.user'])->paginate(2);
 
         return view('club.index', [
             'clubs' => $clubs,

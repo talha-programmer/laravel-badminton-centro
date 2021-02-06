@@ -3,11 +3,11 @@
 @section('dashboard_content')
     <div class="container">
         <div class="row">
-            <div class="col-md-7 offset-2">
+            <div class="col-md-7 offset-md-2">
 
                 <div class="row mb-4">
-                    <div class="col-md-8">
-                        <button class="btn btn-secondary" data-toggle="modal" data-target="#addMatchModel">
+                    <div class="col-md-12">
+                        <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addMatchModel">
                             New Match
                             <i class="fas fa-plus"></i>
                         </button>
@@ -33,15 +33,27 @@
                 </div>
 
                 @foreach($matches as $match)
-                    <div class="card p-3 my-2">
+                    <div class="card p-3 my-4">
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title">Between {{ $match->teamOne->name }} &amp; {{ $match->teamTwo->name }}</h5>
                             </div>
                         </div>
 
+                        @if($match->tournament)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Tournament
+                                </div>
+                                <div class="col-md-8">
+                                    {{ $match->tournament->name }}
+                                </div>
+                            </div>
+
+                        @endif
+
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 Time
                             </div>
                             <div class="col-md-8">
@@ -50,7 +62,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 Venue
                             </div>
                             <div class="col-md-8">
@@ -196,6 +208,13 @@
                     </div>
 
                 @endforeach
+
+
+                <div class="d-flex justify-content-center">
+                    {{ $matches->links() }}
+
+                </div>
+
 
             </div>
         </div>

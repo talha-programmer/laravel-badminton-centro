@@ -30,7 +30,7 @@
 
     {{--Upcoming Matches--}}
     <div class="container-fluid py-4" style="background-color: #e4e4e4">
-        <h1 class="text-center text-primary">Upcoming Matches</h1>
+        <h1 class="text-center text-primary">Matches</h1>
         <hr>
 
         <div class="row row-cols-1 mt-5 row-cols-md-2 px-md-5 justify-content-center">
@@ -56,11 +56,13 @@
                 </div>
             @endforeach
 
+            <a href="{{ route('public_matches') }}" class="btn btn-primary btn-block rounded-pill py-3 mt-4"> View All Matches</a>
         </div>
 
     </div>
 
-    {{--Clubs--}}
+{{--Clubs--}}{{--
+
     <div class="container-fluid pt-4 pb-5 text-white bg-primary">
         <h1 class="text-center">Clubs</h1>
         <hr>
@@ -86,10 +88,11 @@
 
 
     </div>
+--}}
 
     {{--Products--}}
-    <div class="container-fluid py-4" style="background-color: #e4e4e4">
-        <h1 class="text-center text-primary">Products</h1>
+    <div class="container-fluid py-4 bg-primary" >
+        <h1 class="text-center text-white">Products</h1>
         <hr>
 
         <div class="row row-cols-1 mt-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 px-md-5 justify-content-center">
@@ -118,7 +121,17 @@
                 </div>
             @endforeach
 
+
+
+
         </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <a href="{{ route('public_products') }}" class="btn btn-light btn-block rounded-pill py-3 mt-4"> View All Products</a>
+
+            </div>
+        </div>
+
 
     </div>
 

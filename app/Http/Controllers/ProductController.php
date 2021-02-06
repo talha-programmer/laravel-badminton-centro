@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
+
     public function index()
     {
-        $products = Product::all();
+        $products = Product::latest()->with('categories')->paginate(10);
         return view('product.index',[
             'products' => $products,
         ]);

@@ -3,16 +3,22 @@
 
     <input type="hidden" value="{{ $tournament->id }}" name="tournament_id">
 
+
+
     <div class="form-group row">
         <label for="tournament_type" class="col-md-4 offset-1 col-form-label">Tournament Type</label>
 
         <div class="col-md-6">
-
+            @if(!$isClubOwner())
             <select id="tournament_type" class="form-control" name="tournament_type">
                 @foreach(\App\Enums\TournamentTypes::asSelectArray() as $typeValue=>$typeName)
                     <option value="{{ $typeValue }}">{{ $typeName }}</option>
                 @endforeach
             </select>
+            @else
+                <input type="hidden" name="tournament_type" value="{{ \App\Enums\TournamentTypes::SingleClub }}">
+                {{ \App\Enums\TournamentTypes::getDescription(\App\Enums\TournamentTypes::SingleClub)}}
+            @endif
 
         </div>
     </div>

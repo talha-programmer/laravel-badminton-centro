@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\Team;
 use App\Models\Tournament;
@@ -10,9 +11,24 @@ use Illuminate\Http\Request;
 
 class TournamentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'clubowner']);
+    }
+
     public function index()
     {
-        $tournaments = Tournament::all();
+        $user = auth()->user();
+        $userType = $user->user_type;
+
+        // Get only the tournaments of the clubs owned by this club owner
+        if($userType === UserTypes::ClubOwner){
+            $clubOwner = $user->userable;
+            $tournaments = $clubOwner->tournaments()->paginate(2);
+        } else {
+            $tournaments = Tournament::latest()->with(['matches', 'clubs', 'teams'])->paginate(2);
+        }
+
 
         return view('tournament.index', [
             'tournaments' => $tournaments,
@@ -40,6 +56,12 @@ class TournamentController extends Controller
         $tournament->start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
         $tournament->end_date = Carbon::createFromFormat('d/m/Y', $request->end_date);
         $tournament->tournament_type = $request->tournament_type;
+
+        $user = auth()->user();
+        $userType = $user->user_type;
+        if($userType === UserTypes::ClubOwner){
+            $tournament->clubOwner()->associate($user->userable);
+        }
 
         $tournament->save();
         return back()->with('info', 'Tournament saved successfully!');

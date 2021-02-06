@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     public function index()
     {
-        $players = Player::with(['matches' , 'user', 'clubs', 'teams'])->get();
+        $players = Player::latest()->with(['matches' , 'user', 'clubs', 'teams'])->paginate(10);
 
         return view('player.index', [
             'players' => $players

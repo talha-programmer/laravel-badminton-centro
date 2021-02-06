@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TournamentTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,13 +31,18 @@ class Tournament extends Model
         return $this->hasMany(Match::class,  'tournament_id');
     }
 
+    public function clubOwner()
+    {
+        return $this->belongsTo(ClubOwner::class, 'club_owner_id');
+    }
+
+
 
     public function clubTeams(Club $club)
     {
         return $this->teams()->with('club')
             ->where('club_id', '=', $club->id)->get();
     }
-
 
 
 }
