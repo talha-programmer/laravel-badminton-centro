@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('add_club') }}">
+<form class="club_form" method="POST" action="{{ route('add_club') }}">
     @csrf
 
     @if($club)
@@ -23,13 +23,9 @@
     <div class="form-group row">
         <label for="name" class="col-md-3 offset-1 col-form-label">Club Name</label>
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+            <input id="name" type="text" class="form-control" name="name"
                    value="{{ $club? $club->name : ""  }}" required autofocus>
-            @error('name')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+
         </div>
     </div>
 
@@ -37,14 +33,9 @@
         <label for="city" class="col-md-3 offset-1 col-form-label">City</label>
 
         <div class="col-md-6">
-            <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city"
-                   value="{{ $club? $club->city : "" }}" required autocomplete="email">
+            <input id="city" type="text" class="form-control" name="city"
+                   value="{{ $club? $club->city : "" }}" required>
 
-            @error('city')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
         </div>
     </div>
 
@@ -52,14 +43,8 @@
         <label for="address" class="col-md-3 offset-1 col-form-label">Address</label>
 
         <div class="col-md-6">
-            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address"
+            <input id="address" type="text" class="form-control" name="address"
                    value="{{ $club? $club->address : "" }}" autofocus>
-
-            @error('address')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
         </div>
     </div>
 
@@ -71,3 +56,31 @@
         </div>
     </div>
 </form>
+
+<script>
+    // Wait for the DOM to be ready
+    $(function() {
+        $("form[class='club_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+                    @if($clubOwners)
+                    club_owner: "required",
+                    @endif
+                    name: "required",
+                    city: "required",
+                    address: "required",
+                },
+                // Specify validation error messages
+                messages: {
+
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>

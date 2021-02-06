@@ -27,3 +27,7 @@ require('select2/dist/js/select2.min');
 // Swiper slider
 window.Swiper = require('swiper/swiper-bundle.min');
 
+
+// jQuery Validation
+require('jquery-validation/dist/jquery.validate.min');
+

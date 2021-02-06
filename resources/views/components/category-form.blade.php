@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('add_product_category') }}">
+<form method="POST" class="category_form" action="{{ route('add_product_category') }}">
     @csrf
     <input type="hidden" name="category" value="{{ $category->id }}">
     <div class="form-group row">
@@ -21,3 +21,26 @@
         </div>
     </div>
 </form>
+
+<script>
+    // Wait for the DOM to be ready
+    $(function() {
+        $("form[class='category_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+                    name: "required",
+                },
+                // Specify validation error messages
+                messages: {
+
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>

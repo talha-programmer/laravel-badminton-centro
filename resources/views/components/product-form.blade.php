@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('add_product') }}" enctype="multipart/form-data">
+<form method="POST" class="product_form" action="{{ route('add_product') }}" enctype="multipart/form-data">
     @csrf
     <input type="hidden" value="{{ $product->id }}" name="product_id">
 
@@ -13,23 +13,15 @@
         <label for="image{{ $displayProductId()}}" class="col-md-4 col-form-label ">Image</label>
         <div class="col-md-6">
             <input id="image{{ $displayProductId()}}" type="file" accept="image/*" onchange="readURL(this)"
-                   class="mw-100 overflow-hidden @error('image') is-invalid @enderror" name="image" value=""  autofocus>
-            @error('image')
-            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-            @enderror
+                   class="mw-100 overflow-hidden " name="image" value=""  autofocus>
+
         </div>
     </div>
     <div class="form-group row">
         <label for="name{{ $displayProductId()}}" class="col-md-4 col-form-label ">Product Name</label>
         <div class="col-md-6">
-            <input id="name{{ $displayProductId()}}" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $product->name }}" required autofocus>
-            @error('name')
-            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-            @enderror
+            <input id="name{{ $displayProductId()}}" type="text" class="form-control" name="name" value="{{ $product->name }}" required autofocus>
+
         </div>
     </div>
 
@@ -42,13 +34,9 @@
                     <span class="input-group-text">{{ __('currency.code') }}</span>
                 </div>
                 <input id="price{{ $displayProductId()}}" type="number" step="any"
-                       class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}" required>
+                       class="form-control " name="price" value="{{ $product->price }}" required>
             </div>
-            @error('price')
-            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-            @enderror
+
         </div>
     </div>
 
@@ -68,14 +56,9 @@
         <label for="description{{ $displayProductId()}}" class="col-md-4 col-form-label ">Description</label>
 
         <div class="col-md-6">
-            <textarea id="description{{ $displayProductId()}}"  class="form-control @error('description')is-invalid @enderror"
+            <textarea id="description{{ $displayProductId()}}"  class="form-control"
                       name="description"  autofocus>{{ $product->description }}</textarea>
 
-            @error('description')
-            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-            @enderror
         </div>
     </div>
 
@@ -125,6 +108,24 @@
                 readURL(input);
             });
         });
+
+
+        // Form validation
+        $("form[class='product_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+                    name: "required",
+                    price: {required: true, number: true, min:1,},
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+
 
 
 

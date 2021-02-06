@@ -31,6 +31,11 @@ class Tournament extends Model
     }
 
 
+    public function clubTeams(Club $club)
+    {
+        return $this->teams()->with('club')
+            ->where('club_id', '=', $club->id)->get();
+    }
 
 
 

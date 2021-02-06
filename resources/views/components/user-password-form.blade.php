@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('update_user_password', $user) }}">
+<form method="POST" class="password_form" action="{{ route('update_user_password', $user) }}">
     @csrf
 
     <div class="form-group row">
@@ -37,3 +37,29 @@
     </div>
 </form>
 
+
+<script>
+    $(document).ready(function (){
+        // Form validation
+        $("form[class='password_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+                    current_password: "required",
+                    new_password: { required: true, minlength: 5,},
+                    password_confirmation: {
+                        equalTo: "#new_password",
+                    },
+                },
+
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+
+    });
+
+</script>

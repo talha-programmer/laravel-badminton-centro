@@ -16,6 +16,7 @@ class UserServices
         {
             case UserTypes::Admin:
                 $routes[10] = ['name' => 'users', 'description' => 'Users'];
+                $routes[11] = ['name' => 'tournaments', 'description' => 'Tournaments'];
             case UserTypes::Director:
             case UserTypes::ClubOwner:
                 $routes[1] = ['name' => 'clubs', 'description' => 'Clubs'];

@@ -6,6 +6,7 @@ use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\ClubOwner;
 use App\Models\Player;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -87,4 +88,24 @@ class ClubController extends Controller
 
         return back()->with('info', 'Player removed from the selected club!');
     }
+
+    /**
+     * Get teams from a club id through AJAX
+     *
+     */
+    public function getTeams(Request $request)
+    {
+        $clubId = $request->club_id;
+        $club= Club::all()->find($clubId);
+        $teams = $club->teams;
+        $teamsArray = array();
+        foreach ($teams as $team){
+            $teamsArray[$team->id] = $team->name;
+        }
+        if(sizeof($teamsArray) == 0){
+            return back()->with('error', 'No teams found for this club!');
+        }
+        return \response()->json($teamsArray);
+    }
+
 }

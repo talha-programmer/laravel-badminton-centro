@@ -2,15 +2,7 @@
 
 @section('content')
     {{--Header Image--}}
-    <div class="container-fluid">
-        <div class="row cover-image" style="height: 60vh;">
-            <div class="d-flex header-overlay w-100 h-100">
-                <div class="my-auto mx-auto">
-                    <span class="display-3  text-white">The Badminton Centro</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('public.layouts.header')
 
     {{--Teams--}}
     <div class="container-fluid pt-4 pb-5 text-white bg-primary">
@@ -115,7 +107,7 @@
                                 @endforeach
                             </p>
 
-                            <button class="btn btn-secondary">View more</button>
+                            <a href="{{ route('public_single_product', $product) }}" class="btn btn-secondary">View more</a>
                             <button class="btn btn-primary float-right text-white" onclick="addToCart({{ $product->id }})">Add to cart</button>
 
 
@@ -166,16 +158,6 @@
 
     <style>
         @push('style_tag')
-        .cover-image {
-            background-image: url({{ asset('images/HomePageCoverImage.jpg') }});
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position-y: center;
-        }
-
-        .header-overlay {
-            background-color: rgba(31, 31, 31, 0.4);
-        }
 
 
         {{--fixed size for all card images--}}

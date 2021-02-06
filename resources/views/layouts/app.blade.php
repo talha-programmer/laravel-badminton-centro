@@ -88,6 +88,14 @@
             border-bottom-color:#fff;
         }
 
+        .error{
+            color: #d01111;
+        }
+
+        #app{
+            min-height: 89vh;
+        }
+
     </style>
 
 </head>
@@ -105,7 +113,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('public_products') }}">
+                                Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('public_clubs') }}">
+                                Clubs
+                            </a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('public_matches') }}">
+                                Matches
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('public_about') }}">
+                                About
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -154,6 +183,17 @@
         <main>
             @yield('content')
         </main>
+
     </div>
+
+
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <p class="font-italic text-primary mb-0 font-weight-bold">&copy; Copyrights The Badminton Centro All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
 </body>
 </html>

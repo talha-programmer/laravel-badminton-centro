@@ -14,8 +14,8 @@ class CreateTeamsTournamentsTable extends Migration
     public function up()
     {
         Schema::create('teams_tournaments', function (Blueprint $table) {
-            $table->foreignId('tournament_id')->constrained('tournaments');
-            $table->foreignId('team_id')->constrained('teams');
+            $table->foreignId('tournament_id')->constrained('tournaments')->onDelete('cascade');
+            $table->foreignId('team_id')->constrained('teams')->onDelete('cascade');
 
         });
     }

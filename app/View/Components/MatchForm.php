@@ -4,11 +4,14 @@ namespace App\View\Components;
 
 use App\Models\Match;
 use App\Models\Team;
+use App\Models\Tournament;
 use Carbon\Carbon;
 use Illuminate\View\Component;
 
 class MatchForm extends Component
 {
+    public $tournament = null;
+
     public $match = null;
     public $teams = null;
 
@@ -17,17 +20,24 @@ class MatchForm extends Component
     public $teamTwoPlayers = null;
 
 
-
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @param Match|null $match
+     * @param Tournament|null $tournament
      */
-    public function __construct(Match $match = null)
+    public function __construct(Match $match = null, Tournament $tournament = null)
     {
-        $this->teams = Team::all();
+        if($tournament->id > 0){
+            $this->teams = $tournament->teams;
+        } else {
+            $this->teams = Team::all();
+        }
+
+        $this->tournament = $tournament;
+
         $this->match = $match;
-        if($match != null){
+        if($match->id > 0){
             $this->teamOnePlayers = array();
             $this->teamTwoPlayers = array();
 
@@ -64,6 +74,6 @@ class MatchForm extends Component
         if($this->match->id == null){
             return "";
         }
-        return Carbon::create($this->match->match_time)->format('d/m/Y H:i A');
+        return Carbon::create($this->match->match_time)->format('d/m/Y h:i A');
     }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,11 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [PublicController::class, 'home']);
 Route::get('/home', [PublicController::class, 'home'])->name('home');
+Route::get('/public/products', [PublicController::class, 'products'])->name('public_products');
+Route::get('/public/about', [PublicController::class, 'about'])->name('public_about');
+Route::get('/public/product/{product:name}', [PublicController::class, 'singleProduct'])->name('public_single_product');
+Route::get('/public/matches/', [PublicController::class, 'matches'])->name('public_matches');
+Route::get('/public/clubs/', [PublicController::class, 'clubs'])->name('public_clubs');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -84,7 +90,9 @@ Route::delete('/matches/{match}', [MatchController::class, 'destroy'])->name('de
 
 Route::post('/matches/{match}/add_result', [MatchController::class, 'addResult'])->name('add_match_result');
 
-Route::post('/get_team_players', [MatchController::class, 'getPlayers'])->name('get_players');
+Route::post('/get_team_players', [TeamController::class, 'getPlayers'])->name('get_players');
+
+Route::post('/get_club_teams', [ClubController::class, 'getTeams'])->name('get_teams');
 
 
 Route::post('/cart/add_product/', [CartController::class, 'addProduct' ])->name('add_to_cart');
@@ -112,3 +120,11 @@ Route::post('/users/{user}/update_password', [UserController::class, 'updatePass
 
 Route::get('/users/add_user', [UserController::class, 'addUser' ])->name('add_user');
 Route::post('/users/add_user', [UserController::class, 'saveUser' ]);
+
+Route::get('/tournaments', [TournamentController::class, 'index' ])->name('tournaments');
+Route::post('/tournaments/add_tournament', [TournamentController::class, 'store' ])->name('add_tournament');
+Route::post('/tournaments/{tournament}/add_club', [TournamentController::class, 'addClub' ])->name('add_tournament_club');
+
+Route::delete('/tournaments/{tournament}/remove_club', [TournamentController::class, 'removeClub' ])->name('remove_tournament_club');
+Route::delete('/tournaments/{tournament}/remove_team', [TournamentController::class, 'removeTeam' ])->name('remove_tournament_team');
+Route::delete('/tournaments/{tournament}/destroy_tournament', [TournamentController::class, 'destroy' ])->name('destroy_tournament');

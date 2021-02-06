@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('update_user_profile', $user) }}">
+<form method="POST" class="user_form" action="{{ route('update_user_profile', $user) }}">
     @csrf
 
 
@@ -35,3 +35,26 @@
         </div>
     </div>
 </form>
+
+<script>
+    $(document).ready(function (){
+        // Form validation
+        $("form[class='user_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+                    name: "required",
+                    email: { required: true, email: true,},
+                },
+
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+
+    });
+
+</script>

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('add_team', $club) }}">
+<form method="POST" class="team_form" action="{{ route('add_team', $club) }}">
     @csrf
     <input type="hidden" name="team_id" value="{{ $team->id }}">
     <div class="row">
@@ -13,13 +13,9 @@
     <div class="form-group row mt-3">
         <label for="name" class="col-md-3 offset-1 col-form-label">Team Name</label>
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+            <input id="name" type="text" class="form-control " name="name"
                    value="{{ $team ? $team->name : "" }}" required autofocus>
-            @error('name')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+
         </div>
     </div>
 
@@ -31,3 +27,27 @@
         </div>
     </div>
 </form>
+
+
+<script>
+    // Wait for the DOM to be ready
+    $(function() {
+        $("form[class='team_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+                    name: "required",
+                },
+                // Specify validation error messages
+                messages: {
+
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>

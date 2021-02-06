@@ -29,6 +29,7 @@
         "bootbox": "^5.5.2",
         "pc-bootstrap4-datetimepicker": "^4.17.51",
         "select2": "^4.0.13",
-        "swiper": "^6.4.5"
+        "swiper": "^6.4.5",
+        "jquery-validation": "^1.19.3"
     }
 }

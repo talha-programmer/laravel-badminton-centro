@@ -14,7 +14,7 @@ class AddTournamentIdColumnInMatchesTable extends Migration
     public function up()
     {
         Schema::table('matches', function (Blueprint $table) {
-            $table->foreignId('tournament_id')->nullable()->constrained('tournaments');
+            $table->foreignId('tournament_id')->nullable()->constrained('tournaments')->onDelete('cascade');
         });
     }
 

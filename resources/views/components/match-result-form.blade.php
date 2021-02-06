@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('add_match_result', $match) }}">
+<form method="POST" class="match_result_form" action="{{ route('add_match_result', $match) }}">
     @csrf
 
     <input type="hidden" id="team_one_points_match_{{ $match->id }}"  name="team_one_points" value="{{ $match->team_one_points }}" >
@@ -72,6 +72,10 @@
 
 
 <script>
+
+
+
+
     $(document).ready(function (){
         var teamOne = '{{ $match->teamOne->name }}';
         var teamTwo = '{{ $match->teamTwo->name }}';
@@ -114,6 +118,37 @@
             } else if(teamTwoPoints > teamOnePoints){
                 $('#overall_result_match_{{ $match->id }}').empty().append(teamTwo + ' wins!');
             }
+        });
+
+
+        // Form validation
+        $("form[class='match_result_form']").each(function (){
+            $(this).validate({
+                // Specify validation rules
+                rules: {
+
+                    @foreach($match->players as $player)
+                    "points_of_player_{{ $player->id }}": {
+                        required: true,
+                        number: true,
+                        min: 0,
+                    },
+                    @endforeach
+                },
+                // Place errors at the bottom of select2
+                errorPlacement: function (error, element) {
+                    if (element.next('.input-group-append').length) {
+                        error.insertAfter(element.next('.input-group-append'));
+                    }
+
+                },
+
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
         });
 
     });

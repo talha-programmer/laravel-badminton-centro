@@ -7,6 +7,7 @@ use App\Models\Match;
 use App\Models\Player;
 use App\Models\PlayerMatch;
 use App\Models\Team;
+use App\Models\Tournament;
 use Carbon\Carbon;
 use Carbon\PHPStan\Macro;
 use http\Env\Response;
@@ -59,6 +60,12 @@ class MatchController extends Controller
         $match->match_time = $matchTime->format('Y-m-d H:i:s');
 
         $match->match_type = $request->match_type;
+
+        $tournamentId = $request->tournament_id;
+        if($tournamentId > 0){
+            $tournament = Tournament::find($tournamentId);
+            $match->tournament()->associate($tournament);
+        }
 
         $match->save();
 
@@ -157,24 +164,6 @@ class MatchController extends Controller
         return back()->with('info', 'Match result added successfully!');
     }
 
-    /**
-     * Get players from a team id through AJAX
-     *
-     */
-    public function getPlayers(Request $request)
-    {
-        $teamId = $request->team_id;
-        $team = Team::all()->find($teamId);
-        $players = $team->players;
-        $playersArray = array();
-        foreach ($players as $player){
-            $playersArray[$player->id] = $player->user->name;
-        }
-        if(sizeof($playersArray) == 0){
-            return back()->with('error', 'No player is added in any team! Please add players in teams before proceeding!');
-        }
-        return \response()->json($playersArray);
-    }
 
     public function destroy(Match $match)
     {
