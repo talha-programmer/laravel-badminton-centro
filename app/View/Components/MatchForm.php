@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Enums\UserTypes;
 use App\Models\Match;
 use App\Models\Team;
 use App\Models\Tournament;
@@ -31,7 +32,19 @@ class MatchForm extends Component
         if($tournament->id > 0){
             $this->teams = $tournament->teams;
         } else {
-            $this->teams = Team::all();
+            $user = auth()->user();
+            $userType = $user->user_type;
+
+            // Get only the teams of the clubs owned by this club owner
+
+            if($userType === UserTypes::ClubOwner){
+                $clubOwner = $user->userable;
+                $this->teams = $clubOwner->teams;
+
+            } else {
+
+                $this->teams = Team::all();
+            }
         }
 
         $this->tournament = $tournament;

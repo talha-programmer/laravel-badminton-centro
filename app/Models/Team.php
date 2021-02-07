@@ -57,6 +57,12 @@ class Team extends Model
         return $this->belongsToMany(Tournament::class,  'teams_tournaments');
     }
 
+    public function matches()
+    {
+
+        return $this->matchOne->union($this->matchTwo);
+    }
+
 
 }
 

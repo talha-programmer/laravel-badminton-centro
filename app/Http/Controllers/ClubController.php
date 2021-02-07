@@ -7,6 +7,7 @@ use App\Models\Club;
 use App\Models\ClubOwner;
 use App\Models\Player;
 use App\Models\Team;
+use App\Models\Tournament;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,15 +17,34 @@ class ClubController extends Controller
     {
         // club middleware is used to determine which type of users are
         // allowed to manage the clubs
-        $this->middleware(['auth', 'club']);
+        $this->middleware(['auth', 'clubowner']);
+
+        $this->middleware(['director'])->only('store');
+
     }
 
     public function index()
     {
-        $clubs = Club::latest()->with(['teams', 'players', 'players.user'])->paginate(2);
+        $isDirector = false;
+        $user = auth()->user();
+        $userType = $user->user_type;
+
+
+        // Get only the tournaments of the clubs owned by this club owner
+
+        if($userType === UserTypes::ClubOwner){
+            $clubOwner = $user->userable;
+            $clubs = $clubOwner->clubs()->with(['teams', 'players', 'players.user'])->paginate(2);
+
+        } else {
+            $isDirector = true;
+            $clubs = Club::latest()->with(['teams', 'players', 'players.user'])->paginate(2);
+        }
+
 
         return view('club.index', [
             'clubs' => $clubs,
+            'is_director' => $isDirector,
         ]);
 
     }

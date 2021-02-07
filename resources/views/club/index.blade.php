@@ -2,7 +2,8 @@
 
 @section('dashboard_content')
     <div class="container">
-        <div class="row">
+        @if($is_director)
+            <div class="row">
             <div class="col-md-12">
                 <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addClubModel">
                     New Club
@@ -28,6 +29,7 @@
                 </div>
             </div>
         </div>
+        @endif
         @foreach( $clubs as $club )
             <div class="card p-3 my-4">
                 <div class="row">
@@ -402,6 +404,17 @@
             // Display confirmation dialog for deleting the club
             bootbox.confirm("Are you sure you want to delete this club? It will delete " +
                 "all the related teams, matches and players as well!", function (result) {
+
+                // Submit the form if user selects to delete the club
+                if (result === true) {
+                    $(buttonObject).parents('.action-form').submit();
+                }
+            });
+        }
+
+        function deleteTeam(buttonObject) {
+            // Display confirmation dialog for deleting the club
+            bootbox.confirm("Are you sure you want to delete this Team? ", function (result) {
 
                 // Submit the form if user selects to delete the club
                 if (result === true) {

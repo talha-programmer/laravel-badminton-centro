@@ -34,10 +34,10 @@
                                     <td>{{ $player->clubsJoined() }}</td>
                                     <td>{{ $player->teamsJoined() }}</td>
 
-                                    <td>{{ $player->matches()->where('winner_team', '!=', null)->count() }}</td>
-                                    <td>{{ $player->matches()->where('has_won', '=', '1')->count() }}</td>
-                                    <td>{{ $player->matches()->where('has_won', '=', '0')->count() }}</td>
-                                    <td>{{ $player->matches()->where('has_won', '=', '-1')->count() }}</td>
+                                    <td>{{ $player->total_matches }}</td>
+                                    <td>{{ $player->won_matches }}</td>
+                                    <td>{{ $player->lost_matches }}</td>
+                                    <td>{{ $player->tied_matches }}</td>
                                     <td>{{ $player->points }}</td>
 
                                 </tr>

@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Enums\MatchTypes;
+use App\Enums\UserTypes;
 use App\Models\Match;
 use App\Models\Player;
 use App\Models\PlayerMatch;
 use App\Models\Team;
 use App\Models\Tournament;
+use App\Services\PaginationService;
 use App\Services\PlayerServices;
 use Carbon\Carbon;
 use Carbon\PHPStan\Macro;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class MatchController extends Controller
 {
@@ -23,7 +27,30 @@ class MatchController extends Controller
 
     public function index()
     {
-        $matches = Match::latest()->with(['teamOne', 'teamTwo', 'players'])->paginate(3);
+        $user = auth()->user();
+        $userType = $user->user_type;
+
+        // Get only the matches of the teams of this club owner
+
+        if($userType === UserTypes::ClubOwner){
+            $clubOwner = $user->userable;
+            $matches = array();
+            foreach ($clubOwner->teams as $team){
+                foreach ($team->matchOne as $match){
+                    array_push($matches, $match);
+                }
+            }
+
+            //$matches = new LengthAwarePaginator($matches, count($matches), 3, 1);
+
+            $matches = PaginationService::paginate($matches, 3);
+
+        }else {
+
+            $matches = Match::latest()->with(['teamOne', 'teamTwo', 'players'])->paginate(3);
+        }
+
+        //dd($matches);
 
         return view('match.index',[
             'matches' => $matches,

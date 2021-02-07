@@ -69,7 +69,6 @@
                     @endif
                     name: "required",
                     city: "required",
-                    address: "required",
                 },
                 // Specify validation error messages
                 messages: {

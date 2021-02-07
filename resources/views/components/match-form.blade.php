@@ -204,6 +204,7 @@
                     width: '100%',
 
                 });
+                console.log('else called');
             }
         }
 
@@ -254,36 +255,37 @@
 
         // Set all the values of select input fields when editing a match
         @if($match->id !=null)
-        var matchId = {{ $match->id }};
-        var teamOne =  $('#team_one_match_' + matchId);
-        var teamTwo = $('#team_two_match_' + matchId);
+            var matchId = {{ $match->id }};
+            var teamOne =  $('#team_one_match_' + matchId);
+            var teamTwo = $('#team_two_match_' + matchId);
 
-        teamOne.val([{{ $match->teamOne->id }}]);
-        teamTwo.val([{{ $match->teamTwo->id }}]);
+            teamOne.val([{{ $match->teamOne->id }}]);
+            teamTwo.val([{{ $match->teamTwo->id }}]);
 
-        var teamOnePlayers = $('#team_one_players{{ $matchId() }}');
-        var teamTwoPlayers = $('#team_two_players{{ $matchId() }}');
+            var teamOnePlayers = $('#team_one_players{{ $matchId() }}');
+            var teamTwoPlayers = $('#team_two_players{{ $matchId() }}');
 
-        // Add all the player names as options in team one select tag
-        @foreach($match->teamOne->players as $player)
-        var option = new Option('{{$player->user->name}}', {{ $player->id }}, false, false);
-        $(teamOnePlayers).append(option).trigger('change');
-        @endforeach
-        $(teamOnePlayers).prop('disabled', false);
+            // Add all the player names as options in team one select tag
+            @foreach($match->teamOne->players as $player)
+                var option = new Option('{{$player->user->name}}', {{ $player->id }}, false, false);
+                $(teamOnePlayers).append(option).trigger('change');
+            @endforeach
+            $(teamOnePlayers).prop('disabled', false);
 
-        // Add all the player names as options in team two select tag
-        @foreach($match->teamTwo->players as $player)
-        var option = new Option('{{$player->user->name}}', {{ $player->id }}, false, false);
-        $(teamTwoPlayers).append(option).trigger('change');
-        @endforeach
-        $(teamTwoPlayers).prop('disabled', false);
+            // Add all the player names as options in team two select tag
+            @foreach($match->teamTwo->players as $player)
+                var option = new Option('{{$player->user->name}}', {{ $player->id }}, false, false);
+                $(teamTwoPlayers).append(option).trigger('change');
+            @endforeach
 
-        // Select the already added players of team one and team two
-        $(teamOnePlayers).val({{ json_encode($teamOnePlayers) }});
-        $(teamTwoPlayers).val({{ json_encode($teamTwoPlayers) }});
+            $(teamTwoPlayers).prop('disabled', false);
 
-        // Set the values of venue and match time
-        $('#venue{{ $matchId() }}').val('{{ $match->venue }}');
+            // Select the already added players of team one and team two
+            $(teamOnePlayers).val({{ json_encode($teamOnePlayers) }});
+            $(teamTwoPlayers).val({{ json_encode($teamTwoPlayers) }});
+
+            // Set the values of venue and match time
+            $('#venue{{ $matchId() }}').val('{{ $match->venue }}');
 
         @endif
 

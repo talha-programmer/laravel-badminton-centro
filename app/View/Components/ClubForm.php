@@ -40,4 +40,5 @@ class ClubForm extends Component
     public function isSelected($clubOwnerId){
         return $this->club != null && $this->club->clubOwner->id === $clubOwnerId;
     }
+
 }

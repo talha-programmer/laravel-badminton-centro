@@ -57,6 +57,33 @@
                                                 </form>
                                             </li>
 
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-outline-secondary border-0" type="button"
+                                                        onclick="$(this).siblings('#updateProfileModal').modal('show')"
+                                                        data-toggle="tooltip" data-placement="bottom" title="Edit User">
+                                                     <i class="fas fa-edit"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="updateProfileModal" tabindex="-1"
+                                                     aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalLabel">Edit User</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <x-user-form :user="$user"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+
                                         </ul>
                                     </td>
                                 </tr>

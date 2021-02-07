@@ -25,5 +25,10 @@ class ClubOwner extends Model
         return $this->hasMany(Tournament::class, 'club_owner_id');
     }
 
+    public function teams()
+    {
+        return $this->hasManyThrough(Team::class, Club::class);
+    }
+
 
 }

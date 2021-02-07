@@ -8,7 +8,7 @@
                     <div class="col">
                         <button class="btn btn-secondary btn-block" type="button"
                                 onclick="$(this).siblings('#updateProfileModal').modal('show')"
-                                data-toggle="tooltip" data-placement="bottom" title="Edit Category">
+                                data-toggle="tooltip" data-placement="bottom" title="Update Profile">
                             Update Profile <i class="fas fa-edit"></i>
                         </button>
                         <!-- Modal -->

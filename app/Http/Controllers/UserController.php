@@ -44,6 +44,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $user->userable()->delete();
         $user->delete();
 
         return back()->with('info', 'User deleted successfully!');

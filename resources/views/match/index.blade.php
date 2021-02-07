@@ -83,7 +83,16 @@
                             <tbody>
                             <?php $player_counter = 1;?>
                             <?php
-                                $all_players = array();
+                                if($match->match_type == \App\Enums\MatchTypes::SinglePlayer){
+                                    $all_players = array(
+                                        1 => array(),
+                                    );
+                                } else{
+                                    $all_players = array(
+                                        1 => array(),
+                                        2 => array(),
+                                    );
+                                }
                                 foreach ($match->teamOnePlayers() as $player){
                                     $all_players[$player_counter] = array($player);
                                     $player_counter++;
@@ -95,7 +104,6 @@
                                     $player_counter++;
                                 }
                             ?>
-
                             @foreach($all_players as $index=>$players)
                                 <tr>
                                     <td>{{ $index }}</td>
