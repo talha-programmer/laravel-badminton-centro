@@ -8,7 +8,7 @@ use App\Models\Player;
 use App\Models\Product;
 use App\Models\Team;
 use App\Models\Tournament;
-use App\Services\PlayerServices;
+use App\Services\RankingServices;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -21,7 +21,11 @@ class PublicController extends Controller
         $clubs = Club::all();
         $products = Product::latest()->paginate(4);
 
+
         return view('public.home',[
+
+
+
             'teams' => $teams,
             'matches' => $matches,
             'clubs' => $clubs,
@@ -82,7 +86,7 @@ class PublicController extends Controller
 
     public function players()
     {
-        $players = Player::paginate(10);
+        $players = Player::OrderByDesc('ranking')->paginate(10);
 
         return view('public.players', [
             'players' => $players,

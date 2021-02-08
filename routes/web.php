@@ -6,6 +6,7 @@ use App\Http\Controllers\Authentication\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MatchChallengeController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlayerController;
@@ -94,6 +95,8 @@ Route::post('/matches/{match}/add_result', [MatchController::class, 'addResult']
 
 Route::post('/get_team_players', [TeamController::class, 'getPlayers'])->name('get_players');
 
+Route::post('/players/get_club_players', [ClubController::class, 'getPlayers'])->name('get_club_players');
+
 Route::post('/get_club_teams', [ClubController::class, 'getTeams'])->name('get_teams');
 
 
@@ -130,3 +133,10 @@ Route::post('/tournaments/{tournament}/add_club', [TournamentController::class, 
 Route::delete('/tournaments/{tournament}/remove_club', [TournamentController::class, 'removeClub' ])->name('remove_tournament_club');
 Route::delete('/tournaments/{tournament}/remove_team', [TournamentController::class, 'removeTeam' ])->name('remove_tournament_team');
 Route::delete('/tournaments/{tournament}/destroy_tournament', [TournamentController::class, 'destroy' ])->name('destroy_tournament');
+
+
+Route::get('/player/challenge_requests', [MatchChallengeController::class, 'index'])->name('challenge_requests');
+Route::post('/player/save_challenge_request', [MatchChallengeController::class, 'store'])->name('save_challenge_request');
+Route::post('/player/accept_challenge/', [MatchChallengeController::class, 'acceptChallenge'])->name('accept_challenge');
+Route::post('/player/reject_challenge/', [MatchChallengeController::class, 'rejectChallenge'])->name('reject_challenge');
+Route::delete('/player/destroy_challenge/', [MatchChallengeController::class, 'destroy'])->name('destroy_challenge');

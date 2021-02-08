@@ -31,9 +31,14 @@ class UserServices
 
                 $routes[9] = ['name' => 'orders', 'description' => 'Orders'];
         }
+
+        // Add only in case of players
+        if($user_type == UserTypes::Player){
+            $routes[12] = ['name' => 'challenge_requests', 'description' => 'Challenge Requests'];
+        }
+
         ksort($routes);
 
-        //dd($routes);
         return $routes;
     }
 

@@ -59,7 +59,6 @@ class Team extends Model
 
     public function matches()
     {
-
         return $this->matchOne->union($this->matchTwo);
     }
 

@@ -9,6 +9,7 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\Tournament;
 use App\Models\User;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
@@ -17,7 +18,7 @@ class ClubController extends Controller
     {
         // club middleware is used to determine which type of users are
         // allowed to manage the clubs
-        $this->middleware(['auth', 'clubowner']);
+        $this->middleware(['auth', 'clubowner'])->except(['getPlayers', 'getTeams']);
 
         $this->middleware(['director'])->only('store');
 
@@ -126,6 +127,25 @@ class ClubController extends Controller
             return back()->with('error', 'No teams found for this club!');
         }
         return \response()->json($teamsArray);
+    }
+
+    /**
+     * Get players from a club id through AJAX
+     *
+     */
+    public function getPlayers(Request $request)
+    {
+        $clubId = $request->club_id;
+        $club = Club::find($clubId);
+        $players = $club->players;
+        $playersArray = array();
+        foreach ($players as $player){
+            $playersArray[$player->id] = $player->user->name;
+        }
+        /*if(sizeof($playersArray) == 0){
+            return \response()->json(['error', 'No players found for this club!']);
+        }*/
+        return \response()->json($playersArray);
     }
 
 }

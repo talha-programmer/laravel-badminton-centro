@@ -10,7 +10,7 @@ use App\Models\PlayerMatch;
 use App\Models\Team;
 use App\Models\Tournament;
 use App\Services\PaginationService;
-use App\Services\PlayerServices;
+use App\Services\RankingServices;
 use Carbon\Carbon;
 use Carbon\PHPStan\Macro;
 use http\Env\Response;
@@ -41,7 +41,6 @@ class MatchController extends Controller
                 }
             }
 
-            //$matches = new LengthAwarePaginator($matches, count($matches), 3, 1);
 
             $matches = PaginationService::paginate($matches, 3);
 
@@ -173,8 +172,8 @@ class MatchController extends Controller
 
             $playerMatch->save();
 
-            // Total Points of the current player
-            PlayerServices::calculateTotalPoints($player);
+            // Total Points and ranking of the current player
+            RankingServices::calculatePlayerRanking($player);
         }
 
         foreach ($match->teamTwoPlayers() as $player){
@@ -195,7 +194,19 @@ class MatchController extends Controller
             }
 
             $playerMatch->save();
+
+            // Total Points and ranking of the current player
+            RankingServices::calculatePlayerRanking($player);
         }
+
+        RankingServices::calculateTeamRanking($match->teamOne);
+        RankingServices::calculateTeamRanking($match->teamTwo);
+
+        RankingServices::calculateClubRanking($match->teamOne->club);
+        if($match->teamOne->club->id != $match->teamTwo->club->id){
+            RankingServices::calculateClubRanking($match->teamTwo->club);
+        }
+
 
         return back()->with('info', 'Match result added successfully!');
     }

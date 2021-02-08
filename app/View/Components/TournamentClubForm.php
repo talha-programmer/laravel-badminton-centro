@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Enums\TournamentTypes;
 use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\Tournament;
@@ -11,6 +12,7 @@ class TournamentClubForm extends Component
 {
     public $tournament;
     public $clubs;
+    public $no_more_clubs = false;
 
     /**
      * Create a new component instance.
@@ -20,6 +22,12 @@ class TournamentClubForm extends Component
     public function __construct(Tournament $tournament)
     {
         $this->tournament = $tournament;
+
+        if($tournament->tournament_type == TournamentTypes::SingleClub){
+            if($tournament->clubs()->count() == 1){
+                $this->no_more_clubs = true;
+            }
+        }
 
         $user = auth()->user();
         $userType = $user->user_type;

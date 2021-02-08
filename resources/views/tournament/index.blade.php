@@ -130,6 +130,7 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="list-inline">
+
                                         <li class="list-inline-item">
                                             <button class="btn btn-outline-secondary border-0 " type="button"
                                                     onclick="$(this).siblings('#addClubModel').modal('show')"

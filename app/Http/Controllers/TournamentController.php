@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TournamentTypes;
 use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\Team;
@@ -69,10 +70,17 @@ class TournamentController extends Controller
 
     public function addClub(Request $request, Tournament $tournament)
     {
+
         $this->validate($request, [
             'club' => 'required',
             'teams' => 'required',
         ]);
+
+        if($tournament->tournament_type == TournamentTypes::SingleClub){
+            if($tournament->clubs()->count() == 1){
+                return back()->with('error', 'Cannot add more clubs, One club is already added!');
+            }
+        }
 
 
         $clubId = $request->club;

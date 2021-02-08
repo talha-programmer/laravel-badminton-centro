@@ -16,7 +16,7 @@ class PlayerController extends Controller
 
     public function index()
     {
-        $players = Player::latest()->with(['matches' , 'user', 'clubs', 'teams'])->paginate(10);
+        $players = Player::orderByDesc('ranking')->with(['matches' , 'user', 'clubs', 'teams'])->paginate(10);
 
         return view('player.index', [
             'players' => $players

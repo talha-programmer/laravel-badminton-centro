@@ -212,7 +212,7 @@
                                                             @method('DELETE') {{--Will call the delete method of route--}}
                                                             <button class="btn btn-outline-danger border-0" type="button"
                                                                     onclick="removePlayerFromClub(this)" data-toggle="tooltip"
-                                                                    data-placement="top" title="Remove player from this team">
+                                                                    data-placement="top" title="Remove player from Club">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
                                                         </form>

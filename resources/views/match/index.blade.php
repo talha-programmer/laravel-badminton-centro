@@ -122,14 +122,34 @@
                                     @foreach($match->teamOnePlayers() as $player)
                                         {{ $player->user->name }}: {{ $player->pivot->points }} Points <br>
                                     @endforeach
+                                    <h6 class="font-weight-bold">Total: {{ $match->team_one_points }} Points</h6>
+
                                 </div>
                                 <div class="col-5">
                                     <strong>{{ $match->teamTwo->name }}</strong> <br>
                                     @foreach($match->teamTwoPlayers() as $player)
                                         {{ $player->user->name }}: {{ $player->pivot->points }} Points
                                     @endforeach
+                                    <h6 class="font-weight-bold">Total: {{ $match->team_two_points }} Points</h6>
+
                                 </div>
                             </div>
+
+                            <?php
+                            $matchResult = "";
+                            $winnerTeam = $match->winner_team;
+                            $winningPoints = abs($match->team_one_points - $match->team_two_points);
+                            if($winnerTeam == -1){
+                                $matchResult = "Match Tied!";
+                            }else if ($winnerTeam == $match->teamOne->id ){
+                                $matchResult = $match->teamOne->name . " won by " . $winningPoints . " points!";
+                            }else if ($winnerTeam == $match->teamTwo->id ){
+                                $matchResult = $match->teamTwo->name . " won by " . $winningPoints . " points!";
+                            }
+                            ?>
+
+
+                            <h5 class="text-center font-weight-bold mt-4">{{ $matchResult }}</h5>
 
                         @endif
 

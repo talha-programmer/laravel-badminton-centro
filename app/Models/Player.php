@@ -53,4 +53,29 @@ class Player extends Model
         return $allTeams;
     }
 
+
+
+    /**
+     * where the current player is the challenger in match challenge
+     * */
+    public function challenger()
+    {
+        return $this->hasMany(MatchChallenge::class, 'challenger_player');
+    }
+
+
+    /**
+     * where the current player is challenged by another player
+     * */
+    public function challenged()
+    {
+        return $this->hasMany(MatchChallenge::class, 'challenged_player');
+    }
+
+    public function allChallenges()
+    {
+        return $this->challenger->union($this->challenged);
+    }
+
+
 }
