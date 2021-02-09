@@ -30,7 +30,7 @@
             </div>
         </div>
         @endif
-        @foreach( $clubs as $club )
+        @foreach( $clubs as $index=>$club )
             <div class="card p-3 my-4">
                 <div class="row">
                     <div class="col">
@@ -40,6 +40,14 @@
 
                 <div class="row">
                     <div class="col-md-6 border-right">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong>Rank:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <strong>{{ $index }}</strong>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-4">
                                 Owner Name:
@@ -188,7 +196,7 @@
                                 <table class="px-4 table table-bordered mt-3">
                                     <thead>
                                     <tr>
-                                        <th>Sr.</th>
+                                        <th>Rank</th>
                                         <th>Player Name</th>
                                         <th>Actions</th>
                                     </tr>
@@ -196,7 +204,7 @@
                                     <tbody>
                                     <?php $player_counter = 0;?>
 
-                                    @foreach($club->players as $player)
+                                    @foreach($club->players()->orderByDesc('ranking')->get() as $player)
                                         <?php $player_counter++?>
                                         <tr>
                                             <td>{{ $player_counter }}</td>
@@ -239,9 +247,9 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <td>Sr.</td>
-                                <td>Team Name</td>
-                                <td>Actions</td>
+                                <th>Rank</th>
+                                <th>Team Name</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -339,7 +347,7 @@
                                     <table class="px-4 collapse table table-bordered mt-3" id="playersCollapse{{ $team_counter }}">
                                         <thead>
                                             <tr>
-                                                <th>Sr.</th>
+                                                <th>Rank</th>
                                                 <th>Player Name</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -347,7 +355,7 @@
                                         <tbody>
                                         <?php $player_counter = 0;?>
 
-                                        @foreach($team->players as $player)
+                                        @foreach($team->players()->orderBy('ranking')->get() as $player)
                                             <?php $player_counter++?>
                                             <tr>
                                                 <td>{{ $player_counter }}</td>
@@ -387,7 +395,6 @@
             </div>
 
         @endforeach
-
         <div class="d-flex justify-content-center mt-3">
             {{ $clubs->links() }}
 

@@ -9,6 +9,7 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\Tournament;
 use App\Models\User;
+use App\Services\PaginationService;
 use http\Env\Response;
 use Illuminate\Http\Request;
 
@@ -35,16 +36,25 @@ class ClubController extends Controller
 
         if($userType === UserTypes::ClubOwner){
             $clubOwner = $user->userable;
-            $clubs = $clubOwner->clubs()->with(['teams', 'players', 'players.user'])->paginate(2);
+            $clubs = $clubOwner->clubs()->with(['teams', 'players', 'players.user'])->orderByDesc('ranking')->get();
 
         } else {
             $isDirector = true;
-            $clubs = Club::latest()->with(['teams', 'players', 'players.user'])->paginate(2);
+            $clubs = Club::with(['teams', 'players', 'players.user'])->orderByDesc('ranking')->get();
         }
 
+        // Converting to array to retain the rank as index for pagination
+        $clubArray = array();
+        $index = 1;
+        foreach ($clubs as $club){
+            $clubArray[$index] = $club;
+            $index++;
+        }
+
+        $clubArray = PaginationService::paginate($clubArray, 2);
 
         return view('club.index', [
-            'clubs' => $clubs,
+            'clubs' => $clubArray,
             'is_director' => $isDirector,
         ]);
 

@@ -69,9 +69,13 @@ class RankingServices
         $tied = 0;
 
         $matches = $team->matches()->unique();
-        $totalMatches = count($matches);
+        $totalMatches = 0;
 
         foreach ($matches as $match) {
+            if($match->winner_team == null){
+                continue;
+            }
+            $totalMatches++;
             if($match->winner_team == $team->id){
                 $won++;
             } else if($match->winner_team == -1){

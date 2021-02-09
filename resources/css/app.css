@@ -1,0 +1,12 @@
+.list-inline button{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list-inline{
+    margin-bottom: 0;
+}
+
+.btn-primary{
+    color: white;
+}
