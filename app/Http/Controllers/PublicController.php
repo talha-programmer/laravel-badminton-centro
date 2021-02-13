@@ -8,6 +8,7 @@ use App\Models\Player;
 use App\Models\Product;
 use App\Models\Team;
 use App\Models\Tournament;
+use App\Services\PaginationService;
 use App\Services\RankingServices;
 use Illuminate\Http\Request;
 
@@ -76,20 +77,40 @@ class PublicController extends Controller
 
     public function clubs()
     {
-        $clubs = Club::paginate(3);
+        $clubs = Club::all();
+
+        // Converting to array to retain the rank as index for pagination
+        $clubArray = array();
+        $index = 1;
+        foreach ($clubs as $club){
+            $clubArray[$index] = $club;
+            $index++;
+        }
+
+        $clubArray = PaginationService::paginate($clubArray, 3);
+
 
         return view('public.clubs', [
-            'clubs' => $clubs,
+            'clubs' => $clubArray,
             'page_name' => 'Home/Clubs'
         ]);
     }
 
     public function players()
     {
-        $players = Player::OrderByDesc('ranking')->paginate(10);
+        $players = Player::OrderByDesc('ranking')->get();
+        // Converting to array to retain the rank as index for pagination
+        $playersArray= array();
+        $index = 1;
+        foreach ($players as $player){
+            $playersArray[$index] = $player;
+            $index++;
+        }
+
+        $playersArray = PaginationService::paginate($playersArray, 10);
 
         return view('public.players', [
-            'players' => $players,
+            'players' => $playersArray,
             'page_name' => 'Home/Players'
         ]);
     }

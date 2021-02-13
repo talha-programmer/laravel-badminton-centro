@@ -27,10 +27,10 @@
     </div>
 
 
-    <div class="form-group row mb-0 justify-content-center">
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary btn-block">
-                Save
+    <div class="form-group row mb-0 mt-4">
+        <div class="col-md-4 offset-md-4 ">
+            <button type="submit" class="btn btn-primary w-100">
+                <span class="font-weight-bold" style="font-size: large;">Save</span>
             </button>
         </div>
     </div>

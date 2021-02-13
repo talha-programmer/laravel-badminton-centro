@@ -13,7 +13,7 @@
                             <table class="px-4 table table-bordered mt-3" style="width: 1100px;">
                                 <thead>
                                 <tr>
-                                    <th>Sr.</th>
+                                    <th>Rank</th>
                                     <th>Player Name</th>
                                     <th>Clubs Joined</th>
                                     <th>Teams Joined</th>
@@ -21,7 +21,6 @@
                                     <th>Won</th>
                                     <th>Lost</th>
                                     <th>Tied</th>
-                                    <th>Rank</th>
                                     <th>Total Points</th>
                                 </tr>
                                 </thead>
@@ -40,7 +39,6 @@
                                         <td>{{ $player->won_matches }}</td>
                                         <td>{{ $player->lost_matches }}</td>
                                         <td>{{ $player->tied_matches }}</td>
-                                        <td>{{ $player_counter }}</td>
                                         <td>{{ $player->points }}</td>
 
                                     </tr>

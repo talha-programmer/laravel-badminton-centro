@@ -12,7 +12,7 @@
         <div class="row row-cols-1 mt-5 row-cols-md-2 px-md-5 justify-content-center">
 
             @foreach($upcoming_matches as $match)
-                <div class="p-4 text-white">
+                <div class="p-4 text-white" data-aos="fade-right">
                     <div class="col shadow bg-primary pb-4" style="min-height: 310px; border-radius: 10% 30%;">
                         <div class="text-white pt-4">
                             <h5 class="float-left"><i class="fas fa-calendar"></i>
@@ -50,7 +50,7 @@
         <div class="row row-cols-1 mt-5 row-cols-md-2 px-md-5 justify-content-center">
 
             @foreach($previous_matches as $match)
-                <div class="p-4 text-white">
+                <div class="p-4 text-white" data-aos="fade-left">
                     <div class="col shadow bg-primary pb-4" style="min-height: 475px; border-radius: 10% 30%;">
                         <div class="text-white pt-4">
                             <h5 class="float-left"><i class="fas fa-calendar"></i>

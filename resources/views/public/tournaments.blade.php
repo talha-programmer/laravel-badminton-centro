@@ -11,13 +11,13 @@
 
             @foreach($tournaments as $tournament)
 
-                <div class="row mt-5">
+                <div class="row mt-5" data-aos="fade">
                     <div class="col mx-5 ">
                         <h3 class="rounded-pill bg-light p-3 text-center mx-5">{{ $tournament->name }}</h3>
 
                     </div>
                 </div>
-                <div class="row justify-content-center mb-2">
+                <div class="row justify-content-center mb-2" data-aos="fade">
                         <div class="col-5 ">
                             <div class="row">
                                 <div class="col-md-3">

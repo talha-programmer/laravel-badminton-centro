@@ -6,7 +6,7 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-8">
                 <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addRequestModel">
-                    Initiate Request
+                    Challenge a Player
                     <i class="fas fa-plus"></i>
                 </button>
                 <!-- Modal -->
@@ -31,7 +31,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Challenge Requests Send</div>
 
@@ -42,7 +42,7 @@
                                 <tr>
                                     <th>Sr.</th>
                                     <th>Send To</th>
-                                    <th>Date</th>
+                                    <th>Requested Match Time</th>
                                     <th>Status</th>
                                     <th>Action</th>
 
@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>{{ $request_counter }}</td>
                                         <td>{{ $request_send->challengedPlayer->user->name }}</td>
-                                        <td>{{ $request_send->created_at }}</td>
+                                        <td>{{ \Carbon\Carbon::create($request_send->match_time)->format('l jS F Y \\, h:i A') }}</td>
                                         <td>{{ \App\Enums\ChallengeStatus::getDescription($request_send->status) }}</td>
                                         <td>
                                             <ul class="list-inline">
@@ -98,7 +98,7 @@
                                 <tr>
                                     <th>Sr.</th>
                                     <th>Received From</th>
-                                    <th>Date</th>
+                                    <th>Requested Match Time</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -112,7 +112,7 @@
                                     <tr>
                                         <td>{{ $request_counter }}</td>
                                         <td>{{ $request_received->challengerPlayer->user->name }}</td>
-                                        <td>{{ $request_received->created_at }}</td>
+                                        <td>{{ \Carbon\Carbon::create($request_received->match_time)->format('l jS F Y \\, h:i A') }}</td>
                                         <td>{{ \App\Enums\ChallengeStatus::getDescription($request_received->status) }}</td>
                                         <td>
                                             @if(\App\Enums\ChallengeStatus::fromValue($request_received->status)->is(\App\Enums\ChallengeStatus::Pending))

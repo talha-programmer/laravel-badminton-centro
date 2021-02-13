@@ -7,6 +7,7 @@ use App\Enums\UserTypes;
 use App\Models\Club;
 use App\Models\MatchChallenge;
 use App\Models\Player;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MatchChallengeController extends Controller
@@ -46,6 +47,10 @@ class MatchChallengeController extends Controller
         $challengeRequest->challengerPlayer()->associate($currentPlayer);
         $challengeRequest->challengedPlayer()->associate($challengedPlayer);
         $challengeRequest->status = ChallengeStatus::Pending;
+
+        $matchTime = Carbon::createFromFormat('d/m/Y H:i A', $request->match_time);
+        $challengeRequest->match_time = $matchTime->format('Y-m-d H:i:s');
+
 
         $challengeRequest->save();
 

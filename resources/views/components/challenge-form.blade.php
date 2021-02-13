@@ -25,6 +25,15 @@
         </div>
     </div>
 
+
+    <div class="form-group row">
+        <label for="match_time" class="col-md-3  col-form-label offset-1 ">Match Time</label>
+
+        <div class="col-md-6">
+            <input id="match_time" type="text" class="form-control datetimepicker" name="match_time" required>
+        </div>
+    </div>
+
     <div class="form-group row mb-0 mt-4 justify-content-center">
         <div class="col-md-6 ">
             <button type="submit" class="btn btn-primary w-100">
@@ -35,6 +44,15 @@
 </form>
 
 <script>
+
+
+    $(function () {
+        $('.datetimepicker').datetimepicker({
+            sideBySide: true,
+            format: 'DD/MM/yyyy hh:mm A',
+        });
+    });
+
     // Wait for the DOM to be ready
     $(function() {
         $("form[class='challenge_form']").each(function (){
@@ -43,6 +61,7 @@
                 rules: {
                     club: { required:true, min:1},
                     player: { required:true, min:1},
+                    match_time: "required",
                 },
                 // Specify validation error messages
                 messages: {

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->only('checkout');
+    }
+
     public function addProduct(Request $request)
     {
         $productId = $request->product_id;

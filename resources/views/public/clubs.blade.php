@@ -7,9 +7,9 @@
     <div class="container">
 
 
-    @foreach( $clubs as $club )
+    @foreach( $clubs as $index=>$club )
 
-            <div class="row justify-content-center p-3 ">
+            <div class="row justify-content-center p-3 " data-aos="fade-in">
                 <div class="col-10">
                     <div class="card p-3 my-2">
                         <div class="row">
@@ -20,6 +20,16 @@
 
                         <div class="row">
                             <div class="col-md-6 border-right">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <strong>Rank:</strong>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>{{ $index }}</strong>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-4">
                                         Owner:

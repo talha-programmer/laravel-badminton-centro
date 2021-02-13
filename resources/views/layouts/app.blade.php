@@ -22,6 +22,25 @@
     <style>
         @stack('style_tag')
 
+        body {
+            padding-top:80px;
+        }
+
+        .navbar {
+            -webkit-transition:padding 0.2s ease;
+            -moz-transition:padding 0.2s ease;
+            -o-transition:padding 0.2s ease;
+            transition:padding 0.2s ease;
+        }
+
+        .affix {
+            padding-top: 0.2em !important;
+            padding-bottom: 0.2em !important;
+            -webkit-transition:padding 0.2s linear;
+            -moz-transition:padding 0.2s linear;
+            -o-transition:padding 0.2s linear;
+            transition:padding 0.2s linear;
+        }
 
         .main-section{
             background-color: #F8F8F8;
@@ -101,7 +120,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md py-3 navbar-light fixed-top bg-light shadow-sm" data-toggle="affix">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     The Badminton Centro
@@ -227,7 +246,47 @@
         @if(session('error'))
         bootbox.alert("<span class = \"text-danger\">{{ session('error') }}</span>");
         @endif
+
+        $(document).ready(function() {
+
+            var toggleAffix = function(affixElement, scrollElement, wrapper) {
+
+                var height = affixElement.outerHeight(),
+                    top = wrapper.offset().top;
+
+                if (scrollElement.scrollTop() >= top){
+                    wrapper.height(height);
+                    affixElement.addClass("affix");
+                }
+                else {
+                    affixElement.removeClass("affix");
+                    wrapper.height('auto');
+                }
+
+            };
+
+
+            $('[data-toggle="affix"]').each(function() {
+                var ele = $(this),
+                    wrapper = $('<div></div>');
+
+                ele.before(wrapper);
+                $(window).on('scroll resize', function() {
+                    toggleAffix(ele, $(this), wrapper);
+                });
+
+                // init
+                toggleAffix(ele, $(window), wrapper);
+            });
+
+
+            window.AOS.init();
+
+        });
+
     </script>
+
+
 
 </body>
 </html>

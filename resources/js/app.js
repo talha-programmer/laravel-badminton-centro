@@ -31,3 +31,18 @@ window.Swiper = require('swiper/swiper-bundle.min');
 // jQuery Validation
 require('jquery-validation/dist/jquery.validate.min');
 
+/*
+// Add wow animations
+window.WOW = require('wow.js/dist/wow.min');
+
+
+//add smooth scrolling
+$(document).ready(function() {
+
+
+
+});
+*/
+
+window.AOS = require('aos/dist/aos');
+

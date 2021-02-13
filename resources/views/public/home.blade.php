@@ -5,15 +5,15 @@
     @include('public.layouts.header')
 
     {{--Teams--}}
-    <div class="container-fluid pt-4 pb-5 text-white bg-primary">
+    <div class="container-fluid pt-4 pb-5 text-white bg-primary ">
         <h1 class="text-center">Teams</h1>
         <hr>
         <!-- Swiper -->
-        <div class="swiper-container mt-5">
+        <div class="swiper-container mt-5 " >
 
             <div class="swiper-wrapper">
                 @foreach($teams as $team)
-                    <div class="swiper-slide border-right">
+                    <div class="swiper-slide border-right" data-aos="fade-left">
                         <div class="d-flex align-content-center">
                             <div class="flex-column mx-auto text-center">
                                 <img src="{{ asset('images/TeamLogo.png') }}" height="100" alt="">
@@ -29,15 +29,15 @@
     </div>
 
     {{--Upcoming Matches--}}
-    <div class="container-fluid py-4" style="background-color: #e4e4e4">
-        <h1 class="text-center text-primary">Matches</h1>
+    <div class="container-fluid py-4 " id="matches_container">
+        <h1 class="text-center text-white">Matches</h1>
         <hr>
 
-        <div class="row row-cols-1 mt-5 row-cols-md-2 px-md-5 justify-content-center">
+        <div id="matches" class="row row-cols-1 row-cols-md-2 px-md-5 justify-content-center overflow-auto" style="height: 300px;">
 
             @foreach($matches as $match)
                 <div class="p-4">
-                    <div class="col shadow bg-primary" style="min-height: 250px; border-radius: 10% 30%;">
+                    <div class="col shadow bg-primary" data-aos="fade-up" style="min-height: 250px; border-radius: 10% 30%;">
                         <div class="text-white pt-4">
                             <h5 class="float-left"><i class="fas fa-calendar"></i>
                                 {{ \Carbon\Carbon::create($match->match_time)->format('jS F Y') }}
@@ -98,7 +98,7 @@
         <div class="row row-cols-1 mt-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 px-md-5 justify-content-center">
 
             @foreach($products as $product)
-                <div class="col mb-4 " >
+                <div class="col mb-4 " data-aos="fade-right" >
                     <div class="card" style="border-radius: 5%;">
                         <img @if(!$product->image_url) style="object-fit: cover;"  @endif src="{{ asset($product->image_url? $product->image_url : 'images/image.png') }}" class="card-img-top" alt="">
                         <div class="card-body">
@@ -127,7 +127,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-6">
-                <a href="{{ route('public_products') }}" class="btn btn-light btn-block rounded-pill py-3 mt-4"> View All Products</a>
+                <a href="{{ route('public_products') }}" data-aos="fade-up" class="btn btn-light btn-block rounded-pill py-3 mt-4"> View All Products</a>
 
             </div>
         </div>
@@ -180,6 +180,36 @@
             height: 15vw;
             object-fit: contain;
         }
+
+
+        #matches_container {
+            background-image: url("{{ asset('images/home-background-1.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+
+        #matches::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: transparent;
+        }
+
+        #matches::-webkit-scrollbar
+        {
+            width: 12px;
+            background-color: transparent;
+        }
+
+        #matches::-webkit-scrollbar-thumb
+        {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+
+
 
 
         @endpush
