@@ -62,6 +62,8 @@ Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('destro
 
 
 Route::post('/clubs/add_player', [PlayerController::class, 'store'])->name('add_player');
+Route::post('/clubs/add_club_player', [PlayerController::class, 'addClub'])->name('add_club_player');
+
 Route::delete('/clubs/{club}/{player}', [ClubController::class, 'removePlayer'])->name('remove_player_from_club');
 
 Route::get('/players', [PlayerController::class, 'index'])->name('players');

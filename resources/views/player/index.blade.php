@@ -10,12 +10,14 @@
 
                     <div class="card-body">
                         <div class="overflow-auto">
-                            <table class="px-4 table table-bordered mt-3" style="width: 1100px;">
+                            <table class="px-4 chan-1 table table-bordered mt-3" style="width: 1100px;">
                                 <thead>
                                 <tr>
                                     <th>Rank</th>
                                     <th>Player Name</th>
-                                    <th>Clubs Joined</th>
+                                    <th>Club Joined</th>
+                                    <th>Contract Start</th>
+                                    <th>Contract End</th>
                                     <th>Teams Joined</th>
                                     <th>Matches Played</th>
                                     <th>Won</th>
@@ -33,6 +35,8 @@
                                         <td>{{ $player_counter }}</td>
                                         <td>{{ $player->user->name }}</td>
                                         <td>{{ $player->clubsJoined() }}</td>
+                                        <td>{{ \Carbon\Carbon::create($player->clubs()->first()->pivot->contract_start)->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::create($player->clubs()->first()->pivot->contract_end)->format('d/m/Y') }}</td>
                                         <td>{{ $player->teamsJoined() }}</td>
 
                                         <td>{{ $player->total_matches }}</td>
@@ -57,6 +61,11 @@
             </div>
         </div>
     </div>
-    
+
+    <style>
+        .chan-1 {
+            color: #777;
+        }
+    </style>
 
 @endsection

@@ -6,6 +6,10 @@ global.bootbox = require('bootbox/dist/bootbox.min');
 // Bootstrap DateTime Picker
 require('pc-bootstrap4-datetimepicker/build/js/bootstrap-datetimepicker.min');
 
+
+// Bootstrap datepicker
+require('./bootstrap-datepicker.min');
+
 // Set icons for DateTime Picker
 $.extend(true, $.fn.datetimepicker.defaults, {
     icons: {
@@ -30,19 +34,6 @@ window.Swiper = require('swiper/swiper-bundle.min');
 
 // jQuery Validation
 require('jquery-validation/dist/jquery.validate.min');
-
-/*
-// Add wow animations
-window.WOW = require('wow.js/dist/wow.min');
-
-
-//add smooth scrolling
-$(document).ready(function() {
-
-
-
-});
-*/
 
 window.AOS = require('aos/dist/aos');
 

@@ -14,8 +14,6 @@ class MatchChallengeController extends Controller
 {
     public function index()
     {
-
-
         $user = auth()->user();
         $userType = $user->user_type;
 
@@ -24,7 +22,18 @@ class MatchChallengeController extends Controller
             $player = $user->userable;
 
             $requestsSend = $player->challenger()->latest()->get();
+
             $requestsReceived = $player->challenged()->latest()->get();
+
+            foreach ($requestsSend->union($requestsReceived) as $request){
+                if($request->status == ChallengeStatus::Accepted){
+                    $matchTime = $request->match_time;
+                    if(Carbon::today() > $matchTime){
+                        $request->status = ChallengeStatus::Completed;
+                        $request->save();
+                    }
+                }
+            }
 
 
         } else{

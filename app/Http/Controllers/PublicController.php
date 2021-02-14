@@ -77,7 +77,7 @@ class PublicController extends Controller
 
     public function clubs()
     {
-        $clubs = Club::all();
+        $clubs = Club::with(['teams', 'players', 'players.user'])->orderByDesc('ranking')->get();
 
         // Converting to array to retain the rank as index for pagination
         $clubArray = array();

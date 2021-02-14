@@ -87,6 +87,8 @@ class ClubController extends Controller
         $club->name = $request->name;
         $club->city = $request->city;
         $club->address = $request->address;
+        $club->membership_fee = $request->membership_fee;
+        $club->coach_name = $request->coach_name;
         $club->club_owner_id = $club_owner->id;
 
         $club->save();

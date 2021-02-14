@@ -25,12 +25,19 @@ class UserController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(15);
+        $userType = $request->user_type;
+        if(isset($userType) && $userType != -1){
+            $users = User::where('user_type', '=', $userType)->orderBy('name')->paginate(15);
+        }else {
+            $userType = -1;
+            $users = User::orderBy('name')->paginate(15);
+        }
 
         return view('user.index', [
             'users' => $users,
+            'user_type' =>$userType,
         ]);
     }
 

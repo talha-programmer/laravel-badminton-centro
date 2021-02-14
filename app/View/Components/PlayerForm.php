@@ -23,7 +23,7 @@ class PlayerForm extends Component
         $this->club = $club;
         $this->team = $team;
 
-        $this->players = Player::all();
+        $this->players = $this->club->players;
     }
 
     /**

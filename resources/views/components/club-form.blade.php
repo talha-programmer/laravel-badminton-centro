@@ -48,6 +48,29 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label for="membership_fee" class="col-md-3 offset-1 pr-0 col-form-label">Membership Fee</label>
+
+        <div class="col-md-6 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">{{ __('currency.code') }}</span>
+            </div>
+            <input id="membership_fee" type="number" step="any" class="form-control" name="membership_fee"
+                   value="{{ $club->membership_fee }}" autofocus>
+        </div>
+
+
+    </div>
+
+    <div class="form-group row">
+        <label for="coach_name" class="col-md-3 offset-1 col-form-label">Coach Name</label>
+
+        <div class="col-md-6">
+            <input id="coach_name" type="text" class="form-control" name="coach_name"
+                   value="{{ $club->coach_name }}" autofocus>
+        </div>
+    </div>
+
     <div class="form-group row mb-0 mt-4">
         <div class="col-md-4 offset-md-4 ">
             <button type="submit" class="btn btn-primary w-100">

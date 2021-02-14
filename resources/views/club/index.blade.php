@@ -39,9 +39,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 border-right">
+                    <div class="col-md-7 border-right">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <strong>Rank:</strong>
                             </div>
                             <div class="col-md-8">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 Owner Name:
                             </div>
                             <div class="col-md-8">
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 City:
                             </div>
                             <div class="col-md-8">
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 Address:
                             </div>
                             <div class="col-md-8">
@@ -79,6 +79,34 @@
 
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                Membership Fee:
+                            </div>
+                            <div class="col-md-8">
+                                @if($club->membership_fee != "")
+                                    {{ __('currency.code') }} {{ $club->membership_fee }}
+                                @else
+                                    <span class="text-muted">Not provided</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                Coach Name:
+                            </div>
+                            <div class="col-md-8">
+                                @if($club->coach_name != "")
+                                    {{ $club->coach_name }}
+                                @else
+                                    <span class="text-muted">Not provided</span>
+                                @endif
+
+                            </div>
+                        </div>
+
                         <hr>
 
                         <div class="row mt-3">
@@ -174,7 +202,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <x-player-form :club="$club"/>
+                                                            <x-club-player-form :club="$club"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -193,11 +221,13 @@
                                 <h5>All Players of Club:</h5>
 
                                 {{--Club Players--}}
-                                <table class="px-4 table table-bordered mt-3">
+                                <table class="px-4 chan-1 table table-bordered mt-3">
                                     <thead>
                                     <tr>
                                         <th>Rank</th>
                                         <th>Player Name</th>
+                                        <th>Contract Start</th>
+                                        <th>Contract End</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -209,6 +239,8 @@
                                         <tr>
                                             <td>{{ $player_counter }}</td>
                                             <td>{{ $player->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::create($player->pivot->contract_start)->format('d/m/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::create($player->pivot->contract_end)->format('d/m/Y') }}</td>
                                             <td>
                                                 {{--Action Buttons--}}
                                                 <ul class="list-inline">
@@ -226,6 +258,35 @@
                                                         </form>
                                                     </li>
 
+                                                    <li class="list-inline-item">
+                                                        <button class="btn btn-outline-secondary border-0 d-flex" type="button"
+                                                                onclick="$(this).siblings('#addPlayerModel').modal('show')"
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Edit Player">
+                                                            <i class="fas fa-edit "></i>
+                                                        </button>
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="addPlayerModel" tabindex="-1"
+                                                             aria-labelledby="modalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="modalLabel">Edit Club Player</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <x-club-player-form :club="$club" :player="$player"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </li>
+
+
                                                 </ul>
                                             </td>
                                         </tr>
@@ -239,7 +300,7 @@
 
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="row">
                             <div class="col"><h5>Teams of Club:</h5></div>
                         </div>
@@ -344,7 +405,7 @@
                                         Team Players <i class="fa fa-sort-down"></i>
                                     </button>
 
-                                    <table class="px-4 collapse table table-bordered mt-3" id="playersCollapse{{ $team_counter }}">
+                                    <table class="px-4 chan-1 collapse table table-bordered mt-3" id="playersCollapse{{ $team_counter }}">
                                         <thead>
                                             <tr>
                                                 <th>Rank</th>
@@ -403,7 +464,11 @@
 
     </div>
 
-
+    <style>
+        .chan-1 {
+            color: #777;
+        }
+    </style>
 
 
     <script>

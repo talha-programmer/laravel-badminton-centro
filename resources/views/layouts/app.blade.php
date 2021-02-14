@@ -33,6 +33,11 @@
             transition:padding 0.2s ease;
         }
 
+        .nav-item:hover{
+            background-color: lightgray;
+            border-radius: 5%;
+        }
+
         .affix {
             padding-top: 0.2em !important;
             padding-bottom: 0.2em !important;
@@ -98,7 +103,7 @@
             height:50px;
             padding-top: 12px;
         }
-        .dropdown-menu:before{
+        #cart .dropdown-menu:before{
             content: " ";
             position:absolute;
             top:-20px;
@@ -120,8 +125,9 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md py-3 navbar-light fixed-top bg-light shadow-sm" data-toggle="affix">
+        <nav class="navbar navbar-expand-md py-3 navbar-light fixed-top bg-light shadow-sm" data-toggle="affix" id="nav_container">
             <div class="container">
+                <img src="{{ asset('images/main-logo.png') }}" height="50" alt="">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     The Badminton Centro
                 </a>
@@ -232,10 +238,71 @@
 
 
     <footer class="bg-light py-4">
+    {{--
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h5><i class="fa fa-road"></i> BadmintonCentroOfficial.</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <ul class="list-unstyled">
+                            <li><a href="{{ route('public_products') }}">Product</a></li>
+                            <li><a href="">Benefits</a></li>
+                            <li><a href="">Partners</a></li>
+                            <li><a href="">Team</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul class="list-unstyled">
+                            <li><a href="">Documentation</a></li>
+                            <li><a href="">Support</a></li>
+                            <li><a href="">Legal Terms</a></li>
+                            <li><a href="">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="nav">
+                    <li class="nav-item"><a href="" class="nav-link pl-0"><i class="fa fa-facebook fa-lg"></i></a></li>
+                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-twitter fa-lg"></i></a></li>
+                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-github fa-lg"></i></a></li>
+                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-instagram fa-lg"></i></a></li>
+                </ul>
+                <br>
+            </div>
+            <div class="col-md-2">
+                <h5 class="text-md-right">Contact Us</h5>
+                <hr>
+            </div>
+            <div class="col-md-5">
+                <form>
+                    <fieldset class="form-group">
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <textarea class="form-control" id="exampleMessage" placeholder="Message"></textarea>
+                    </fieldset>
+                    <fieldset class="form-group text-xs-right">
+                        <button type="button" class="btn btn-secondary-outline btn-lg">Send</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    --}}
         <div class="container text-center">
             <p class="font-italic text-primary mb-0 font-weight-bold">&copy; Copyrights The Badminton Centro All rights reserved.</p>
         </div>
     </footer>
+
+    <style>
+
+    #nav_container {
+            background-image: url("{{ asset('images/nav-bg.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    
+    </style>
 
     <script>
 

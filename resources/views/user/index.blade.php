@@ -3,12 +3,37 @@
 @section('dashboard_content')
     <div class="container">
         <div class="row justify-content-center mb-3">
-            <div class="col-md-12">
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
                 <a href="{{ route('add_user') }}" class="btn btn-secondary btn-block" >
                     New User
                     <i class="fas fa-user-plus"></i>
                 </a>
             </div>
+
+            <div class="col-md-5 offset-1 ">
+
+                <form action="{{ route('users') }}" id="user_type_form" method="GET">
+                <div class="form-group row ">
+                    <label for="user-type" class="col-md-4 col-form-label "><strong>User Type</strong></label>
+
+                    <div class="col-md-8">
+                        <select id="user-type" class="form-control" name="user_type" onchange="$('#user_type_form').submit()">
+                            <option value="-1" @if($user_type == -1) selected @endif>All Users</option>
+                            @foreach(\App\Enums\UserTypes::asSelectArray() as $type_value=>$type_name)
+                                <option value="{{ $type_value }}" @if($user_type == $type_value) selected @endif>{{ $type_name }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+                </form>
+            </div>
+
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -16,7 +41,7 @@
                     <div class="card-header">All Users</div>
 
                     <div class="card-body">
-                        <table class="px-4 table table-bordered mt-3">
+                        <table class="px-4 chan-1 table table-bordered mt-3">
                             <thead>
                             <tr>
                                 <th>Sr.</th>
@@ -93,7 +118,7 @@
                 </div>
 
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mt-4">
                     {{ $users->links() }}
 
                 </div>
@@ -102,6 +127,12 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .chan-1 {
+            color: #777;
+        }
+    </style>
 
     <script>
         function deleteUser(buttonObject) {

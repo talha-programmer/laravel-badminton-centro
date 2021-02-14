@@ -11,9 +11,11 @@ class Club extends Model
     protected $table = "clubs";
 
     protected $fillable = [
-      'name',
-      'city',
-      'address',
+        'name',
+        'city',
+        'address',
+        'membership_fee',
+        'coach_name',
     ];
 
     public function clubOwner()
@@ -28,7 +30,7 @@ class Club extends Model
 
     public function players()
     {
-        return $this->belongsToMany(Player::class, 'clubs_joined');
+        return $this->belongsToMany(Player::class, 'clubs_joined')->withPivot(['contract_start', 'contract_end']);
     }
 
     public function tournaments()

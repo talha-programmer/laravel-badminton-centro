@@ -24,7 +24,7 @@ class Player extends Model
 
     public function clubs()
     {
-        return $this->belongsToMany(Club::class, 'clubs_joined');
+        return $this->belongsToMany(Club::class, 'clubs_joined')->withPivot(['contract_start', 'contract_end']);
     }
 
     public function matches()

@@ -11,7 +11,7 @@
                         <?php $user = \App\Enums\UserTypes::fromValue(auth()->user()->user_type) ?>
 
                         <div style=" overflow: auto;">
-                            <table class="px-4 table table-bordered mt-3" style="min-width: 1100px;">
+                            <table class="px-4 chan-1 table table-bordered mt-3" style="min-width: 1100px;">
                                 <thead>
                                 <tr>
                                     <th>Sr.</th>
@@ -94,6 +94,12 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .chan-1 {
+            color: #777;
+        }
+    </style>
 
     <script>
         function deleteOrder(buttonObject) {

@@ -39,4 +39,14 @@ class TournamentForm extends Component
         }
         return false;
     }
+
+    public function tournamentId()
+    {
+        $text = "";
+        if($this->tournament->id != null){
+            $text .= "_tournament_" . $this->tournament->id;
+        }
+        return $text;
+    }
+
 }

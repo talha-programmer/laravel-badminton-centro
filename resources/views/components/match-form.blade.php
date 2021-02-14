@@ -44,7 +44,7 @@
                 <select id="team_one{{ $matchId() }}" class="form-control select2" name="team_one">
                     <option value="-1">---Select Team---</option>
                     @foreach($teams as $team)
-                        <option value="{{ $team->id }}">{{ $team->name }}</option>
+                        <option value="{{ $team->id }}" @if($match->teamOne->id == $team->id) selected="selected" @endif>{{ $team->name }}</option>
                     @endforeach
                 </select>
 
@@ -71,7 +71,7 @@
                 <select id="team_two{{ $matchId() }}" class="form-control select2" name="team_two">
                     <option value="-1">---Select Team---</option>
                     @foreach($teams as $team)
-                        <option value="{{ $team->id }}">{{ $team->name }}</option>
+                        <option value="{{ $team->id }}" @if($match->teamTwo->id == $team->id) selected="selected" @endif>{{ $team->name }}</option>
                     @endforeach
                 </select>
 
@@ -173,14 +173,14 @@
     });
 
 
-    $(function () {
+
+    $(document).ready(function() {
+
         $('.datetimepicker').datetimepicker({
             sideBySide: true,
             format: 'DD/MM/yyyy hh:mm A',
         });
-    });
 
-    $(document).ready(function() {
         $('.select2').select2({
             width: '100%',
 

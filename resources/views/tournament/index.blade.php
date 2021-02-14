@@ -69,7 +69,7 @@
 
 
                         <h5 class="mt-3">Clubs</h5>
-                        <table class="px-4 table table-bordered">
+                        <table class="px-4 chan-1 table table-bordered">
                             <thead>
                             <tr>
                                 <th>Sr.</th>
@@ -242,7 +242,7 @@
 
                         <h5 class="mt-3">Matches</h5>
                         <div class="overflow-auto">
-                            <table style="min-width: 900px;" class="px-4 table table-bordered">
+                            <table style="min-width: 900px;" class="px-4 chan-1 table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Sr.</th>
@@ -368,6 +368,11 @@
 
 
 
+    <style>
+        .chan-1 {
+            color: #777;
+        }
+    </style>
 
     <script>
 

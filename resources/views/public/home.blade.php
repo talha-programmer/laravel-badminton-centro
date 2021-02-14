@@ -30,7 +30,7 @@
 
     {{--Upcoming Matches--}}
     <div class="container-fluid py-4 " id="matches_container">
-        <h1 class="text-center text-white">Matches</h1>
+        <h1 class="text-center " style= "color: dark-grey">Matches</h1>
         <hr>
 
         <div id="matches" class="row row-cols-1 row-cols-md-2 px-md-5 justify-content-center overflow-auto" style="height: 300px;">
@@ -63,7 +63,7 @@
 
 {{--Clubs--}}{{--
 
-    <div class="container-fluid pt-4 pb-5 text-white bg-primary">
+    <div class="container-fluid pt-4 pb-5 text-white bg-primary" >
         <h1 class="text-center">Clubs</h1>
         <hr>
         <div class="swiper-container">
@@ -91,8 +91,8 @@
 --}}
 
     {{--Products--}}
-    <div class="container-fluid py-4 bg-primary" >
-        <h1 class="text-center text-white">Products</h1>
+    <div class="container-fluid py-4" id="product_container">
+        <h1 class="text-center " style= "color: dark-grey">Products</h1>
         <hr>
 
         <div class="row row-cols-1 mt-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 px-md-5 justify-content-center">
@@ -184,6 +184,13 @@
 
         #matches_container {
             background-image: url("{{ asset('images/home-background-1.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+
+        #product_container {
+            background-image: url("{{ asset('images/home-product-bg.jpg') }}");
             background-size: cover;
             background-repeat: no-repeat;
         }

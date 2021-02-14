@@ -4,8 +4,8 @@
 
     @include('public.layouts.header')
 
-    <div class="container-fluid py-4 " >
-        <h1 class="text-center text-primary">Tournaments</h1>
+    <div id="matches_container" class="container-fluid py-4 " >
+        <h1 class="text-center text-white">Tournaments</h1>
         <hr>
 
 
@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <div class="row justify-content-center mb-2" data-aos="fade">
-                        <div class="col-5 ">
+                        <div class="col-5 text-white">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     Start Date
                                 </div>
                                 <div class="col-md-8">
@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     End Date
                                 </div>
                                 <div class="col-md-8">
@@ -38,7 +38,7 @@
                             </div>
                             <h5 class="mt-3">Clubs</h5>
 
-                            <table class="px-4 table table-bordered">
+                            <table class="px-4 table table-bordered text-white">
                                 <thead>
                                 <tr>
                                     <th>Sr.</th>
@@ -90,7 +90,7 @@
                                                 <br> <br>
 
                                                 @if($match->tournament != null)
-                                                    <h3 class="text-center py-2">Tournament: {{ $match->tournament->name }}</h3>
+                                                    <h3 class="text-center text-white py-2">Tournament: {{ $match->tournament->name }}</h3>
                                                 @endif
                                                 <h4 class="text-center  text-uppercase" style="line-height: 1.6;">{{ $match->teamOne->name }} <br> vs
                                                     <br> {{ $match->teamTwo->name }}</h4>
@@ -172,6 +172,12 @@
         .matches::-webkit-scrollbar-track {
             background-color: rgba(0, 0, 0, 0);
             transition: background-color 0.15s ease-out;
+        }
+        
+        #matches_container {
+            background-image: url("{{ asset('images/main-background.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .matches::-webkit-scrollbar-thumb {

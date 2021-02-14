@@ -6,11 +6,11 @@
 
 
     <div class="form-group row">
-        <label for="tournament_type" class="col-md-4 offset-1 col-form-label">Tournament Type</label>
+        <label for="tournament_type{{ $tournamentId() }}" class="col-md-4 offset-1 col-form-label">Tournament Type</label>
 
         <div class="col-md-6">
             @if(!$isClubOwner())
-            <select id="tournament_type" class="form-control" name="tournament_type">
+            <select id="tournament_type{{ $tournamentId() }}" class="form-control" name="tournament_type">
                 @foreach(\App\Enums\TournamentTypes::asSelectArray() as $typeValue=>$typeName)
                     <option value="{{ $typeValue }}">{{ $typeName }}</option>
                 @endforeach
@@ -24,25 +24,25 @@
     </div>
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 offset-1 col-form-label">Tournament Name</label>
+        <label for="name{{ $tournamentId() }}" class="col-md-4 offset-1 col-form-label">Tournament Name</label>
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" name="name"
+            <input id="name{{ $tournamentId() }}" type="text" class="form-control" name="name"
                    value="{{ $tournament->name  }}" required autofocus>
         </div>
     </div>
 
-    <div class="form-group row justify-content-center">
-        <label for="start_date" class="col-md-4 col-form-label ">Start Date:</label>
+    <div class="form-group row justify-content-center date">
+        <label for="start_date{{ $tournamentId() }}" class="col-md-4 col-form-label ">Start Date:</label>
         <div class="col-md-6">
-            <input id="start_date" type="text" class="form-control datepicker"
+            <input id="start_date{{ $tournamentId() }}" type="text" class="form-control datepicker"
                    name="start_date" value="{{ $tournament->start_date !=null ? \Carbon\Carbon::create($tournament->start_date)->format('d/m/Y') : "" }}"  autofocus>
         </div>
     </div>
 
-    <div class="form-group row justify-content-center">
-        <label for="end_date" class="col-md-4 col-form-label ">End Date:</label>
+    <div class="form-group row justify-content-center date">
+        <label for="end_date{{ $tournamentId() }}" class="col-md-4 col-form-label ">End Date:</label>
         <div class="col-md-6">
-            <input id="end_date" type="text" class="form-control datepicker"
+            <input id="end_date{{ $tournamentId() }}" type="text" class="form-control datepicker"
                    name="end_date" value="{{ $tournament->end_date !=null ? \Carbon\Carbon::create($tournament->end_date)->format('d/m/Y') : "" }}"  autofocus>
         </div>
     </div>
@@ -58,9 +58,12 @@
 
 <script>
 
-    $('.datepicker').datetimepicker({
-        sideBySide: true,
-        format: 'DD/MM/yyyy',
+    $('#start_date{{ $tournamentId() }}').datepicker({
+        format: 'dd/mm/yyyy',
+    });
+
+    $('#end_date{{ $tournamentId() }}').datepicker({
+        format: 'dd/mm/yyyy',
     });
 
     // Wait for the DOM to be ready

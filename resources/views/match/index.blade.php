@@ -72,7 +72,7 @@
 
 
                         <h5 class="mt-3">Players</h5>
-                        <table class="px-4 table table-bordered">
+                        <table class="px-4 chan-1 table table-bordered">
                             <thead>
                             <tr>
                                 <th>Sr.</th>
@@ -117,7 +117,7 @@
                         @if($match->team_one_points != null)    {{--If Match Result is added already--}}
                             <h5 class="mt-3">Match Result</h5>
                             <div class="row text-center">
-                                <div class="col-5 border-right">
+                                <div class="col-md-5 border-right">
                                     <strong>{{ $match->teamOne->name }}</strong><br>
                                     @foreach($match->teamOnePlayers() as $player)
                                         {{ $player->user->name }}: {{ $player->pivot->points }} Points <br>
@@ -125,7 +125,7 @@
                                     <h6 class="font-weight-bold">Total: {{ $match->team_one_points }} Points</h6>
 
                                 </div>
-                                <div class="col-5">
+                                <div class="col-md-5">
                                     <strong>{{ $match->teamTwo->name }}</strong> <br>
                                     @foreach($match->teamTwoPlayers() as $player)
                                         {{ $player->user->name }}: {{ $player->pivot->points }} Points
@@ -249,6 +249,11 @@
 
     </div>
 
+    <style>
+        .chan-1 {
+            color: #777;
+        }
+    </style>
 
 <script>
 

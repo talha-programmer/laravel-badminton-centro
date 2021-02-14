@@ -4,14 +4,15 @@
 
     @include('public.layouts.header')
 
-    <div class="container">
+    <div id="matches_container" class="container-fluid">
+        <div class="container">
 
 
     @foreach( $clubs as $index=>$club )
 
             <div class="row justify-content-center p-3 " data-aos="fade-in">
-                <div class="col-10">
-                    <div class="card p-3 my-2">
+                <div class="col-10 chanb-1">
+                    <div class="card p-3 my-2 chanb-2">
                         <div class="row">
                             <div class="col">
                                 <h5 class="card-title">{{ $club->name }}</h5>
@@ -61,6 +62,32 @@
 
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Membership Fee:
+                                    </div>
+                                    <div class="col-md-8">
+                                        @if($club->membership_fee != "")
+                                            {{ __('currency.code') }} {{ $club->membership_fee }}
+                                        @else
+                                            <span class="text-muted">Not provided</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Coach Name:
+                                    </div>
+                                    <div class="col-md-8">
+                                        @if($club->coach_name != "")
+                                            {{ $club->coach_name }}
+                                        @else
+                                            <span class="text-muted">Not provided</span>
+                                        @endif
+
+                                    </div>
+                                </div>
                                 <hr>
 
                                 <div class="row">
@@ -69,7 +96,7 @@
 
                                         {{--Club Players--}}
                                         @if(sizeof( $club->players) > 0)
-                                            <table class="px-4 table table-bordered mt-3">
+                                            <table class="px-4 px-5 table table-bordered mt-3">
                                             <thead>
                                             <tr>
                                                 <th>Sr.</th>
@@ -146,6 +173,7 @@
                     </div>
                 </div>
             </div>
+    
 
     @endforeach
 
@@ -157,7 +185,27 @@
 
 
     </div>
+    </div>
 
+    <style>
+    #matches_container {
+            background-image: url("{{ asset('images/main-background.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+    .chanb-1 {
+        background-color: #99ceff;
+    }
+
+    .chanb-2 {
+        background-color: #e6f3ff;
+    }
+
+    .px-5 {
+        color: #777 ;
+    }
+    </style>
 
 
 @endsection

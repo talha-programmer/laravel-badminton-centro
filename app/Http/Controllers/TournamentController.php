@@ -25,9 +25,9 @@ class TournamentController extends Controller
         // Get only the tournaments of the clubs owned by this club owner
         if($userType === UserTypes::ClubOwner){
             $clubOwner = $user->userable;
-            $tournaments = $clubOwner->tournaments()->paginate(2);
+            $tournaments = $clubOwner->tournaments()->paginate(1);
         } else {
-            $tournaments = Tournament::latest()->with(['matches', 'clubs', 'teams'])->paginate(2);
+            $tournaments = Tournament::latest()->with(['matches', 'clubs', 'teams'])->paginate(1);
         }
 
 
