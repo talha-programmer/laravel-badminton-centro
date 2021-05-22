@@ -2,7 +2,33 @@
 
 @section('content')
     {{--Header Image--}}
+{{--
     @include('public.layouts.header')
+--}}
+
+    <div class="">
+        <div class="swiper-container-full" >
+
+            <div class="swiper-wrapper">
+                    <div class="swiper-slide slide-full" >
+                        <img src="{{ asset('images/header-image-1.jpg') }}" alt="">
+                    </div>
+
+                    <div class="swiper-slide slide-full" >
+                        <img src="{{ asset('images/header-image-2.jpg') }}" alt="">
+                    </div>
+                     <div class="swiper-slide slide-full">
+                            <img src="{{ asset('images/header-image-3.jpg') }}" alt="">
+                        </div>
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+
 
     {{--Teams--}}
     <div class="container-fluid pt-4 pb-5 text-white bg-primary ">
@@ -61,7 +87,6 @@
 
     </div>
 
-{{--Clubs--}}{{--
 
     <div class="container-fluid pt-4 pb-5 text-white bg-primary" >
         <h1 class="text-center">Clubs</h1>
@@ -88,7 +113,6 @@
 
 
     </div>
---}}
 
     {{--Products--}}
     <div class="container-fluid py-4" id="product_container">
@@ -145,6 +169,23 @@
 
         });
 
+        var swiperFull = new Swiper('.swiper-container-full', {
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+
+        });
+
         function addToCart(productId) {
             $.ajaxSetup({
                 headers: {
@@ -179,6 +220,13 @@
             width: 100%;
             height: 15vw;
             object-fit: contain;
+        }
+
+        .slide-full img {
+            display: block;
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
         }
 
 

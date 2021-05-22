@@ -2,7 +2,6 @@
     @csrf
     <input type="hidden" name="match_id" value="{{ $match->id }}">
     <input type="hidden" name="tournament_id" value="{{ $tournament->id }}">
-
     @if($tournament->id != null)
         <div class="row mb-2">
             <div class="col-md-4">
@@ -44,7 +43,7 @@
                 <select id="team_one{{ $matchId() }}" class="form-control select2" name="team_one">
                     <option value="-1">---Select Team---</option>
                     @foreach($teams as $team)
-                        <option value="{{ $team->id }}" @if($match->teamOne->id == $team->id) selected="selected" @endif>{{ $team->name }}</option>
+                        <option value="{{ $team->id }}" @if($match->id != null && $match->teamOne->id == $team->id) selected="selected" @endif>{{ $team->name }}</option>
                     @endforeach
                 </select>
 
@@ -71,7 +70,7 @@
                 <select id="team_two{{ $matchId() }}" class="form-control select2" name="team_two">
                     <option value="-1">---Select Team---</option>
                     @foreach($teams as $team)
-                        <option value="{{ $team->id }}" @if($match->teamTwo->id == $team->id) selected="selected" @endif>{{ $team->name }}</option>
+                        <option value="{{ $team->id }}" @if($match->id != null && $match->teamTwo->id == $team->id) selected="selected" @endif>{{ $team->name }}</option>
                     @endforeach
                 </select>
 

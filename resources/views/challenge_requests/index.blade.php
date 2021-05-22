@@ -65,6 +65,7 @@
                                                     <form action="{{ route('destroy_challenge') }}" method="post"
                                                           class="action-form form-inline">
                                                         @csrf
+                                                        @method('DELETE')
                                                         <input type="hidden" value="{{ $request_send->id }}" name="challenge_id">
 
                                                         <button class="btn btn-outline-danger border-0" type="button"

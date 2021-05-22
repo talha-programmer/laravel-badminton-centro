@@ -69,6 +69,20 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->address = $request->address;
 
+        $image = $request->file('image');
+        if($image) {
+            $imageName = $user->username . time() . '.' . $image->extension();
+            $image->move(public_path('images/profile_pictures'), $imageName);
+
+            // Delete existing image in case of editing the product
+            $existingImageURL = $user->profile_picture_url;
+            if($existingImageURL){
+                unlink(public_path() . '/' . $existingImageURL);
+            }
+
+            $user->profile_picture_url = "images/profile_pictures/{$imageName}";
+        }
+
         $user->save();
 
         return back()->with('info', 'Profile updated successfully!');
@@ -101,7 +115,7 @@ class UserController extends Controller
     {
         // Form validation for all fields
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'name' => ['required', 'max:255','regex:/^[A-Za-z\s\.]{2,20}$/'],
             'username' => 'required|alpha_dash|max:255|unique:users',
             'email' => 'required|max:255|email|unique:users',
             'password' => 'required|confirmed',

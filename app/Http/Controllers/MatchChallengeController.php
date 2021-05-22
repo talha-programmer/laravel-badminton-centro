@@ -52,13 +52,24 @@ class MatchChallengeController extends Controller
         $currentPlayer = auth()->user()->userable;
         $challengedPlayer = Player::find($request->player);
 
+        $matchTime = Carbon::createFromFormat('d/m/Y H:i A', $request->match_time);
+        $previousChallenges = $challengedPlayer->allChallenges();
+
+        foreach ($previousChallenges as $challenge){
+            $time = $challenge->match_time;
+            $time = Carbon::create($time, )->format('d/m/y');
+            if($time == $matchTime->format('d/m/y')){
+                return back()->with('error', 'Cannot add multiple challenges at the same time!');
+            }
+        }
+
         $challengeRequest = new MatchChallenge();
         $challengeRequest->challengerPlayer()->associate($currentPlayer);
         $challengeRequest->challengedPlayer()->associate($challengedPlayer);
         $challengeRequest->status = ChallengeStatus::Pending;
 
-        $matchTime = Carbon::createFromFormat('d/m/Y H:i A', $request->match_time);
         $challengeRequest->match_time = $matchTime->format('Y-m-d H:i:s');
+
 
 
         $challengeRequest->save();

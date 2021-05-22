@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('add_user') }}">
+                        <form method="POST" class="add_user_form" action="{{ route('add_user') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -102,4 +102,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(function() {
+            $("form[class='add_user_form']").each(function (){
+                $(this).validate({
+                    // Specify validation rules
+                    rules: {
+                        email: {required: true, email: true} ,
+                        name: "required",
+                        username: "required",
+                    },
+                    // Specify validation error messages
+                    messages: {
+
+                    },
+                    // Make sure the form is submitted to the destination defined
+                    // in the "action" attribute of the form when valid
+                    submitHandler: function(form) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+
+    </script>
+
 @endsection

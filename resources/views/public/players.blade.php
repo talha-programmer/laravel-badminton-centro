@@ -14,7 +14,7 @@
                 <?php $player_counter++?>
                 <div class="col mb-4 " >
                     <div class="card" data-aos="fade-right" style="border-radius: 5%;">
-                        <img src="{{ asset('images/player-image.jpg') }}" class="card-img-top" alt="">
+                        <img src="{{ asset($player->user->profile_picture_url ? $player->user->profile_picture_url :'images/player-image.jpg') }}" class="card-img-top" alt="">
                         <div class="card-body">
                             <h4 class="card-title">{{ $player->user->name }}</h4>
                             <h5 class="card-subtitle mb-2">Rank: {{ $player_counter }}</h5>

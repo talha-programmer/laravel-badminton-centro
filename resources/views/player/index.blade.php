@@ -35,8 +35,8 @@
                                         <td>{{ $player_counter }}</td>
                                         <td>{{ $player->user->name }}</td>
                                         <td>{{ $player->clubsJoined() }}</td>
-                                        <td>{{ \Carbon\Carbon::create($player->clubs()->first()->pivot->contract_start)->format('d/m/Y') }}</td>
-                                        <td>{{ \Carbon\Carbon::create($player->clubs()->first()->pivot->contract_end)->format('d/m/Y') }}</td>
+                                        <td>{{ $player->clubsJoined()?\Carbon\Carbon::create($player->clubs()->first()->pivot->contract_start)->format('d/m/Y') : "" }}</td>
+                                        <td>{{ $player->clubsJoined()? \Carbon\Carbon::create($player->clubs()->first()->pivot->contract_end)->format('d/m/Y') : ""}}</td>
                                         <td>{{ $player->teamsJoined() }}</td>
 
                                         <td>{{ $player->total_matches }}</td>

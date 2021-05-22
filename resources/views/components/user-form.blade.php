@@ -1,6 +1,22 @@
-<form method="POST" class="user_form" action="{{ route('update_user_profile', $user) }}">
+<form method="POST" class="user_form" action="{{ route('update_user_profile', $user) }}"  enctype="multipart/form-data">
     @csrf
 
+
+    <div class="form-group row">
+        <div class="col mx-auto">
+            <!-- Uploaded image area-->
+            <img style="width: 100%; max-height: 10vw; object-fit: cover;" id="imageResult" src="{{ $user->profile_picture_url?  asset($user->profile_picture_url) : '#' }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="image" class="col-md-4 col-form-label ">Profile Picture</label>
+        <div class="col-md-6">
+            <input id="image" type="file" accept="image/*" onchange="readURL(this)"
+                   class="mw-100 overflow-hidden " name="image" value=""  autofocus>
+
+        </div>
+    </div>
 
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label ">Name</label>
@@ -52,6 +68,27 @@
                 submitHandler: function(form) {
                     form.submit();
                 }
+            });
+        });
+
+        // Image upload and display preview
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imageResult')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        var input = document.getElementById( 'image' );
+        $(function () {
+            $('#image').on('change', function () {
+                readURL(input);
             });
         });
 

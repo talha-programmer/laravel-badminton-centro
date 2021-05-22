@@ -64,7 +64,7 @@
             @foreach($products as $product)
                 <div class="col mb-4">
                     <div class="card">
-                        <img src="{{ asset($product->image_url? $product->image_url : 'images/image.png') }}" class="card-img-top" alt="">
+                        <img src="{{ asset($product->image_url? $product->image_url : 'images/image.png') }}" class="card-img-top" style="object-fit: {{ $product->image_url ? 'contain': 'cover'}}" alt="">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <span class="text-primary">Price: {{ __('currency.code') }} {{ $product->price }}</span>
@@ -195,7 +195,7 @@
         .card-img-top {
             width: 100%;
             height: 15vw;
-            object-fit: cover;
+            object-fit: contain;
         }
     @endpush
 @endsection
