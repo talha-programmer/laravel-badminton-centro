@@ -3,7 +3,7 @@
     <div class="row cover-image" style="height: 60vh;">
         <div class="d-flex header-overlay w-100 h-100">
             <div class="my-auto mx-auto text-center">
-                <span class="display-4  text-white">The Badminton Centro<br></span>
+                <span class="display-4  text-white">Battledor Arena<br></span>
                 <span class="font-italic text-white" style="font-size: 2rem">{{ $page_name }}</span>
             </div>
         </div>

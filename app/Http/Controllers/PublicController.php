@@ -17,16 +17,13 @@ class PublicController extends Controller
     public function home()
     {
 
-        $teams = Team::paginate(4);
+        $teams = Team::orderByDesc('ranking')->limit(10)->get();
         $matches = Match::latest()->paginate(4);
         $clubs = Club::all();
         $products = Product::latest()->paginate(4);
 
 
         return view('public.home',[
-
-
-
             'teams' => $teams,
             'matches' => $matches,
             'clubs' => $clubs,

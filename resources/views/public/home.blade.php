@@ -88,7 +88,7 @@
     </div>
 
 
-    <div class="container-fluid pt-4 pb-5 text-white bg-primary" >
+    {{--<div class="container-fluid pt-4 pb-5 text-white bg-primary" >
         <h1 class="text-center">Clubs</h1>
         <hr>
         <div class="swiper-container">
@@ -113,6 +113,53 @@
 
 
     </div>
+    --}}
+
+    <div class="container pt-4 pb-5" >
+        <div class="row">
+            <div class="col-6">
+                <h2>Standings</h2>
+                <hr>
+
+                <table class="px-4 table">
+                    <thead class="bg-primary text-white">
+                    <tr>
+                        <th>Pos.</th>
+                        <th>Team</th>
+                        <th>Matches</th>
+                        <th>Won</th>
+                        <th>Lost</th>
+                        <th>Tied</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $team_counter = 0;?>
+
+                    @foreach($teams as $team)
+                        <?php $team_counter++?>
+                        <tr>
+                            <td>{{ $team_counter }}</td>
+                            <td>{{ $team->name }}</td>
+                            <td>{{ $team->total_matches  }}</td>
+                            <td>{{ $team->won_matches }}</td>
+                            <td>{{ $team->lost_matches}}</td>
+                            <td>{{ $team->tied_matches }}</td>
+
+                        </tr>
+                    @endforeach
+                </table>
+
+
+            </div>
+
+            <div class="col-6">
+
+            </div>
+        </div>
+
+
+    </div>
+
 
     {{--Products--}}
     <div class="container-fluid py-4" id="product_container">
