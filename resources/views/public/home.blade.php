@@ -56,7 +56,7 @@
 
     {{--Upcoming Matches--}}
     <div class="container-fluid py-4 " id="matches_container">
-        <h1 class="text-center " style= "color: dark-grey">Matches</h1>
+        <h1 class="text-center ">Matches</h1>
         <hr>
 
         <div id="matches" class="row row-cols-1 row-cols-md-2 px-md-5 justify-content-center overflow-auto" style="height: 300px;">
@@ -116,8 +116,8 @@
     --}}
 
     <div class="container pt-4 pb-5" >
-        <div class="row">
-            <div class="col-6">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col">
                 <h2>Standings</h2>
                 <hr>
 
@@ -152,8 +152,20 @@
 
             </div>
 
-            <div class="col-6">
+            <div class="col">
+                <h2>Latest News</h2>
+                <hr>
+                <marquee style="vertical-align: bottom; margin-top: 4px;" direction="up" scrollamount="1" scrolldelay="5" onmouseover="this.stop();" onmouseout="this.start();"  height="300">
+                    @foreach($news as $single_news)
+                        <a href="{{ route('single_news', $single_news) }}">
+                            <span class="font-weight-bold">{{ $single_news->title }}</span><br>
+                        </a>
+                        {{ \Illuminate\Support\Str::limit($single_news->details, 150, '...') }}
 
+                        <br><br>
+
+                    @endforeach
+                </marquee>
             </div>
         </div>
 
@@ -163,7 +175,7 @@
 
     {{--Products--}}
     <div class="container-fluid py-4" id="product_container">
-        <h1 class="text-center " style= "color: dark-grey">Products</h1>
+        <h1 class="text-center ">Products</h1>
         <hr>
 
         <div class="row row-cols-1 mt-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 px-md-5 justify-content-center">

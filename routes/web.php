@@ -8,6 +8,7 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MatchChallengeController;
 use App\Http\Controllers\MatchController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProductCategoryController;
@@ -142,3 +143,10 @@ Route::post('/player/save_challenge_request', [MatchChallengeController::class, 
 Route::post('/player/accept_challenge/', [MatchChallengeController::class, 'acceptChallenge'])->name('accept_challenge');
 Route::post('/player/reject_challenge/', [MatchChallengeController::class, 'rejectChallenge'])->name('reject_challenge');
 Route::delete('/player/destroy_challenge/', [MatchChallengeController::class, 'destroy'])->name('destroy_challenge');
+
+
+Route::get('public/news/{news}', [PublicController::class, 'singleNews'])->name('single_news');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
+Route::post('/news/save', [NewsController::class, 'store'])->name('save_news');
+// Route::post('/news/edit', [NewsController::class, 'store'])->name('edit_news');
+Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('destroy_news');

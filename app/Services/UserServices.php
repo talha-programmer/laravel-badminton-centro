@@ -16,6 +16,7 @@ class UserServices
         {
             case UserTypes::Admin:
                 $routes[11] = ['name' => 'users', 'description' => 'Users', 'icon_class' => 'fas fa-users'];
+                $routes[12] = ['name' => 'news', 'description' => 'News', 'icon_class' => 'fas fa-newspaper'];
                 $routes[8] = ['name' => 'products', 'description' => 'Products', 'icon_class' => 'fas fa-tags'];
                 $routes[9] = ['name' => 'product_categories', 'description' => 'Product Categories', 'icon_class' => 'fas fa-bars'];
             case UserTypes::Director:
