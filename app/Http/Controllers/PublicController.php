@@ -19,7 +19,7 @@ class PublicController extends Controller
     {
 
         $teams = Team::orderByDesc('ranking')->limit(10)->get();
-        $matches = Match::latest()->paginate(4);
+        $matches = Match::with(['teamOne', 'teamTwo'])->latest()->paginate(4);
         $clubs = Club::all();
         $products = Product::latest()->paginate(4);
         $news = News::latest()->limit(15)->get();

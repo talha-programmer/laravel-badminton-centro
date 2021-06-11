@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('public.layouts.header')
+
 
 {{--Products--}}
 <div class="container-fluid py-4 " >

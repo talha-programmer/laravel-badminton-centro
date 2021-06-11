@@ -72,7 +72,7 @@
 
 
                         <h5 class="mt-3">Players</h5>
-                        <table class="px-4 chan-1 table table-bordered">
+                        <table class="px-4 table table-bordered">
                             <thead>
                             <tr>
                                 <th>Sr.</th>
@@ -97,7 +97,7 @@
                                     $all_players[$player_counter] = array($player);
                                     $player_counter++;
                                 }
-                                
+
                                 $player_counter = 1;
                                 foreach ($match->teamTwoPlayers() as $player){
                                     array_push($all_players[$player_counter], $player);
@@ -249,11 +249,6 @@
 
     </div>
 
-    <style>
-        .chan-1 {
-            color: #777;
-        }
-    </style>
 
 <script>
 

@@ -5,7 +5,7 @@
     <div class="form-group row">
         <div class="col mx-auto">
             <!-- Uploaded image area-->
-            <img style="width: 100%; max-height: 10vw; object-fit: cover;" id="imageResult" src="{{ $user->profile_picture_url?  asset($user->profile_picture_url) : '#' }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+            <img style="width: 40%; height: 175px; object-fit: cover;" id="imageResult" src="{{ $user->profile_picture_url?  asset($user->profile_picture_url) : '#' }}" alt="" class="img-fluid rounded-circle shadow-sm mx-auto d-block">
         </div>
     </div>
 

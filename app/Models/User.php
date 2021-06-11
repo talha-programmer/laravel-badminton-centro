@@ -13,6 +13,17 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * Get the url of the sample user image in case if no profile image found
+     * */
+    public function getProfilePictureUrlAttribute($value){
+        if($value == null){
+            return 'images/profile-picture.jpg';
+        } else{
+            return $value;
+        }
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

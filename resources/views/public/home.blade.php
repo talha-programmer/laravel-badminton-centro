@@ -2,24 +2,23 @@
 
 @section('content')
     {{--Header Image--}}
-{{--
-    @include('public.layouts.header')
---}}
+    {{--
+        @include('public.layouts.header')
+    --}}
 
     <div class="">
-        <div class="swiper-container-full" >
-
+        <div class="swiper-container" id="swiper-full">
             <div class="swiper-wrapper">
-                    <div class="swiper-slide slide-full" >
-                        <img src="{{ asset('images/header-image-1.jpg') }}" alt="">
-                    </div>
+                <div class="swiper-slide slide-full">
+                    <img src="{{ asset('images/header-image-1.jpg') }}" alt="">
+                </div>
 
-                    <div class="swiper-slide slide-full" >
-                        <img src="{{ asset('images/header-image-2.jpg') }}" alt="">
-                    </div>
-                     <div class="swiper-slide slide-full">
-                            <img src="{{ asset('images/header-image-3.jpg') }}" alt="">
-                        </div>
+                <div class="swiper-slide d-flex slide-full">
+                    <img src="{{ asset('images/header-image-2.jpg') }}" alt="">
+                </div>
+                <div class="swiper-slide d-flex slide-full">
+                    <img src="{{ asset('images/header-image-3.jpg') }}" alt="">
+                </div>
 
             </div>
             <div class="swiper-button-next"></div>
@@ -29,13 +28,12 @@
 
     </div>
 
-
     {{--Teams--}}
     <div class="container-fluid pt-4 pb-5 text-white bg-primary ">
         <h1 class="text-center">Teams</h1>
         <hr>
         <!-- Swiper -->
-        <div class="swiper-container mt-5 " >
+        <div class="swiper-container mt-5 ">
 
             <div class="swiper-wrapper">
                 @foreach($teams as $team)
@@ -59,30 +57,15 @@
         <h1 class="text-center ">Matches</h1>
         <hr>
 
-        <div id="matches" class="row row-cols-1 row-cols-md-2 px-md-5 justify-content-center overflow-auto" style="height: 300px;">
+        <div id="matches" class="row row-cols-1 row-cols-md-2 px-md-5 justify-content-center overflow-auto"
+             style="height: 300px;">
 
             @foreach($matches as $match)
-                <div class="p-4">
-                    <div class="col shadow bg-primary" data-aos="fade-up" style="min-height: 250px; border-radius: 10% 30%;">
-                        <div class="text-white pt-4">
-                            <h5 class="float-left"><i class="fas fa-calendar"></i>
-                                {{ \Carbon\Carbon::create($match->match_time)->format('jS F Y') }}
-                            </h5>
-                            <h5 class="float-right pr-3 pr-md-5">{{ \Carbon\Carbon::create($match->match_time)->format('h:i A') }}
-                                <i class="fas fa-clock"></i></h5>
-                            <br> <br>
-                            <h4 class="text-center  text-uppercase"
-                                style="line-height: 1.6;">{{ $match->teamOne->name }} <br> vs
-                                <br> {{ $match->teamTwo->name }}</h4>
-                            <br>
-                            <h5 style="font-style: italic;" class="text-center"><i
-                                        class="fas fa-map-marker-alt"></i> {{ $match->venue }} </h5>
-                        </div>
-                    </div>
-                </div>
+                <x-upcoming-match :match="$match" />
             @endforeach
 
-            <a href="{{ route('public_matches') }}" class="btn btn-primary btn-block rounded-pill py-3 mt-4"> View All Matches</a>
+            <a href="{{ route('public_matches') }}" class="btn btn-primary btn-block rounded-pill py-3 mt-4"> View All
+                Matches</a>
         </div>
 
     </div>
@@ -115,7 +98,7 @@
     </div>
     --}}
 
-    <div class="container pt-4 pb-5" >
+    <div class="container pt-4 pb-5">
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
                 <h2>Standings</h2>
@@ -155,7 +138,8 @@
             <div class="col">
                 <h2>Latest News</h2>
                 <hr>
-                <marquee style="vertical-align: bottom; margin-top: 4px;" direction="up" scrollamount="1" scrolldelay="5" onmouseover="this.stop();" onmouseout="this.start();"  height="300">
+                <marquee style="vertical-align: bottom; margin-top: 4px;" direction="up" scrollamount="1"
+                         scrolldelay="5" onmouseover="this.stop();" onmouseout="this.start();" height="300">
                     @foreach($news as $single_news)
                         <a href="{{ route('single_news', $single_news) }}">
                             <span class="font-weight-bold">{{ $single_news->title }}</span><br>
@@ -181,9 +165,11 @@
         <div class="row row-cols-1 mt-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 px-md-5 justify-content-center">
 
             @foreach($products as $product)
-                <div class="col mb-4 " data-aos="fade-right" >
+                <div class="col mb-4 " data-aos="fade-right">
                     <div class="card" style="border-radius: 5%;">
-                        <img @if(!$product->image_url) style="object-fit: cover;"  @endif src="{{ asset($product->image_url? $product->image_url : 'images/image.png') }}" class="card-img-top" alt="">
+                        <img @if(!$product->image_url) style="object-fit: cover;"
+                             @endif src="{{ asset($product->image_url? $product->image_url : 'images/image.png') }}"
+                             class="card-img-top" alt="">
                         <div class="card-body">
                             <h4 class="card-title">{{ $product->name }}</h4>
                             <h5 class="text-primary">Price: {{ __('currency.code') }} {{ $product->price }}</h5>
@@ -193,10 +179,11 @@
                                 @endforeach
                             </p>
 
-                            <a href="{{ route('public_single_product', $product) }}" class="btn btn-secondary">View more</a>
-                            <button class="btn btn-primary float-right text-white" onclick="addToCart({{ $product->id }})">Add to cart</button>
-
-
+                            <a href="{{ route('public_single_product', $product) }}" class="btn btn-secondary">View
+                                more</a>
+                            <button class="btn btn-primary float-right text-white"
+                                    onclick="addToCart({{ $product->id }})">Add to cart
+                            </button>
 
 
                         </div>
@@ -205,12 +192,11 @@
             @endforeach
 
 
-
-
         </div>
         <div class="row justify-content-center">
             <div class="col-6">
-                <a href="{{ route('public_products') }}" data-aos="fade-up" class="btn btn-light btn-block rounded-pill py-3 mt-4"> View All Products</a>
+                <a href="{{ route('public_products') }}" data-aos="fade-up"
+                   class="btn btn-light btn-block rounded-pill py-3 mt-4"> View All Products</a>
 
             </div>
         </div>
@@ -228,7 +214,7 @@
 
         });
 
-        var swiperFull = new Swiper('.swiper-container-full', {
+        var swiperFull = new Swiper('#swiper-full', {
             autoplay: {
                 delay: 2500,
                 disableOnInteraction: false,
@@ -252,13 +238,13 @@
                 }
             });
             $.ajax({
-                url:"{{ route('add_to_cart') }}",
+                url: "{{ route('add_to_cart') }}",
                 type: "POST",
                 data: {
-                    'product_id' : productId,
+                    'product_id': productId,
                 },
-                success: function (response){
-                    if(response[0] === 'info' ){
+                success: function (response) {
+                    if (response[0] === 'info') {
                         bootbox.alert(response[1]);
                         location.reload();
                     }
@@ -303,23 +289,20 @@
         }
 
 
-        #matches::-webkit-scrollbar-track
-        {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        #matches::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             background-color: transparent;
         }
 
-        #matches::-webkit-scrollbar
-        {
+        #matches::-webkit-scrollbar {
             width: 12px;
             background-color: transparent;
         }
 
-        #matches::-webkit-scrollbar-thumb
-        {
+        #matches::-webkit-scrollbar-thumb {
             border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
             background-color: #555;
         }
 
