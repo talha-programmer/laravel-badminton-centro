@@ -9,6 +9,7 @@ use App\Models\ClubOwner;
 use App\Models\Customer;
 use App\Models\Director;
 use App\Models\Player;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,14 +26,17 @@ class RegisterController extends Controller
         // Form validation for all fields
         $this->validate($request, [
             'name' => 'required|max:255',
+            'date_of_birth' => 'required',
             'username' => 'required|alpha_dash|max:255|unique:users',
             'email' => 'required|max:255|email|unique:users',
             'password' => 'required|confirmed',
         ]);
 
+        $dateOfBirth = Carbon::createFromFormat('d/m/Y', $request->date_of_birth);
 
         $user = [
             'name'=> $request->name,
+            'date_of_birth' =>$dateOfBirth->format('Y-m-d'),
             'username'=> $request->username,
             'email'=> $request->email,
             'password'=> Hash::make($request->password),

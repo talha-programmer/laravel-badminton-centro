@@ -107,7 +107,7 @@ class PublicController extends Controller
             $index++;
         }
 
-        $playersArray = PaginationService::paginate($playersArray, 10);
+        $playersArray = PaginationService::paginate($playersArray, 12);
 
         return view('public.players', [
             'players' => $playersArray,
@@ -130,6 +130,16 @@ class PublicController extends Controller
         return view('public.single_news', [
             'single_news' => $news,
             'page_name' => 'Home/News',
+        ]);
+    }
+
+    public function singlePlayer(Player $player)
+    {
+
+        return view('public.single_player',[
+            'player' => $player,
+            'page_name' => 'Home/Players',
+            'player_rank' => $player->getRank(),
         ]);
     }
 

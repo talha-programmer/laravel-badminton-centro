@@ -38,6 +38,7 @@ Route::get('/public/matches/', [PublicController::class, 'matches'])->name('publ
 Route::get('/public/clubs/', [PublicController::class, 'clubs'])->name('public_clubs');
 Route::get('/public/players/', [PublicController::class, 'players'])->name('public_players');
 Route::get('/public/tournaments/', [PublicController::class, 'tournaments'])->name('public_tournaments');
+Route::get('/public/players/{player}', [PublicController::class, 'singlePlayer'])->name('public_single_player');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -148,5 +149,4 @@ Route::delete('/player/destroy_challenge/', [MatchChallengeController::class, 'd
 Route::get('public/news/{news}', [PublicController::class, 'singleNews'])->name('single_news');
 Route::get('/news', [NewsController::class, 'index'])->name('news');
 Route::post('/news/save', [NewsController::class, 'store'])->name('save_news');
-// Route::post('/news/edit', [NewsController::class, 'store'])->name('edit_news');
 Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('destroy_news');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -10,6 +11,12 @@ class Player extends Model
 {
     use HasFactory;
     protected $table = 'users_players';
+    protected $appends = 'age';
+
+    public function getAgeAttribute()
+    {
+        return Carbon::createFromFormat('d/m/Y', $this->user->date_of_birth)->age;
+    }
 
 
     public function user()
@@ -51,6 +58,21 @@ class Player extends Model
         }
         $allTeams = Str::beforeLast($allTeams, ',');        // remove the last ','
         return $allTeams;
+    }
+
+    public function getRank()
+    {
+        $players = Player::OrderByDesc('ranking')->get();
+        $counter = 1;
+        foreach ($players as $player)
+        {
+            if($player->id === $this->id){
+                return $counter;
+            }
+            $counter++;
+        }
+
+        return -1;
     }
 
 

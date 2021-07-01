@@ -91,6 +91,15 @@
 
                         <div class="row">
                             <div class="col-md-4">
+                                Date of Birth
+                            </div>
+                            <div class="col-md-4">
+                                {{ $user->date_of_birth }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
                                 E-mail Address
                             </div>
                             <div class="col-md-4">

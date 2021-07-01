@@ -27,6 +27,14 @@
     </div>
 
     <div class="form-group row">
+        <label for="date_of_birth" class="col-md-4 col-form-label ">Date of Birth</label>
+
+        <div class="col-md-6">
+            <input id="date_of_birth" type="text" class="form-control datetimepicker " name="date_of_birth" value="{{ $user->date_of_birth }}" required autofocus>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label for="email" class="col-md-4 col-form-label ">{{ __('E-Mail Address') }}</label>
 
         <div class="col-md-6">
@@ -60,6 +68,7 @@
                 // Specify validation rules
                 rules: {
                     name: "required",
+                    date_of_birth: "required",
                     email: { required: true, email: true,},
                 },
 
@@ -69,6 +78,10 @@
                     form.submit();
                 }
             });
+        });
+
+        $('.datetimepicker').datetimepicker({
+            format: 'DD/MM/yyyy',
         });
 
         // Image upload and display preview

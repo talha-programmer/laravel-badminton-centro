@@ -203,7 +203,6 @@
                     width: '100%',
 
                 });
-                console.log('else called');
             }
         }
 

@@ -10,6 +10,7 @@ use App\Models\Director;
 use App\Models\Player;
 use App\Models\User;
 use App\Services\UserServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +62,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
+            'date_of_birth' => 'required',
             'email' => 'required|max:255|email',
             'address' => 'max:255',
         ]);
@@ -68,6 +70,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
+        $user->date_of_birth = Carbon::createFromFormat('d/m/Y', $request->date_of_birth)->format('Y-m-d');
 
         $image = $request->file('image');
         if($image) {
