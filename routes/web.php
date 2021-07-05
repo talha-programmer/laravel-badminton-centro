@@ -36,6 +36,7 @@ Route::get('/public/about', [PublicController::class, 'about'])->name('public_ab
 Route::get('/public/product/{product:name}', [PublicController::class, 'singleProduct'])->name('public_single_product');
 Route::get('/public/matches/', [PublicController::class, 'matches'])->name('public_matches');
 Route::get('/public/clubs/', [PublicController::class, 'clubs'])->name('public_clubs');
+Route::get('/public/clubs/{club}', [PublicController::class, 'singleClub'])->name('public_single_club');
 Route::get('/public/players/', [PublicController::class, 'players'])->name('public_players');
 Route::get('/public/tournaments/', [PublicController::class, 'tournaments'])->name('public_tournaments');
 Route::get('/public/players/{player}', [PublicController::class, 'singlePlayer'])->name('public_single_player');

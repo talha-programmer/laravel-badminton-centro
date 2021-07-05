@@ -18,6 +18,7 @@
                 <h4>Rank: {{ $player_rank }}</h4>
                 <h5>Email: <a href="mailto:{{ $player->user->email }}">{{ $player->user->email }}</a></h5>
                 <h5>Age: {{ $player->age }}</h5>
+
             </div>
 
         </div>

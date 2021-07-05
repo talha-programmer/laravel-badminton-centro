@@ -38,4 +38,19 @@ class Club extends Model
         return $this->belongsToMany(Tournament::class,  'clubs_tournaments');
     }
 
+    public function getRank()
+    {
+        $clubs = Club::OrderByDesc('ranking')->get();
+        $counter = 1;
+        foreach ($clubs as $club)
+        {
+            if($club->id === $this->id){
+                return $counter;
+            }
+            $counter++;
+        }
+
+        return -1;
+    }
+
 }

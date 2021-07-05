@@ -76,7 +76,8 @@
                                 <h5 class="py-2 rounded-pill bg-light text-center">Matches</h5>
                                 <div class="overflow-auto matches" style="height: 300px" >
                                     @foreach($tournament->matches as $match)
-                                        <div class="p-4 text-white">
+                                        <x-previous-match :match="$match"/>
+                                       {{-- <div class="p-4 text-white">
                                             <div class="col shadow bg-primary pb-4" style="border-radius: 10% 30%;">
                                                 <div class="text-white pt-4">
                                                     <h5 class="float-left"><i class="fas fa-calendar"></i>
@@ -97,21 +98,21 @@
                                                 </div>
 
 
-                                                @if($match->team_one_points != null)    {{--If Match Result is added already--}}
+                                                @if($match->team_one_points != null)    --}}{{--If Match Result is added already--}}{{--
                                                 <h4 class="mb-3 mt-4 text-center">Match Result</h4>
 
                                                 <div class="row text-center justify-content-center">
                                                     <div class="col-5 border-right">
                                                         <h5 class="font-weight-bold">{{ $match->teamOne->name }}</h5>
                                                         @foreach($match->teamOnePlayers() as $player)
-                                                            <h6>{{ $player->user->name }}: {{ $player->pivot->points }} Points</h6>
+                                                            <h6><a href="{{ route('public_single_player', $player) }}">{{ $player->user->name }}</a>: {{ $player->pivot->points }} Points</h6>
                                                         @endforeach
                                                         <h6 class="font-weight-bold">Total: {{ $match->team_one_points }} Points</h6>
                                                     </div>
                                                     <div class="col-5">
                                                         <h5 class="font-weight-bold">{{ $match->teamTwo->name }}</h5>
                                                         @foreach($match->teamTwoPlayers() as $player)
-                                                            <h6>{{ $player->user->name }}: {{ $player->pivot->points }} Points</h6>
+                                                            <h6><a href="{{ route('public_single_player', $player) }}">{{ $player->user->name }}</a>: {{ $player->pivot->points }} Points</h6>
                                                         @endforeach
                                                         <h6 class="font-weight-bold">Total: {{ $match->team_two_points }} Points</h6>
 
@@ -135,7 +136,7 @@
 
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div>--}}
                                     @endforeach
 
                                 </div>
@@ -186,6 +187,10 @@
 
         .image-overlay{
             background-color: rgba(31, 31, 31, 0.55);
+        }
+
+        a {
+            color: white;
         }
 
         @endpush

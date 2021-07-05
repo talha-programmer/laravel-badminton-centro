@@ -21,33 +21,86 @@
                 </div>
 
             </div>
+            {{--
             <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-prev"></div>--}}
             <div class="swiper-pagination"></div>
         </div>
 
     </div>
 
     {{--Teams--}}
-    <div class="container-fluid pt-4 pb-5 text-white bg-primary ">
-        <h1 class="text-center">Teams</h1>
+    <div class="container-fluid pt-4 pb-5  bg-primary ">
+        <h1 class="text-center text-white">Clubs</h1>
         <hr>
         <!-- Swiper -->
         <div class="swiper-container mt-5 ">
 
             <div class="swiper-wrapper">
-                @foreach($teams as $team)
-                    <div class="swiper-slide border-right" data-aos="fade-left">
-                        <div class="d-flex align-content-center">
-                            <div class="flex-column mx-auto text-center">
-                                <img src="{{ asset('images/TeamLogo.png') }}" height="100" alt="">
-                                <h3 class="mt-3 text-center">{{ $team->name }}</h3>
+                <?php $counter = 1; ?>
+                @foreach($clubs as $club)
+                    <div class="swiper-slide" >
+                        <div class="card" data-aos="fade-right" style="border-radius: 5%;">
+                            <div class="card-body">
+
+                                <h4 class="card-title">{{ $club->name }}</h4>
+                                <div class="row border-top border-secondary py-2">
+                                    <div class="col d-flex justify-content-between">
+                                        <div><h5 class="text-muted font-italic">Rank</h5></div>
+                                        <div><h5>{{ $counter++ }}</h5></div>
+                                    </div>
+                                </div>
+
+                                <div class="row border-top border-secondary py-2">
+                                    <div class="col d-flex justify-content-between">
+                                        <div><h5 class="text-muted font-italic">Owner</h5></div>
+                                        <div><h5>{{ $club->clubOwner->user->name }}</h5></div>
+                                    </div>
+                                </div>
+
+                                <div class="row border-top border-secondary py-2">
+                                    <div class="col d-flex justify-content-between">
+                                        <div><h5 class="text-muted font-italic">City</h5></div>
+                                        <div><h5>{{ $club->city }}</h5></div>
+                                    </div>
+                                </div>
+
+                                <div class="row border-top border-secondary py-2">
+                                    <div class="col d-flex justify-content-between">
+                                        <div><h5 class="text-muted font-italic">Total Teams</h5></div>
+                                        <div><h5>{{ $club->teams()->count() }}</h5></div>
+                                    </div>
+                                </div>
+
+                                <div class="row border-top border-bottom border-secondary py-2">
+                                    <div class="col d-flex justify-content-between">
+                                        <div><h5 class="text-muted font-italic">Total Players</h5></div>
+                                        <div><h5>{{ $club->players()->count() }}</h5></div>
+                                    </div>
+                                </div>
+
+                                <a href="{{ route('public_single_club', $club) }}" class="mt-4 btn btn-primary btn-block">View More Details</a>
+
                             </div>
                         </div>
                     </div>
                 @endforeach
 
+                {{-- @foreach($teams as $team)
+                     <div class="swiper-slide border-right" data-aos="fade-left">
+                         <div class="d-flex align-content-center">
+                             <div class="flex-column mx-auto text-center">
+                                 <img src="{{ asset('images/TeamLogo.png') }}" height="100" alt="">
+                                 <h3 class="mt-3 text-center">{{ $team->name }}</h3>
+                             </div>
+                         </div>
+                     </div>
+                 @endforeach
+                 --}}
             </div>
+
+            <div class="swiper-pagination mt-3 position-relative"></div>
+
 
         </div>
     </div>
@@ -69,34 +122,6 @@
         </div>
 
     </div>
-
-
-    {{--<div class="container-fluid pt-4 pb-5 text-white bg-primary" >
-        <h1 class="text-center">Clubs</h1>
-        <hr>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                @foreach($clubs as $club)
-                <div class="p-4 swiper-slide">
-                    <div class="col shadow bg-white" style="border-radius: 5%; min-height: 250px;">
-                        <div class="text-primary pt-4">
-                            <h4>{{ $club->name }}</h4>
-                            <br>
-                            <h5>Total Teams: {{ $club->teams()->count() }}</h5>
-                            <h5>Total Players: {{ $club->players()->count() }}</h5>
-                            <h5>City: {{ $club->city }}</h5>
-
-
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-            </div>
-        </div>
-
-
-    </div>
-    --}}
 
     <div class="container pt-4 pb-5">
         <div class="row row-cols-1 row-cols-md-2">
@@ -209,8 +234,24 @@
 
         <!-- Initialize Swiper -->
         var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 3,
+            slidesPerView: 1,
             spaceBetween: 30,
+
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+
+                900: {
+                    slidesPerView: 3,
+                }
+            },
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
 
         });
 
@@ -283,7 +324,7 @@
 
 
         #product_container {
-            background-image: url("{{ asset('images/home-product-bg.jpg') }}");
+            background-image: url("{{ asset('images/home-product-bg.png') }}");
             background-size: cover;
             background-repeat: no-repeat;
         }

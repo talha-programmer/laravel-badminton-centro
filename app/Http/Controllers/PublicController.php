@@ -20,7 +20,7 @@ class PublicController extends Controller
 
         $teams = Team::orderByDesc('ranking')->limit(10)->get();
         $matches = Match::with(['teamOne', 'teamTwo'])->latest()->paginate(4);
-        $clubs = Club::all();
+        $clubs = Club::orderByDesc('ranking')->limit(10)->get();
         $products = Product::latest()->paginate(4);
         $news = News::latest()->limit(15)->get();
 
@@ -87,7 +87,7 @@ class PublicController extends Controller
             $index++;
         }
 
-        $clubArray = PaginationService::paginate($clubArray, 3);
+        $clubArray = PaginationService::paginate($clubArray, 10);
 
 
         return view('public.clubs', [
@@ -140,6 +140,17 @@ class PublicController extends Controller
             'player' => $player,
             'page_name' => 'Home/Players',
             'player_rank' => $player->getRank(),
+        ]);
+    }
+
+    public function singleClub(Club $club)
+    {
+        $clubTeams = $club->teams()->orderByDesc('ranking')->get();;
+        return view('public.single_club', [
+            'club' => $club,
+            'page_name' => 'Home/Clubs',
+            'club_rank' => $club->getRank(),
+            'club_teams' => $clubTeams,
         ]);
     }
 
