@@ -26,8 +26,10 @@
                     <div class="row ml-2 justify-content-center">
                         @foreach($match->teamOnePlayers() as $player)
                             <div class="mr-2 text-center" style="max-width: 100px">
-                                <img src="{{ asset($player->user->profile_picture_url) }}" width="70"  class="rounded-circle"><br>
-                                <span>{{ $player->user->name }}</span>
+                                <a href="{{ route('public_single_player', $player) }}">
+                                    <img src="{{ asset($player->user->profile_picture_url) }}" width="70"  class="rounded-circle"><br>
+                                    <span class="text-white">{{ $player->user->name }}</span>
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -41,9 +43,12 @@
                 <div class="col-5">
                     <div class="row ml-2  justify-content-center">
                         @foreach($match->teamTwoPlayers() as $player)
+
                             <div class="mr-2 text-center" style="max-width: 100px">
-                                <img src="{{ asset($player->user->profile_picture_url) }}" width="70"  class="rounded-circle"><br>
-                                <span>{{ $player->user->name }}</span>
+                                <a href="{{ route('public_single_player', $player) }}">
+                                    <img src="{{ asset($player->user->profile_picture_url) }}" width="70"  class="rounded-circle"><br>
+                                    <span class="text-white">{{ $player->user->name }}</span>
+                                </a>
                             </div>
                         @endforeach
                     </div>

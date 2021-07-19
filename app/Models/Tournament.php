@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TournamentTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Tournament extends Model
 {
@@ -40,8 +41,15 @@ class Tournament extends Model
 
     public function clubTeams(Club $club)
     {
-        return $this->teams()->with('club')
+        $teams = $this->teams()->with('club')
             ->where('club_id', '=', $club->id)->get();
+
+        $allTeams = "";
+        foreach ($teams as $team){
+            $allTeams .= $team->name . ', ';
+        }
+        $allTeams = Str::beforeLast($allTeams, ',');        // remove the last ','
+        return $allTeams;
     }
 
 

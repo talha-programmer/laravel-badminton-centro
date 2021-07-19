@@ -84,7 +84,7 @@
         .card-img-top {
             border-radius: 5% 5% 0 0;
             width: 100%;
-            height: 15vw;
+            height: 200px;
             object-fit: contain;
         }
 

@@ -11,7 +11,7 @@ class Player extends Model
 {
     use HasFactory;
     protected $table = 'users_players';
-    protected $appends = 'age';
+    protected $appends = ['age'];
 
     public function getAgeAttribute()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\MatchTypes;
 use App\Enums\UserTypes;
+use App\Mail\MatchNotification;
 use App\Models\Match;
 use App\Models\Player;
 use App\Models\PlayerMatch;
@@ -17,6 +18,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Mail;
 
 class MatchController extends Controller
 {
@@ -107,6 +109,8 @@ class MatchController extends Controller
         foreach ($allPlayers as $playerId){
             $player = Player::all()->find($playerId);
             $player->matches()->save($match);
+
+            Mail::to($player->user)->send(new MatchNotification($match));
         }
 
 

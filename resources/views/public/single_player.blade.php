@@ -9,15 +9,55 @@
         <h2>Personal Details</h2>
         <hr>
        <div class="row row-cols-1 my-5 row-cols-md-3 row-cols-sm-2 px-md-5 justify-content-center">
-            <div class="col">
-                <img src="{{ asset($player->user->profile_picture_url) }}" width="100%" height="100%">
+            <div class="col mb-3" data-aos="fade-left">
+                <img src="{{ asset($player->user->profile_picture_url) }}"  style=" max-height: 310px; object-fit: contain; width: 100%;" >
             </div>
 
-            <div class="col player-personal">
-                <h3>{{ $player->user->name }}</h3>
-                <h4>Rank: {{ $player_rank }}</h4>
-                <h5>Email: <a href="mailto:{{ $player->user->email }}">{{ $player->user->email }}</a></h5>
-                <h5>Age: {{ $player->age }}</h5>
+            <div class="col mb-3 player-personal">
+
+                    <div class="card" data-aos="fade-right" style="border-radius: 5%;">
+                        <div class="card-body">
+
+                            <h4 class="card-title">{{ $player->user->name }}</h4>
+                            <div class="row border-top border-secondary py-2">
+                                <div class="col d-flex justify-content-between">
+                                    <div><h5 class="text-muted font-italic">Rank</h5></div>
+                                    <div><h5>{{ $player_rank }}</h5></div>
+                                </div>
+                            </div>
+
+                            <div class="row border-top border-secondary py-2">
+                                <div class="col d-flex justify-content-between">
+                                    <div><h5 class="text-muted font-italic">Age</h5></div>
+                                    <div><h5>{{ $player->age }}</h5></div>
+                                </div>
+                            </div>
+
+                            <div class="row border-top border-secondary py-2">
+                                <div class="col d-flex justify-content-between">
+                                    <div><h5 class="text-muted font-italic">Email</h5></div>
+                                    <div><h5>{{ $player->user->email }}</h5></div>
+                                </div>
+                            </div>
+
+                            <div class="row border-top border-secondary py-2">
+                                <div class="col d-flex justify-content-between">
+                                    <div><h5 class="text-muted font-italic">Club Joined</h5></div>
+                                    <div><h5>{{ $player->clubsJoined() }}</h5></div>
+                                </div>
+                            </div>
+
+                            <div class="row border-top border-bottom border-secondary py-2">
+                                <div class="col d-flex justify-content-between">
+                                    <div><h5 class="text-muted font-italic">Team Joined</h5></div>
+                                    <div><h5>
+                                           {{ $player->teamsJoined() }}
+                                        </h5></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
             </div>
 

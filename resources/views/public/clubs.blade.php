@@ -12,8 +12,6 @@
             @foreach($clubs as $index=>$club)
                     <div class="col mb-4" >
                         <div class="card" data-aos="fade-right" style="border-radius: 5%;">
-                            {{--<img src="{{ asset($player->user->profile_picture_url) }}" class="card-img-top" alt="">
-                            --}}
                             <div class="card-body">
 
                                 <h4 class="card-title">{{ $club->name }}</h4>

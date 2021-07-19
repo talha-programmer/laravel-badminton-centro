@@ -238,7 +238,7 @@
                                         <?php $player_counter++?>
                                         <tr>
                                             <td>{{ $player_counter }}</td>
-                                            <td>{{ $player->user->name }}</td>
+                                            <td><a href="{{ route('public_single_player', $player) }}">{{ $player->user->name }}</a></td>
                                             <td>{{ \Carbon\Carbon::create($player->pivot->contract_start)->format('d/m/Y') }}</td>
                                             <td>{{ \Carbon\Carbon::create($player->pivot->contract_end)->format('d/m/Y') }}</td>
                                             <td>
@@ -420,7 +420,7 @@
                                             <?php $player_counter++?>
                                             <tr>
                                                 <td>{{ $player_counter }}</td>
-                                                <td>{{ $player->user->name }}</td>
+                                                <td><a href="{{ route('public_single_player', $player) }}">{{ $player->user->name }}</a></td>
                                                 <td>
                                                     {{--Action Buttons--}}
                                                     <ul class="list-inline">

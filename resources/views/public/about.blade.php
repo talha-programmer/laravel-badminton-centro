@@ -10,7 +10,8 @@
                 <div class="col-lg-6">
                     <h1 class="display-4">Who we are?</h1>
                     <p class="lead text-muted mb-0">A private organization managing all types of activities of badminton
-                    in different districts
+                    in different districts. We manage different clubs, arrange matches and tournaments between them and
+                        also sell different sports products
                     </p>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block"><img src="{{ asset('images/About-page-1.jpeg') }}" alt="" class="img-fluid"></div>

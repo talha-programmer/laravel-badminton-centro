@@ -16,27 +16,66 @@
                         </div>
                     </div>
                     <div class="row justify-content-center mb-2" data-aos="fade">
-                            <div class="col-5 text-white">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        Start Date
+                            <div class="col-5">
+                                <div class="text-white">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Start Date
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ \Carbon\Carbon::create($tournament->start_date)->format('l\, jS F Y') }}
+                                        </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        {{ \Carbon\Carbon::create($tournament->start_date)->format('l\, jS F Y') }}
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            End Date
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ \Carbon\Carbon::create($tournament->end_date)->format('l\, jS F Y') }}
+                                        </div>
                                     </div>
+                                    <h5 class="mt-3">Clubs</h5>
+
+
+                                </div>
+                                <div class="overflow-auto matches " style="height: 300px" >
+                                    @foreach($tournament->clubs as $club)
+                                        <div class="col mb-4" >
+                                            <div class="card" style="border-radius: 5%;">
+                                                <div class="card-body">
+
+                                                    <h4 class="card-title">{{ $club->name }}</h4>
+                                                    <div class="row border-top border-secondary py-2">
+                                                        <div class="col d-flex justify-content-between">
+                                                            <div><h5 class="text-muted font-italic">Rank</h5></div>
+                                                            <div><h5>{{ $club->getRank() }}</h5></div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row border-top border-secondary py-2">
+                                                        <div class="col d-flex justify-content-between">
+                                                            <div><h5 class="text-muted font-italic">City</h5></div>
+                                                            <div><h5>{{ $club->city }}</h5></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row border-top border-bottom border-secondary py-2">
+                                                        <div class="col d-flex justify-content-between">
+                                                            <div><h5 class="text-muted font-italic">Teams Participating</h5></div>
+                                                            <div><h5>{{ $tournament->clubTeams($club) }}</h5></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        End Date
-                                    </div>
-                                    <div class="col-md-8">
-                                        {{ \Carbon\Carbon::create($tournament->end_date)->format('l\, jS F Y') }}
-                                    </div>
-                                </div>
-                                <h5 class="mt-3">Clubs</h5>
 
-                                <table class="px-4 table table-bordered text-white">
+                                {{--<table class="px-4 table table-bordered text-white">
                                     <thead>
                                     <tr>
                                         <th>Sr.</th>
@@ -64,7 +103,7 @@
                                         </tr>
                                     @endforeach
                                 </table>
-
+--}}
 
                             </div>
 
@@ -77,66 +116,7 @@
                                 <div class="overflow-auto matches" style="height: 300px" >
                                     @foreach($tournament->matches as $match)
                                         <x-previous-match :match="$match"/>
-                                       {{-- <div class="p-4 text-white">
-                                            <div class="col shadow bg-primary pb-4" style="border-radius: 10% 30%;">
-                                                <div class="text-white pt-4">
-                                                    <h5 class="float-left"><i class="fas fa-calendar"></i>
-                                                        {{ \Carbon\Carbon::create($match->match_time)->format('jS F Y') }}
-                                                    </h5>
-                                                    <h5 class="float-right pr-5">{{ \Carbon\Carbon::create($match->match_time)->format('h:i A') }}
 
-                                                        <i class="fas fa-clock pr-2"></i></h5>
-                                                    <br> <br>
-
-                                                    @if($match->tournament != null)
-                                                        <h3 class="text-center text-white py-2">Tournament: {{ $match->tournament->name }}</h3>
-                                                    @endif
-                                                    <h4 class="text-center  text-uppercase" style="line-height: 1.6;">{{ $match->teamOne->name }} <br> vs
-                                                        <br> {{ $match->teamTwo->name }}</h4>
-                                                    <br>
-                                                    <h5 style="font-style: italic;" class="text-center"><i class="fas fa-map-marker-alt"></i> {{ $match->venue }} </h5>
-                                                </div>
-
-
-                                                @if($match->team_one_points != null)    --}}{{--If Match Result is added already--}}{{--
-                                                <h4 class="mb-3 mt-4 text-center">Match Result</h4>
-
-                                                <div class="row text-center justify-content-center">
-                                                    <div class="col-5 border-right">
-                                                        <h5 class="font-weight-bold">{{ $match->teamOne->name }}</h5>
-                                                        @foreach($match->teamOnePlayers() as $player)
-                                                            <h6><a href="{{ route('public_single_player', $player) }}">{{ $player->user->name }}</a>: {{ $player->pivot->points }} Points</h6>
-                                                        @endforeach
-                                                        <h6 class="font-weight-bold">Total: {{ $match->team_one_points }} Points</h6>
-                                                    </div>
-                                                    <div class="col-5">
-                                                        <h5 class="font-weight-bold">{{ $match->teamTwo->name }}</h5>
-                                                        @foreach($match->teamTwoPlayers() as $player)
-                                                            <h6><a href="{{ route('public_single_player', $player) }}">{{ $player->user->name }}</a>: {{ $player->pivot->points }} Points</h6>
-                                                        @endforeach
-                                                        <h6 class="font-weight-bold">Total: {{ $match->team_two_points }} Points</h6>
-
-                                                    </div>
-                                                </div>
-                                                <?php
-                                                $matchResult = "";
-                                                $winnerTeam = $match->winner_team;
-                                                $winningPoints = abs($match->team_one_points - $match->team_two_points);
-                                                if($winnerTeam == -1){
-                                                    $matchResult = "Match Tied!";
-                                                }else if ($winnerTeam == $match->teamOne->id ){
-                                                    $matchResult = $match->teamOne->name . " won by " . $winningPoints . " points!";
-                                                }else if ($winnerTeam == $match->teamTwo->id ){
-                                                    $matchResult = $match->teamTwo->name . " won by " . $winningPoints . " points!";
-                                                }
-                                                ?>
-
-
-                                                <h5 class="text-center font-weight-bold mt-4">{{ $matchResult }}</h5>
-
-                                                @endif
-                                            </div>
-                                        </div>--}}
                                     @endforeach
 
                                 </div>

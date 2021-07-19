@@ -20,3 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/clubs', [ApiController::class, 'clubs']);
+Route::post('/clubs/{club}', [ApiController::class, 'singleClub']);
+
+Route::post('/players', [ApiController::class, 'players']);
+Route::post('/players/{player}', [ApiController::class, 'singlePlayer']);
+
+Route::post('/matches', [ApiController::class, 'matches']);
+Route::post('/matches/{match}', [ApiController::class, 'singleMatch']);
+
+Route::post('/tournaments', [ApiController::class, 'tournaments']);
+Route::post('/tournaments/{tournament}', [ApiController::class, 'singleTournament']);

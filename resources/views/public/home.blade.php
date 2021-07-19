@@ -19,6 +19,12 @@
                 <div class="swiper-slide d-flex slide-full">
                     <img src="{{ asset('images/header-image-3.jpg') }}" alt="">
                 </div>
+                <div class="swiper-slide d-flex slide-full">
+                    <img src="{{ asset('images/header-image-4.jpg') }}" alt="">
+                </div>
+                <div class="swiper-slide d-flex slide-full">
+                    <img src="{{ asset('images/header-image-5.jpg') }}" alt="">
+                </div>
 
             </div>
             {{--
@@ -183,8 +189,8 @@
 
 
     {{--Products--}}
-    <div class="container-fluid py-4" id="product_container">
-        <h1 class="text-center ">Products</h1>
+    <div class="container-fluid py-4 bg-primary" id="product_container">
+        <h1 class="text-center text-white">Products</h1>
         <hr>
 
         <div class="row row-cols-1 mt-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 px-md-5 justify-content-center">
@@ -304,9 +310,11 @@
         .card-img-top {
             border-radius: 5% 5% 0 0;
             width: 100%;
-            height: 15vw;
+            height: 200px;
             object-fit: contain;
         }
+
+
 
         .slide-full img {
             display: block;
@@ -323,11 +331,7 @@
         }
 
 
-        #product_container {
-            background-image: url("{{ asset('images/home-product-bg.png') }}");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
+
 
 
         #matches::-webkit-scrollbar-track {

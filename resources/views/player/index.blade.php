@@ -2,7 +2,7 @@
 
 @section('dashboard_content')
     <div class="container">
-       
+
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -33,7 +33,7 @@
                                     <?php $player_counter++?>
                                     <tr>
                                         <td>{{ $player_counter }}</td>
-                                        <td>{{ $player->user->name }}</td>
+                                        <td><a href="{{ route('public_single_player', $player) }}"> {{ $player->user->name }}</a></td>
                                         <td>{{ $player->clubsJoined() }}</td>
                                         <td>{{ $player->clubsJoined()?\Carbon\Carbon::create($player->clubs()->first()->pivot->contract_start)->format('d/m/Y') : "" }}</td>
                                         <td>{{ $player->clubsJoined()? \Carbon\Carbon::create($player->clubs()->first()->pivot->contract_end)->format('d/m/Y') : ""}}</td>
