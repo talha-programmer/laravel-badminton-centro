@@ -5,7 +5,7 @@ You are a part of the match between {{ $match->teamOne->name }} and {{ $match->t
 on {{ $matchTime }}. The place of the match is {{ $match->venue }}. For more details,
 please visit the link below!
 
-@component('mail::button', ['url' => route('matches')])
+@component('mail::button', ['url' => route('public_matches')])
 Visit Now
 @endcomponent
 
