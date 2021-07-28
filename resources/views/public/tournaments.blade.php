@@ -10,34 +10,35 @@
             <hr>
                 @foreach($tournaments as $tournament)
                     <div class="row mt-5" data-aos="fade">
-                        <div class="col mx-5 ">
-                            <h3 class="rounded-pill bg-light p-3 text-center mx-5">{{ $tournament->name }}</h3>
+                        <div class="col mx-md-5 ">
+                            <h3 class="rounded-pill bg-light p-3 text-center mx-md-5">{{ $tournament->name }}</h3>
 
                         </div>
                     </div>
-                    <div class="row justify-content-center mb-2" data-aos="fade">
-                            <div class="col-5">
+                    <div class="row justify-content-center my-2" data-aos="fade">
+                            <div class="col-md-5 ">
                                 <div class="text-white">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            Start Date
+                                    <div class="ml-3">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                Start Date
+                                            </div>
+                                            <div class="col-8">
+                                                {{ \Carbon\Carbon::create($tournament->start_date)->format('l\, jS F Y') }}
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            {{ \Carbon\Carbon::create($tournament->start_date)->format('l\, jS F Y') }}
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="row">
+                                        <div class="col-3">
                                             End Date
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             {{ \Carbon\Carbon::create($tournament->end_date)->format('l\, jS F Y') }}
                                         </div>
                                     </div>
-                                    <h5 class="mt-3">Clubs</h5>
+                                    </div>
 
-
+                                    <h4 class="mt-3">Clubs Participating</h4>
                                 </div>
                                 <div class="overflow-auto matches " style="height: 300px" >
                                     @foreach($tournament->clubs as $club)
@@ -75,41 +76,11 @@
                                 </div>
 
 
-                                {{--<table class="px-4 table table-bordered text-white">
-                                    <thead>
-                                    <tr>
-                                        <th>Sr.</th>
-                                        <th>Club Name</th>
-                                        <th>Teams</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php $club_counter = 0;?>
-
-                                    @foreach($tournament->clubs as $club)
-                                        <?php $club_counter++; ?>
-                                        <tr>
-                                            <td>{{ $club_counter }}</td>
-                                            <td>{{ $club->name }}</td>
-
-                                            <td>
-                                                <ul>
-                                                    @foreach($tournament->clubTeams($club) as $team)
-                                                        <li class="mb-2 ">{{ $team->name }}
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </table>
---}}
-
                             </div>
 
 
 
-                            <div class="col-5 ">
+                            <div class="col-md-5 ">
 
 
                                 <h5 class="py-2 rounded-pill bg-light text-center">Matches</h5>
@@ -124,10 +95,6 @@
 
                             </div>
                         </div>
-
-
-
-
 
 
                 @endforeach

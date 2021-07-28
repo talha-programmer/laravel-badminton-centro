@@ -2,7 +2,7 @@
     <div class="col shadow bg-primary pb-4" style="border-radius: 10% 30%;">
         <div class="text-white pt-4">
             <h5 class="float-left"><i class="fas fa-calendar"></i>
-                {{ \Carbon\Carbon::create($match->match_time)->format('jS F Y') }}
+                {{ \Carbon\Carbon::create($match->match_time)->format('jS M y') }}
             </h5>
             <h5 class="float-right pr-5">{{ \Carbon\Carbon::create($match->match_time)->format('h:i A') }}
 

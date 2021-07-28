@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container login-container">
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="opacity: 0.9">
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
@@ -72,4 +72,17 @@
         </div>
     </div>
 </div>
+
+<style>
+
+    @push('style_tag')
+        .login-container {
+            min-height: 75vh;
+            background-image: url("{{ asset('images/dashboard-bg.png') }}");
+            background-size: contain;
+            background-repeat: no-repeat;
+
+        }
+    @endpush
+</style>
 @endsection

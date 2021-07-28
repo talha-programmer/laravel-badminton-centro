@@ -27,9 +27,7 @@
                 </div>
 
             </div>
-            {{--
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>--}}
+
             <div class="swiper-pagination"></div>
         </div>
 
@@ -235,7 +233,6 @@
 
     </div>
 
-
     <script>
 
         <!-- Initialize Swiper -->
@@ -315,12 +312,15 @@
         }
 
 
-
+        .slide-full{
+            height: auto;
+        }
         .slide-full img {
             display: block;
             width: 100%;
             max-height: 500px;
             object-fit: cover;
+            height: 100%;
         }
 
 
@@ -329,9 +329,6 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
-
-
-
 
 
         #matches::-webkit-scrollbar-track {
@@ -350,9 +347,6 @@
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
             background-color: #555;
         }
-
-
-
 
         @endpush
     </style>

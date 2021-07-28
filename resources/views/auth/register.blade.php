@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container register-container">
     <div class="row justify-content-center my-5">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card" style="opacity: 0.9">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
@@ -123,4 +123,15 @@
             format: 'DD/MM/yyyy',
         });
     </script>
+
+    <style>
+
+        @push('style_tag')
+        .register-container {
+            background-image: url("{{ asset('images/dashboard-bg.png') }}");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        @endpush
+    </style>
 @endsection

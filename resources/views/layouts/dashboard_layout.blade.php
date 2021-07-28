@@ -31,11 +31,11 @@
     <style>
 
     #dashboard_container {
-            background-image: url("{{ asset('images/dashboard-bg.png') }}");
-            background-size: auto;
-            background-repeat: no-repeat;
-        }
-    
+        background-image: url("{{ asset('images/dashboard-bg.png') }}");
+        background-size: auto;
+        background-repeat: no-repeat;
+    }
+
     </style>
 
     <script>

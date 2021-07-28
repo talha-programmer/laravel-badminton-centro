@@ -19,14 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/clubs', [ApiController::class, 'clubs']);
-Route::post('/clubs/{club}', [ApiController::class, 'singleClub']);
+Route::get('/clubs', [ApiController::class, 'clubs']);
+Route::get('/clubs/{club}', [ApiController::class, 'singleClub']);
 
-Route::post('/players', [ApiController::class, 'players']);
-Route::post('/players/{player}', [ApiController::class, 'singlePlayer']);
+Route::get('/players', [ApiController::class, 'players']);
+Route::get('/players/{player}', [ApiController::class, 'singlePlayer']);
 
-Route::post('/matches', [ApiController::class, 'matches']);
-Route::post('/matches/{match}', [ApiController::class, 'singleMatch']);
+Route::get('/matches', [ApiController::class, 'matches']);
+Route::get('/matches/{match}', [ApiController::class, 'singleMatch']);
 
-Route::post('/tournaments', [ApiController::class, 'tournaments']);
-Route::post('/tournaments/{tournament}', [ApiController::class, 'singleTournament']);
+Route::get('/tournaments', [ApiController::class, 'tournaments']);
+Route::get('/tournaments/{tournament}', [ApiController::class, 'singleTournament']);
