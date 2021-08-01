@@ -162,4 +162,12 @@ class ApiController extends Controller
 
         return response($response, 201);
     }
+
+    public function singleNews(News $news)
+    {
+        $response = [
+            'news' => $news,
+        ];
+        return response($response, 201);
+    }
 }
