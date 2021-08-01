@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\TournamentTypes;
 use App\Models\Club;
 use App\Models\Match;
+use App\Models\News;
 use App\Models\Player;
 use App\Models\Tournament;
 use Carbon\Carbon;
@@ -147,6 +148,16 @@ class ApiController extends Controller
 
         $response = [
             'tournament' => $tournament,
+        ];
+
+        return response($response, 201);
+    }
+
+    public function news()
+    {
+        $news = News::latest()->limit(10)->get();
+        $response = [
+            'news' => $news,
         ];
 
         return response($response, 201);

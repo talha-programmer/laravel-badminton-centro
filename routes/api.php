@@ -30,3 +30,5 @@ Route::get('/matches/{match}', [ApiController::class, 'singleMatch']);
 
 Route::get('/tournaments', [ApiController::class, 'tournaments']);
 Route::get('/tournaments/{tournament}', [ApiController::class, 'singleTournament']);
+
+Route::get('/news', [ApiController::class, 'news']);
