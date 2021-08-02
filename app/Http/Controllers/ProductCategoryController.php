@@ -40,8 +40,10 @@ class ProductCategoryController extends Controller
         return back()->with('info', 'Product Category saved successfully!');
     }
 
-    public function destroy(ProductCategory $category)
+    public function destroy( $category)
     {
+        $category = ProductCategory::find($category);
+        $category->products()->detach();
         $category->delete();
 
         return back()->with('info', 'Category deleted successfully!');

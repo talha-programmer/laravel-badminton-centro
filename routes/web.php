@@ -83,7 +83,7 @@ Route::get('/product_categories', [ProductCategoryController::class, 'index'])->
 
 Route::post('/product_categories/add', [ProductCategoryController::class, 'store'])->name('add_product_category');
 
-Route::delete('/product_categories/{productCategory}/delete', [ProductCategoryController::class, 'destroy'])->name('destroy_category');
+Route::delete('/product_categories/{product_category}/delete', [ProductCategoryController::class, 'destroy'])->name('destroy_category');
 
 
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('destroy_product');
