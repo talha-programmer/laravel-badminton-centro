@@ -30,6 +30,7 @@ class ClubPlayerForm extends Component
             $this->contract_start = Carbon::create($clubPlayer->pivot->contract_start)->format('d/m/Y');
             $this->contract_end = Carbon::create($clubPlayer->pivot->contract_end)->format('d/m/Y');
         }else{
+            // Get the players which are not added in any club
             $this->players = Player::doesntHave('clubs')->get();
         }
 
