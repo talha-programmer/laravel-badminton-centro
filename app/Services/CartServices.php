@@ -11,9 +11,9 @@ class CartServices
 {
     private static  $deliveryCharges = 100;
 
-    // This key '$cartKey' is used to store cart inside session 
+    // This key '$cartKey' is used to store cart inside session
     // In case of private cart, the key would be different
-    // Private cart would not be displayed on public pages. 
+    // Private cart would not be displayed on public pages.
     // Instead, it handles the 'Update Order' functions of the OrderController
     private static function getCartKey(bool $privateCart){
         if($privateCart){
@@ -23,12 +23,16 @@ class CartServices
         }
         return $cartKey;
     }
-    
+
     public static function addToCart(Product $product, int $productQuantity = 1, bool $privateCart = false)
     {
-        $cartKey = self::getCartKey($privateCart);  
+        $cartKey = self::getCartKey($privateCart);
         $cart = session()->get($cartKey);
-        $products = $cart['products'];
+        if($cart) {
+            $products = $cart['products'];
+        } else {
+            $products = array();
+        }
 
         $productArray = [
             "id" =>$product->id,
