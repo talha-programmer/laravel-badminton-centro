@@ -21,7 +21,7 @@ class PublicController extends Controller
         $teams = Team::orderByDesc('ranking')->limit(10)->get();
         $matches = Match::with(['teamOne', 'teamTwo'])->latest()->paginate(4);
         $clubs = Club::orderByDesc('ranking')->limit(10)->get();
-        $products = Product::latest()->paginate(4);
+        $products = Product::latest()->limit(4)->get();
         $news = News::latest()->limit(15)->get();
 
 
@@ -37,7 +37,7 @@ class PublicController extends Controller
 
     public function products()
     {
-        $products = Product::paginate(20);
+        $products = Product::latest()->paginate(20);
 
         return view('public.products', [
             'products' => $products,
