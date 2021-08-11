@@ -38,11 +38,20 @@ class Tournament extends Model
     }
 
 
-
+    /**
+     * Get teams of a club, participating in this tournament
+     * */
     public function clubTeams(Club $club)
     {
         $teams = $this->teams()->with('club')
             ->where('club_id', '=', $club->id)->get();
+
+        return $teams;
+    }
+
+    public function clubTeamNames(Club $club)
+    {
+        $teams = $this->clubTeams($club);
 
         $allTeams = "";
         foreach ($teams as $team){

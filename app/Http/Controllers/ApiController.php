@@ -136,7 +136,7 @@ class ApiController extends Controller
         $tournament->load(['clubs', 'matches']);
 
         foreach ($tournament->clubs as $club){
-            $club->teams_participating = $tournament->clubTeams($club);
+            $club->teams_participating = $tournament->clubTeamNames($club);
         }
 
         foreach ($tournament->matches as $match){

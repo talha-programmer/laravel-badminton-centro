@@ -200,7 +200,7 @@
                              @endif src="{{ asset($product->image_url? $product->image_url : 'images/image.png') }}"
                              class="card-img-top" alt="">
                         <div class="card-body">
-                            <h4 class="card-title">{{ $product->name }}</h4>
+                            <h5 class="card-title" style="font-size: 1.3em">{{ $product->name }}</h5>
                             <h5 class="text-primary">Price: {{ __('currency.code') }} {{ $product->price }}</h5>
                             <p>
                                 @foreach($product->categories as $category)
@@ -308,7 +308,8 @@
             border-radius: 5% 5% 0 0;
             width: 100%;
             height: 200px;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: top;
         }
 
 
