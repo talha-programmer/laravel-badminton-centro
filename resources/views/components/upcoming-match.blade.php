@@ -21,7 +21,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-5">
                     <div class="row ml-2 justify-content-center">
                         @foreach($match->teamOnePlayers() as $player)
                             <div class="mr-2 text-center" style="max-width: 100px">
@@ -39,7 +39,7 @@
                 </div>
 
 
-                <div class="col-md-6">
+                <div class="col-5">
                     <div class="row ml-2  justify-content-center">
                         @foreach($match->teamTwoPlayers() as $player)
 
