@@ -26,7 +26,7 @@
                         @foreach($match->teamOnePlayers() as $player)
                             <div class="mr-2 text-center" style="max-width: 100px">
                                 <a href="{{ route('public_single_player', $player) }}">
-                                    <img src="{{ asset($player->user->profile_picture_url) }}" width="70"  class="rounded-circle"><br>
+                                    <img src="{{ asset($player->user->profile_picture_url) }}" style="object-fit: cover;" width="70" height="70" class="rounded-circle"><br>
                                     <span class="text-white">{{ $player->user->name }}</span>
                                 </a>
                             </div>
@@ -45,7 +45,7 @@
 
                             <div class="mr-2 text-center" style="max-width: 100px">
                                 <a href="{{ route('public_single_player', $player) }}">
-                                    <img src="{{ asset($player->user->profile_picture_url) }}" width="70"  class="rounded-circle"><br>
+                                    <img src="{{ asset($player->user->profile_picture_url) }}" style="object-fit: cover;" width="70" height="70"  class="rounded-circle"><br>
                                     <span class="text-white">{{ $player->user->name }}</span>
                                 </a>
                             </div>
