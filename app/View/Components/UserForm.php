@@ -29,4 +29,12 @@ class UserForm extends Component
     {
         return view('components.user-form');
     }
+
+    public function userId()
+    {
+        if($this->user->id != null){
+            return '_user_' . $this->user->id;
+        }
+        return null;
+    }
 }

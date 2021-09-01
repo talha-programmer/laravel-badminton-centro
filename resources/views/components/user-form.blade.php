@@ -5,48 +5,48 @@
     <div class="form-group row">
         <div class="col mx-auto">
             <!-- Uploaded image area-->
-            <img style="width: 40%; height: 175px; object-fit: cover;" id="imageResult" src="{{ $user->profile_picture_url?  asset($user->profile_picture_url) : '#' }}" alt="" class="img-fluid rounded-circle shadow-sm mx-auto d-block">
+            <img style="width: 40%; height: 175px; object-fit: cover;" id="imageResult{{ $userId() }}" src="{{ $user->profile_picture_url?  asset($user->profile_picture_url) : '#' }}" alt="" class="img-fluid rounded-circle shadow-sm mx-auto d-block">
         </div>
     </div>
 
     <div class="form-group row">
         <label for="image" class="col-md-4 col-form-label ">Profile Picture</label>
         <div class="col-md-6">
-            <input id="image" type="file" accept="image/*" onchange="readURL(this)"
+            <input id="image{{ $userId() }}" type="file" accept="image/*" onchange="readURL(this)"
                    class="mw-100 overflow-hidden " name="image" value=""  autofocus>
 
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label ">Name</label>
+        <label for="name{{ $userId() }}" class="col-md-4 col-form-label ">Name</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autofocus>
+            <input id="name{{ $userId() }}" type="text" class="form-control" name="name" value="{{ $user->name }}" required autofocus>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="date_of_birth" class="col-md-4 col-form-label ">Date of Birth</label>
+        <label for="date_of_birth{{ $userId() }}" class="col-md-4 col-form-label ">Date of Birth</label>
 
         <div class="col-md-6">
-            <input id="date_of_birth" type="text" class="form-control datetimepicker " name="date_of_birth" value="{{ $user->date_of_birth }}" required autofocus>
+            <input id="date_of_birth{{ $userId() }}" type="text" class="form-control datetimepicker " name="date_of_birth" value="{{ $user->date_of_birth }}" required autofocus>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="email" class="col-md-4 col-form-label ">{{ __('E-Mail Address') }}</label>
+        <label for="email{{ $userId() }}" class="col-md-4 col-form-label ">{{ __('E-Mail Address') }}</label>
 
         <div class="col-md-6">
-            <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
+            <input id="email{{ $userId() }}" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="address" class="col-md-4 col-form-label ">Address</label>
+        <label for="address{{ $userId() }}" class="col-md-4 col-form-label ">Address</label>
 
         <div class="col-md-6">
-            <input id="address" type="text" class="form-control" name="address" value="{{ $user->address }}">
+            <input id="address{{ $userId() }}" type="text" class="form-control" name="address" value="{{ $user->address }}">
         </div>
     </div>
 
@@ -90,7 +90,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#imageResult')
+                    $('#imageResult{{ $userId() }}')
                         .attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -98,9 +98,9 @@
         }
 
 
-        var input = document.getElementById( 'image' );
+        var input = document.getElementById( 'image{{ $userId() }}' );
         $(function () {
-            $('#image').on('change', function () {
+            $('#image{{ $userId() }}').on('change', function () {
                 readURL(input);
             });
         });
