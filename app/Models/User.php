@@ -12,13 +12,14 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    public static $DEFAULT_PROFILE_PIC_URL = 'images/profile-picture.jpg';
 
     /**
      * Get the url of the sample user image in case if no profile image found
      * */
     public function getProfilePictureUrlAttribute($value){
         if($value == null){
-            return 'images/profile-picture.jpg';
+            return User::$DEFAULT_PROFILE_PIC_URL;
         } else{
             return $value;
         }

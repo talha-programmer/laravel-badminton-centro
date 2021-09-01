@@ -77,9 +77,9 @@ class UserController extends Controller
             $imageName = $user->username . time() . '.' . $image->extension();
             $image->move(public_path('images/profile_pictures'), $imageName);
 
-            // Delete existing image in case of editing the product
+            // Delete existing image in case of editing the profile
             $existingImageURL = $user->profile_picture_url;
-            if($existingImageURL){
+            if($existingImageURL && $existingImageURL != User::$DEFAULT_PROFILE_PIC_URL){
                 unlink(public_path() . '/' . $existingImageURL);
             }
 
