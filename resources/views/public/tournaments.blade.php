@@ -65,7 +65,7 @@
                                                     <div class="row border-top border-bottom border-secondary py-2">
                                                         <div class="col d-flex justify-content-between">
                                                             <div><h5 class="text-muted font-italic">Teams Participating</h5></div>
-                                                            <div><h5>{{ $tournament->clubTeams($club) }}</h5></div>
+                                                            <div><h5>{{ $tournament->clubTeamNames($club) }}</h5></div>
                                                         </div>
                                                     </div>
 

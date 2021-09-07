@@ -9,7 +9,7 @@
             <h1 class="text-center text-white">Upcoming Matches</h1>
             <hr>
 
-            <div class="row row-cols-1 mt-5 row-cols-md-2 px-md-5 justify-content-center">
+            <div class="row row-cols-1 mt-5 row-cols-md-2 justify-content-center">
 
                 @foreach($upcoming_matches as $match)
                    <x-upcoming-match :match="$match" />
@@ -26,7 +26,7 @@
             <h1 class="text-center text-white">Previous Matches</h1>
             <hr>
 
-            <div class="row row-cols-1 mt-5 row-cols-md-2 px-md-5 justify-content-center">
+            <div class="row row-cols-1 mt-5 row-cols-md-2 justify-content-center">
 
                 @foreach($previous_matches as $match)
                     <x-previous-match :match="$match" />
