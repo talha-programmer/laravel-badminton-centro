@@ -5,7 +5,7 @@
     @include('public.layouts.header')
     <div id="matches_container" class="container-fluid">
         {{--Upcoming Matches--}}
-        <div class="container py-4" >
+        <div class="py-4" >
             <h1 class="text-center text-white">Upcoming Matches</h1>
             <hr>
 
