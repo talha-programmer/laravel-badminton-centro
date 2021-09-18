@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Authentication\ForgotPasswordController;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\LogoutController;
 use App\Http\Controllers\Authentication\RegisterController;
+use App\Http\Controllers\Authentication\ResetPasswordController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\HomeController;
@@ -43,6 +45,11 @@ Route::get('/public/players/{player}', [PublicController::class, 'singlePlayer']
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
