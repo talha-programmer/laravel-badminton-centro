@@ -63,10 +63,10 @@ class PublicController extends Controller
     public function matches()
     {
         $upcomingMatches = Match::all()
-            ->where('team_one_points', '=', null)->sortBy('match_time');
+            ->where('team_one_points', '=', null)->sortByDesc('match_time');
 
         $previousMatches = Match::all()
-            ->where('team_one_points', '!=', null)->sortBy('match_time');
+            ->where('team_one_points', '!=', null)->sortByDesc('match_time');
 
         return view('public.matches', [
             'upcoming_matches' => $upcomingMatches,
